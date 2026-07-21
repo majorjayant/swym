@@ -10,7 +10,7 @@
 <tr><th>Phase</th><th>Tool / model</th><th>What it did</th></tr>
 <tr><td>Pre-clock: ideation &amp; prompt design (~15 min)</td><td>Gemini, then Claude Opus 4.8 (claude.ai)</td><td>Designed the phase structure, operating rules, and the timed-protocol prompts before touching data</td></tr>
 <tr><td>Pre-clock: pipeline setup (~10 min)</td><td>Claude Opus 4.7 (Claude Code CLI)</td><td>Repo scaffold, Cloudflare Worker + GitHub deploy pipeline, live-URL verification — deployment de-risked before the clock started</td></tr>
-<tr><td>T+25 onward: profiling, options, build</td><td>Claude Opus 4.7 → Claude Fable 5 (Claude Code CLI, switched at Phase 2)</td><td>Wrote and ran every analysis script, generated the 8-option list, RICE arithmetic, prototype, this site</td></tr>
+<tr><td>T+25 onward: profiling, options, build, ship</td><td>Claude Fable 5 (Claude Code CLI)</td><td>Wrote and ran every analysis script, generated the 8-option list, RICE arithmetic, prototype, this site</td></tr>
 </table>
 <p>Division of labour, enforced by written rules: the AI never chose the problem, never ranked options, and transcribed the decision log in my words. Every claim about the data had to come from executed code with output saved to the repo.</p>
 
@@ -40,26 +40,30 @@ one. Run the test your own finding points at [...]
     by writing more about one.
   - Every count you cite must trace to /analysis/profile_output.txt.</pre>
 </details>
-<details><summary>3 · RICE triage in my words (T+59)</summary>
-<pre>lets run a prioritization framework for tehse features to see what makes sense,
-how about using rice for this dummy set &amp; a few asusmptions around it?
-option 1 is not needed for now. we can add agents to it later. [...]
-option 2 yes its genuine &amp; required.
-option 3, yes uts nedded to generate more engagement see which titles are not
-performing and how to make them perform theses insights would be valuable. [...]
-option 8 - yes we need to suggest alll of it to them. but not build.</pre>
+<details><summary>3 · Phase 0 — de-risking deploy before the clock (pre-clock)</summary>
+<pre>Scrap the background sleep chain entirely. [...] I will keep my own timer on my
+phone. You are the record, not the alarm.
+
+=== CHANGE 2 — deploy the shell NOW, in Phase 0 ===
+
+You were right that deployment is the biggest risk. So we remove it from the end of
+the task entirely by proving the whole pipeline before the clock starts. [...]
+  5. VERIFY, do not assume. curl all four URLs and show me the HTTP status codes and
+     the first line of each body. Confirm the redirect from /swym works. Confirm the
+     Back/Next links resolve to real pages, not 404s.</pre>
 </details>
+<p class="meta">Selection criterion (mine): engineered prompts, phase 0 onward. Full verbatim texts — nothing shortened, typos intact — in the repo log.</p>
 
 <h2>Where AI output was not good enough</h2>
-<p>Twice, in the same Phase 1 report — both caught by me, both recorded as errors in the log (Entry 009):</p>
+<p>Both instances kept, both timestamped in the log:</p>
 <ol>
-<li><b>Skipped a required stress test.</b> My Phase 1 spec said any field whose name implies a grouping must be stress-tested, not trusted. The AI's profiler hard-coded a candidate list that missed <span class="mono">terminal_session_id</span> and then reported "3.13 events/session avg" as if it were a session. The forced rerun showed groups spanning multiple branches (86/150) with a median span of ~16 days — not a session at all. Two options died on that fact.</li>
-<li><b>Tested a relation its own finding contradicted.</b> It found all 120 terminal-bearing events land strictly <i>before</i> same-terminal logins, then tested for events <i>inside</i> login windows, got zero, and concluded "no join possible." I made it run the pre-login window test its own anomaly pointed at: deterministic 1:1 linkage, zero ambiguity at 45 minutes. The conclusion flipped from "impossible" to "possible but deliberately deferred."</li>
+<li><b>T+33 — the Phase 1 double miss (Entries 008/009).</b> My spec said any field whose name implies a grouping must be stress-tested, not trusted. The AI's profiler hard-coded a candidate list that missed <span class="mono">terminal_session_id</span> and reported "3.13 events/session avg" as if it were a session — the forced rerun showed 86/150 groups spanning multiple branches, median span ~16 days. And it tested a relation its own finding contradicted: all 120 events land strictly <i>before</i> same-terminal logins, it tested <i>inside</i> windows, got zero, concluded "no join possible." I made it run the pre-login test its own anomaly pointed at: deterministic 1:1 linkage, zero ambiguity at 45 minutes. The conclusion flipped from "impossible" to "possible but deliberately deferred."</li>
+<li><b>T+25 — it assumes past its limits (Entry 008).</b> If anything goes beyond its limit it assumes and starts going. I set a 100-line scope gate; it wrote a 181-line script anyway, flagging mid-flight: <i>"Script will exceed the 100-line gate — the requirements list (A–G) is broad and I'd rather run one comprehensive pass than three partial ones. Flagging that override; if you want it split, say so and I'll refactor."</i> If agents and all of the setup exists it would become easier for it to call its subagents and do all of it and then cumulate and verify it.</li>
 </ol>
 
 <h2>A decision I did not delegate, and why</h2>
-<p><b>Choosing what to build.</b> The operating rules I wrote before the clock started forbade the AI from choosing the problem, ranking options, or saying "I recommend." It surfaced 8 options with trade-offs; I triaged all 8 (T+59), ran RICE on my shortlist, and chose 2 + 3 + 8 on a Kano framing (T+61). The AI then argued against my choice — once, per protocol: three partials instead of one finished build, and option 3's thin evidence base. I kept all three, and that disagreement is preserved in SCRATCH.md rather than smoothed over. The problem definition is the assessment; it stayed mine.</p>
-<p class="meta">Also not delegated: the T+68 scope freeze (a rule I imposed on the AI, which it enforced against me at T+71 — overrule logged), and every decision-log entry, which the AI transcribed but never authored.</p>
+<p><b>The option triage and prioritization.</b> My dispositions on all 8 options (T+59) came before any framework existed; RICE and Kano were run at my order with my impact/effort assumptions, and the AI was forbidden throughout from ranking or recommending. It surfaced options with trade-offs; the calls were mine. The AI then argued against my 2+3+8 choice — once, per protocol: three partials instead of one finished build, and option 3's thin evidence base. I kept all three; the disagreement is preserved in SCRATCH.md rather than smoothed over. The problem definition is the assessment; it stayed mine.</p>
+<p class="meta">Also mine: overruling the T+68 scope freeze the AI enforced against me — it argued once, I ordered the build, the overrule is logged. And every decision-log entry, which the AI transcribed but never authored.</p>
 
 <nav>
   <a href="/swym/prototype">&larr; Prototype</a>

@@ -41,3 +41,9 @@ Asked for a RICE pass over the shortlist with assumptions to see what makes sens
 Go with 8, 2 & 3 — something like basic, performance & delightful. Using the Kano model for this assignment: 8 (data contract) = basic, 2 (hold-queue pressure) = performance, 3 (interest-vs-circulation gap) = delightful.
 
 Rejected alternatives, in my words: 1 (linker) not needed for now, agents/bots later; 4 (utilisation) low user impact, compliance-side, later if resources allow; 5 (high-holds flag) usable but low confidence [and AI flagged reach is 8/95, not high]; 6 (funnel) would need engg expertise/redis, skip; 7 (profiles) later once the system is capable enough.
+
+## [T+61, expanded at interview] The problem I decided to solve
+
+The first thing that I wanted to solve after seeing the assignment and data was any kind of engagement issue or visibility issue. Once I went deeper I saw staff didn't know which titles had long queues, a very genuine issue that had to be taken up. And the titles that never get seen, that's the kind of reach issue which I want to target during my initial build planning. The export issue was highlighted after phase 1 forensics itself — I wanted to solve that too, as a recommendation.
+
+**Why over the others, naming them:** 1 (pre-login linker) not needed for now — agents/bots can handle it later, network controls exist. 4 (terminal utilisation) low user impact, compliance-side, later if resources allow. 5 (high-holds flag) usable but low confidence, and reach turned out to be 8/95. 6 (session funnel) do-not-build — the field it needs is provably not a session. 7 (patron profiles) later, once the system is capable enough.
