@@ -3,9 +3,87 @@
 <title>Prototype — Swym build assignment</title>
 <link rel="stylesheet" href="/swym/style.css">
 <h1>Prototype</h1>
-<p class="placeholder">Swym build assignment — placeholder.</p>
+<p class="meta">One runnable script — <a href="https://github.com/majorjayant/swym/blob/main/prototype/pressure_and_gap.py"><span class="mono">prototype/pressure_and_gap.py</span></a> (Python, stdlib only). Raw verified stdout: <a href="https://github.com/majorjayant/swym/blob/main/prototype/prototype_output.txt"><span class="mono">prototype_output.txt</span></a>. Every number on this page is read from that output, not restated from memory. Validation ran alongside the logic: independent recompute, ambiguity, coverage, negative checks — all pass, counts reconcile (225 + 20 + 225 = 470).</p>
+
+<div class="tiles">
+  <div class="tile"><b>470</b><span>interaction events (file A)</span></div>
+  <div class="tile"><b>95</b><span>identified sessions (file B)</span></div>
+  <div class="tile"><b>15</b><span>items flagged for hold pressure</span></div>
+  <div class="tile"><b>42</b><span>items with interest, zero recorded checkouts</span></div>
+</div>
+
+<h2>1 · Hold-queue pressure <span class="meta">(Kano: performance)</span></h2>
+<p><b>Staff problem:</b> nobody sees which titles have hold queues building until patrons complain. <b>Use:</b> acquisitions reorders or rebalances the flagged titles.</p>
+<div class="callout"><b>Trigger rule:</b> flag an item when max <span class="mono">hold_position</span> ≥ <b>13</b>. Derived as P75 of the measured per-item distribution (quartiles 7.0 / 10.0 / 13.0, printed in output). <b>CONFIGURABLE and unvalidated</b> — no fulfilment or wait-time data exists to prefer 13 over 12 or 14.</div>
+<table>
+<tr><th>item</th><th>genre</th><th class="num">holds</th><th class="num">max pos</th><th class="num">cancels</th></tr>
+<tr><td>The Very Stubborn Potato</td><td>Children's Picture Books</td><td class="num">8</td><td class="num">15</td><td class="num">0</td></tr>
+<tr><td>Auto Electrics for Beginners</td><td>Automotive Repair</td><td class="num">5</td><td class="num">15</td><td class="num">0</td></tr>
+<tr><td>West Africa on a Budget</td><td>Travel Guides</td><td class="num">4</td><td class="num">15</td><td class="num">0</td></tr>
+<tr><td>The Forgotten Colonies</td><td>History</td><td class="num">3</td><td class="num">15</td><td class="num">0</td></tr>
+<tr><td>Engine Diagnosis Simplified</td><td>Automotive Repair</td><td class="num">2</td><td class="num">15</td><td class="num">0</td></tr>
+<tr><td>Beyond the Pay Cheque</td><td>Financial Planning</td><td class="num">7</td><td class="num">14</td><td class="num">0</td></tr>
+<tr><td>Hidden Portugal</td><td>Travel Guides</td><td class="num">3</td><td class="num">14</td><td class="num">1</td></tr>
+<tr><td>The Long Return</td><td>Literary Fiction</td><td class="num">3</td><td class="num">14</td><td class="num">0</td></tr>
+<tr><td>Classic Car Restoration</td><td>Automotive Repair</td><td class="num">3</td><td class="num">14</td><td class="num">0</td></tr>
+<tr><td>Drift Protocol</td><td>Science Fiction</td><td class="num">2</td><td class="num">14</td><td class="num">1</td></tr>
+<tr><td>Starfall Atlas</td><td>Science Fiction</td><td class="num">1</td><td class="num">14</td><td class="num">0</td></tr>
+<tr><td>Below the Roots</td><td>Horror</td><td class="num">8</td><td class="num">13</td><td class="num">0</td></tr>
+<tr><td>The Quiet Hours</td><td>Literary Fiction</td><td class="num">8</td><td class="num">13</td><td class="num">0</td></tr>
+<tr><td>Where Do Clouds Sleep?</td><td>Children's Picture Books</td><td class="num">8</td><td class="num">13</td><td class="num">1</td></tr>
+<tr><td>The Enormous Turnip Remix</td><td>Children's Picture Books</td><td class="num">4</td><td class="num">13</td><td class="num">2</td></tr>
+</table>
+<p class="meta">15 flagged of 59 items with holds.</p>
+
+<h3>Holds by genre</h3>
+<table>
+<tr><td>Children's Picture Books</td><td class="num">31</td><td><span class="bar" style="width:186px"></span></td></tr>
+<tr><td>Automotive Repair</td><td class="num">30</td><td><span class="bar" style="width:180px"></span></td></tr>
+<tr><td>Financial Planning</td><td class="num">26</td><td><span class="bar" style="width:156px"></span></td></tr>
+<tr><td>Literary Fiction</td><td class="num">25</td><td><span class="bar" style="width:150px"></span></td></tr>
+<tr><td>Travel Guides</td><td class="num">23</td><td><span class="bar" style="width:138px"></span></td></tr>
+<tr><td>History</td><td class="num">23</td><td><span class="bar" style="width:138px"></span></td></tr>
+<tr><td>Horror</td><td class="num">22</td><td><span class="bar" style="width:132px"></span></td></tr>
+<tr><td>Cooking</td><td class="num">17</td><td><span class="bar" style="width:102px"></span></td></tr>
+<tr><td>Mystery &amp; Thriller</td><td class="num">17</td><td><span class="bar" style="width:102px"></span></td></tr>
+<tr><td>Science Fiction</td><td class="num">11</td><td><span class="bar" style="width:66px"></span></td></tr>
+</table>
+
+<h2>2 · Interest-vs-circulation gap <span class="meta">(Kano: delighter)</span></h2>
+<p><b>Staff problem:</b> some titles attract browsing, saves and holds but never circulate — attention that never converts. <b>Use:</b> staff check whether copies are missing, mis-shelved, or over-queued.</p>
+<div class="callout warn"><b>Caveat carried on every row:</b> INDICATIVE ONLY — evidence base is B's checkout lists: 22 occurrences of 18 distinct items in 12/95 sessions. Desk checkouts are in neither file. This is a lead list, not a verdict.</div>
+<table>
+<tr><th>item (top 10 of 42 by activity)</th><th>genre</th><th class="num">browse</th><th class="num">save</th><th class="num">hold</th><th class="num">cancel</th></tr>
+<tr><td>The Very Stubborn Potato</td><td>Children's Picture Books</td><td class="num">3</td><td class="num">3</td><td class="num">8</td><td class="num">0</td></tr>
+<tr><td>The Home Mechanic's Bible</td><td>Automotive Repair</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num">2</td></tr>
+<tr><td>The Quiet Hours</td><td>Literary Fiction</td><td class="num">3</td><td class="num">1</td><td class="num">8</td><td class="num">0</td></tr>
+<tr><td>Auto Electrics for Beginners</td><td>Automotive Repair</td><td class="num">7</td><td class="num">0</td><td class="num">5</td><td class="num">0</td></tr>
+<tr><td>The Second Tenant</td><td>Horror</td><td class="num">6</td><td class="num">1</td><td class="num">2</td><td class="num">2</td></tr>
+<tr><td>72 Hours in Osaka</td><td>Travel Guides</td><td class="num">1</td><td class="num">1</td><td class="num">7</td><td class="num">1</td></tr>
+<tr><td>Silk Road Empires</td><td>History</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">0</td></tr>
+<tr><td>The Spice Cupboard</td><td>Cooking</td><td class="num">3</td><td class="num">1</td><td class="num">5</td><td class="num">1</td></tr>
+<tr><td>Beyond the Pay Cheque</td><td>Financial Planning</td><td class="num">3</td><td class="num">0</td><td class="num">7</td><td class="num">0</td></tr>
+<tr><td>Seventh Floor</td><td>Mystery &amp; Thriller</td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num">0</td></tr>
+</table>
+<p class="meta">Correctness check: gap(42) + checked-out(18) = 60 items with activity, exactly. Items like The Very Stubborn Potato appearing in BOTH tables are the actionable core: high queue pressure and zero recorded circulation.</p>
+
+<h2>3 · Data contract — recommended, deliberately not built <span class="meta">(Kano: basic)</span></h2>
+<p>The strongest finding is that the export pipeline itself is broken. Recommended fixes for the source system, each traced to a computed fact:</p>
+<table>
+<tr><th>Recommendation</th><th>Evidence</th></tr>
+<tr><td>Emit <span class="mono">library_card_id</span> / <span class="mono">device_session_id</span> on interaction events, as the system's own description claims</td><td>0 of 470 A rows carry either field</td></tr>
+<tr><td>Rename or fix <span class="mono">terminal_session_id</span> — it is not a session</td><td>86/150 groups span &gt;1 branch; 96/150 span &gt;1 day; median span ≈16 days</td></tr>
+<tr><td>Emit <span class="mono">branch_terminal_id</span> on every event, not 25.5%</td><td>350/470 rows lack it — a hard ceiling on any terminal-based linkage</td></tr>
+<tr><td>Log checkout events in the interaction stream</td><td>no checkout event type exists; checkouts survive only as per-session lists (22 occurrences)</td></tr>
+<tr><td>Add validation assertions at export time (uniqueness, fill rates, session coherence)</td><td>the full assertion set is this repo's <span class="mono">analysis/</span> scripts, reusable as-is</td></tr>
+<tr><td>If pre-login linkage is ever wanted: the deterministic rule exists (same terminal, login within 45 min)</td><td>120/120 events resolve uniquely, zero ambiguity, zero conflicts — deferred for privacy/policy review, not feasibility</td></tr>
+</table>
+
+<h2>Where I stopped, and next steps</h2>
+<p>Stopped at freeze (T+68 rule) with both tables computed, validated and rendered, and the data contract as prose. Not done, in order of what I'd do next: (1) verify <span class="mono">hold_position</span> semantics against a per-item time sequence — the one assumption that could invalidate table 1; (2) per-branch splits of both tables; (3) wire the script to re-render this page automatically; (4) option 5 trigger rule (5-minute build, deferred by choice). Full assumption register: <a href="https://github.com/majorjayant/swym/blob/main/analysis/ASSUMPTIONS.md"><span class="mono">analysis/ASSUMPTIONS.md</span></a>.</p>
+
 <nav>
-  <a href="/swym/decisionlog">&larr; Back</a>
-  <a href="/swym/aitrace">Next &rarr;</a>
+  <a href="/swym/decisionlog">&larr; Decision Log</a>
+  <a href="/swym/aitrace">Next: AI Trace &rarr;</a>
 </nav>
-<footer>jayantarora.in/swym</footer>
+<footer>jayantarora.in/swym · full logs, scripts and outputs: <a href="https://github.com/majorjayant/swym">github.com/majorjayant/swym</a></footer>

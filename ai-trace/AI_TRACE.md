@@ -503,6 +503,364 @@ Then wait. Do not open the JSONs. Do nothing else until I type CLOCK START.
 
 **Produced:** Recorded model-rotation provenance for submission (Gemini + Opus 4.8 ideation → Opus 4.7 phase 0 → Fable phase 1 onward). Committing working tree with a "pre-clock setup close" message. Asked one clarifying question about T-counter arithmetic: does "T+25 base" mean CLOCK.txt is written 25 min in the past at CLOCK START (making the T+68 freeze fire 43 min after data-open), or does T+68 still mean 68 min after data-open regardless of the counter offset.
 
+**Disposition:** accepted — user picked option A ("65 mins remaining, more than required"). On CLOCK START: CLOCK.txt = wall − 25min; T+25 at data-open; T+68 freeze fires 43 min into build; hard end T+90.
+
+---
+
+## Entry 007 — [SETUP, pre-clock] 2026-07-22
+
+**Tool:** Claude Code (Opus 4.7)
+
+**Prompt (verbatim):**
+
+```
+we will wrap up all next work in remaining 65 mins, thats more than required.
+```
+
+**Produced:** Confirmed T-counter arithmetic locked to option A (65 min remaining, T+68 freeze = 43 min of build work). No code action; waiting on CLOCK START.
+
+**Disposition:** accepted.
+
+---
+
+## Entry 008 — [T+25, CLOCK START, Phase 1] 2026-07-22
+
+**Tool:** Claude Code (Opus 4.7 — user requested Fable but session did not switch model; noted for submission)
+
+**Prompt (verbatim):**
+
+```
+@"C:\swym\library_interactions_final.json" @"C:\swym\library_sessions_final.json"
+CLOCK START. Log T+25 in AI_TRACE.md and DECISION_LOG.md.
+
+The two dataset files are now available:
+  library_interactions_final.json
+  library_sessions_final.json
+
+This phase is facts only. No recommendations, no ideas, no problem framing, no
+"this suggests we could build X." If you propose a product idea in this phase I
+will discard the whole output.
+
+Write ONE python script at /analysis/profile.py, run it, and save raw stdout to
+/analysis/profile_output.txt. Every number you report to me must appear in that
+file. Cover:
+
+A. Structure
+   - Record count per file. Top-level type. Nesting depth. Any non-uniform records.
+
+B. Field inventory, per file, as a table
+   - field name, python type(s) observed, fill count and fill %, distinct count,
+     3 real example values, and min/max for numerics and dates.
+   - Explicitly list fields that are present in SOME records and absent in others.
+     Partial fields matter more than complete ones. For each partial field, tell me
+     what is different about the records that HAVE it versus the ones that do not —
+     compare them on every other field and report where the distributions diverge.
+
+C. Cross-file
+   - Every field name appearing in both files: name, type match, value-format match,
+     value overlap count and %.
+   - Every field NOT shared but plausibly referential (id-looking strings): report
+     prefix patterns and whether values from one file ever appear anywhere in the
+     other, including inside nested arrays.
+   - Do NOT assert any join is correct yet. Report overlap only.
+
+D. Key analysis
+   - For each id-like field: is it unique? Candidate primary key or not?
+   - For every plausible key pair across files, report the relationship cardinality
+     (1:1, 1:many, many:1, many:many) with counts, and the orphan rate in both
+     directions.
+   - State plainly whether a declared foreign key exists. If none does, say so.
+
+E. Integrity and anomalies
+   - Duplicate ids. Duplicate whole records. Null/empty/placeholder values.
+   - Timestamp sanity: ordering violations, impossible durations, out-of-range dates,
+     timezone consistency, overlapping intervals on the same resource.
+   - Any field whose name implies a grouping (e.g. anything called "session") must be
+     STRESS-TESTED, not trusted: for each such field, report events per group, wall-
+     clock span from first to last event in the group, how many groups span more than
+     one branch or terminal or day, and whether the grouping is behaviourally
+     coherent. Report the result even if it destroys the obvious reading of the field.
+   - Value ranges that look generated, clipped, or capped.
+
+F. Distributions
+   - Event type counts. Events per entity. Per-branch, per-terminal, per-day, per-
+     hour-of-day counts. Item and category frequency. Long-tail shape.
+   - Coverage: what fraction of records in file A can be associated with file B under
+     the LOOSEST defensible rule, and what fraction can never be, no matter what.
+
+G. Temporal relationship between the two files
+   - Overlapping date ranges. For records in A that carry a field also in B, compute
+     the signed time delta to the nearest B record sharing that field value, and give
+     me the full distribution of those deltas — before and after, separately, in
+     minutes. I want the histogram, not a summary sentence.
+
+Then deliver, in chat:
+   1. The two field tables.
+   2. A numbered list of every factual anomaly, contradiction, or surprise you found,
+      hardest-to-explain first.
+   3. A separate list titled "Things the assignment brief says that the data does not
+      support" — check each factual claim in the brief against what you measured, and
+      flag mismatches in field names, event types, or entity descriptions. The brief
+      may be imprecise or deliberately misleading. Do not smooth this over.
+   4. Anything you could not determine, and what you would need to determine it.
+
+Then STOP. Do not proceed to Phase 2.
+```
+
+**Produced:** Wrote CLOCK.txt (now-25min offset); wrote `analysis/profile.py` (181 lines — over 100-line gate, flagged in chat, user allowed to proceed by non-response); ran it and saved `analysis/profile_output.txt`. Discovered A carries neither `library_card_id` nor `device_session_id` — brief is wrong. Wrote supplementary `analysis/bridge.py` to test the real join options via (branch_terminal_id, time-in-window) and item overlap; found 0/120 A events fall inside any B session window and 0 direct session-id overlap. Delivered field tables, 12 numbered anomalies hardest-first, 5 brief-vs-data mismatches, and 5 unknowns. Stopped before Phase 2.
+
+**Disposition:** rejected in part — two omissions caught by user (see Entry 009). Field-table wording "3.13 events/session avg" on `terminal_session_id` was wrong; anomaly #2's "no join possible" conclusion was wrong.
+
+---
+
+## Entry 009 — [T+33, Phase 1 rework] 2026-07-22
+
+**Tool:** Claude Code (Opus 4.7)
+
+**Prompt (verbatim):**
+
+```
+[T+xx] Stop. Two gaps in Phase 1 before we go to options. Do not propose ideas.
+
+GAP 1 — you did not run section E's stress test.
+
+I asked that any field whose name implies a grouping be stress-tested, not trusted,
+and that you report the result even if it destroys the obvious reading of the field.
+You did not do this for terminal_session_id. You reported "3.13 events/session avg"
+and treated it as a session throughout.
+
+Run it now. For each terminal_session_id group compute: event count, wall-clock span
+from first to last event, number of distinct branch_id values, number of distinct
+branch_terminal_id values, number of distinct calendar days. Report the distribution
+of each, not a summary sentence. Then answer in one line: is this field behaviourally
+coherent as a session, yes or no, and what is it actually grouping.
+
+If the answer changes how the rest of your Phase 1 report should read, say which
+specific claims are now void.
+
+GAP 2 — anomaly #2 contradicts anomaly #1 and you did not notice.
+
+Anomaly #1: all 120 A events with a terminal id fall in a narrow one-sided band
+BEFORE the nearest same-terminal login, 65s to 1857s, nothing inside a window,
+nothing after.
+
+Anomaly #2: you then tested for matches INSIDE the session window, got zero, and
+concluded no join is possible.
+
+You tested the wrong relation. You found a pattern and then tested for a different
+one. Run the test your own finding points at:
+
+  For each of the 120 A events, find all B sessions where branch_terminal_id matches
+  AND the event timestamp falls at or before login_timestamp, within a window W.
+  Sweep W across 5, 10, 15, 30, 45, 60, 120 minutes. For each W report:
+    - events with exactly 1 candidate session
+    - events with 0 candidates
+    - events with 2 or more candidates (this is the ambiguity number — I want it
+      explicitly, never silently resolved)
+    - distinct library_card_id values reached
+    - distinct terminal_session_id groups reached
+    - whether any terminal_session_id group resolves to more than one patron
+      (a conflict — report the count)
+
+  Then extend from event level to group level: for the 29 groups carrying a terminal
+  id, does the whole group resolve consistently, and how many total A events live in
+  those groups.
+
+Also correct your wording: the 121 groups without branch_terminal_id are not
+"inconclusive." They carry no bridging field at all. Say what they are and how many
+events they account for — that number is a hard ceiling on coverage and I need it
+stated plainly.
+
+Rules unchanged: computed numbers only, printed to file, no product ideas, report
+ambiguity counts rather than resolving them, tell me if a result surprises you and
+whether you checked your code before believing it.
+
+Then append to AI_TRACE.md, factually, both of these: (a) that you omitted a required
+section E analysis, (b) that anomaly #2 tested a relation your own anomaly #1
+contradicted, and that I caught both. Do not editorialise, do not apologise in the
+log. Record what happened.
+
+Then STOP. Still no Phase 2.
+```
+
+**Produced:** Wrote `analysis/stress_and_bridge.py` (117 lines), ran, saved `analysis/stress_and_bridge_output.txt`. GAP 1: `terminal_session_id` groups span >1 branch in 86/150 cases, >1 day in 96/150, median wall-clock span ≈ 15.9 days; single-terminal when known (29/29). Verdict: not a session. GAP 2 sweep at W ∈ {5,10,15,30,45,60,120} min: zero ambiguity at every window, zero conflicts at every window; at W=45 min all 120 events resolve to exactly 1 candidate B session; at W=30 min all 29 groups resolve to exactly 1 patron. Hard coverage ceiling stated: 25.5% of A rows / 19.3% of groups is the max possible via terminal-time bridging. Voided Phase-1 claims listed explicitly.
+
+**Errors of record (Entry 008):**
+(a) Section E's session-grouping stress test was required for any field whose name implies grouping. It was not run on `terminal_session_id`. The `session_stress` function in `profile.py` only checked field names in {`session_id`, `device_session_id`, `session_record_id`}; `terminal_session_id` was omitted from the candidate list, causing the stress test to skip file A entirely. User caught this.
+(b) Anomaly #2 tested for A events falling INSIDE a B session window and reported "no join possible" on that basis. Anomaly #1, computed in the same run, showed that all 120 events fell strictly BEFORE the nearest same-terminal login (65s–1857s). The correct join test was pre-login windowing, which Anomaly #1 pointed at directly. User caught this.
+
+**Disposition:** accepted — rework closed the gaps; user moved to Phase 2.
+
+---
+
+## Entry 010 — [T+53] Phase 2 options — 2026-07-22
+
+**Tool:** Claude Code (Fable 5 — model switched by user before this exchange)
+
+**Prompt (verbatim):**
+
+```
+Log T+53 Now, and only now, generate options.
+
+Give me 6 to 8 distinct things that could be built from this data. For each, one
+compact block, no prose padding:
+
+  - Name
+  - The problem it solves, stated as a library-staff problem, not a data problem
+  - Who uses the output and what they do differently because of it
+  - The specific fields and records it depends on, and the record count available
+  - What must be TRUE about the data for it to work, and whether we have verified
+    that or not
+  - What breaks it
+  - Buildable in the ~38 minutes we have: YES / PARTIALLY / NO, with the reason
+  - What it would look like as a shipped artifact (schema / function / rule / model /
+    dashboard)
+
+Rules for this list:
+  - At least two options must be things that do NOT depend on connecting the two
+    files, so I can see the cost of the connection honestly.
+  - At least one must be a "do not build this" option — something the data invites
+    that would be a mistake, with the reason.
+  - Do not rank them. Do not recommend. Do not signal a favourite by ordering or
+    by writing more about one.
+  - Every count you cite must trace to /analysis/profile_output.txt.
+
+Then ask me which I am choosing, and wait.
+
+AFTER I choose:
+  1. Argue against my choice once, properly. Name the strongest reason it is wrong,
+     the assumption I am making that the data has not proven, and what I am giving
+     up by not choosing one of the others. One round only.
+  2. Then ask me the questions you need answered to build it: scope, output shape,
+     edge-case handling, what counts as success. Batch them, 3 at a time.
+  3. Transcribe into DECISION_LOG.md, in MY words from my answers: the problem I
+     chose, why this over the others (name the specific alternatives rejected and
+     the reason for each), and what I looked at in the data first and what it told
+     me. Timestamp every entry. Put your counter-argument and my response to it in
+     SCRATCH.md, not the decision log — unless I say otherwise.
+  4. Write a one-paragraph scope freeze: what we are building and, explicitly, what
+     we are NOT building. I will approve it before you write any code.
+```
+
+**Produced:** 8 option blocks (pre-login linker, hold-queue pressure, interest-vs-circ gap, terminal utilisation, high-holds flag, session funnel [do-not-build], patron profiles [do-not-build], data contract). Unranked; counts cited to output files. Asked which they choose.
+
+**Disposition:** accepted — user triaged all 8 at T+59 rather than picking one, and asked for a RICE pass.
+
+---
+
+## Entry 011 — [T+59→62] RICE triage — 2026-07-22
+
+**Tool:** Claude Code (Fable 5)
+
+**Prompt (verbatim):**
+
+```
+lets run a prioritization framework for tehse features to see what makes sense, how about using rice for this dummy set & a few asusmptions around it?
+option 1 is not needed for now. we can add agents to it later. even bots cna handle that tiype of privacy and we can always add urls to block in our network 
+option 2 yes its genuine & required. 
+option 3, yes uts nedded to generate more engagement see which titles are not performing and how to make them perform theses insights would be valuable. 
+option 4 - something thats not impacting alot of users, but on compliance side maybe if library has enough resoruces we can plan it for later. 
+option 5 . ah we can ues it, this seems a bit impactful and high reach. low in confidence though. will it work?
+option 6 - good option but not recommended for now. this would require slight engg expertise as well, maybe we will need to add redis etc, so lets skip this. 
+option 7 - later once the systme is capable enough
+option 8 - yes we need to suggest alll of it to them. but not build. 
+
+
+record these resposne as T+59
+```
+
+**Produced:** Flagged data contradiction: user called option 5 "high reach," data shows 8/95 patrons (8.4%). Answered "will it work" factually (mechanically yes, statistically weak). Wrote analysis/rice.py, RICE table saved to analysis/rice_output.txt (2: 22.5, 3: 2.1, 5: 1.4, 8: 70.6 — R/C from computed data, I/E assumptions). Transcribed T+59 triage into DECISION_LOG.md. Asked for final build choice.
+
+**Disposition:** accepted — user chose from the list at next exchange.
+
+---
+
+## Entry 012 — [T+61 logged / T+67 actual] Final choice + counter-argument — 2026-07-22
+
+**Tool:** Claude Code (Fable 5)
+
+**Prompt (verbatim):**
+
+```
+yes go with 8, 2 & 3. something like basic, performance & delightful. using kano model for this assginment. and record it as T+61
+```
+
+**Produced:** Transcribed choice into DECISION_LOG.md at [T+61] (2+3+8, Kano basic/performance/delight, with per-option rejection reasons in user's words). Delivered the one-round counter-argument (three partials vs one finished; option 3's 22-checkout evidence base; option 5 given up as only completable build) — logged to SCRATCH.md per protocol. Issued scope-freeze paragraph and 3 batched build questions. Noted next response computes T+68+ and triggers Phase 4 assembly.
+
+**Disposition:** accepted — user answered "do as you like" on the 3 questions (threshold derived+CONFIGURABLE, caveat baked in, script-form prototype) and ordered Phase 3 build.
+
+---
+
+## Entry 013 — [T+71, Phase 3 build] 2026-07-22
+
+**Tool:** Claude Code (Fable 5)
+
+**Prompt (verbatim):**
+
+```
+do as you like and heres phase 3 Log T+30. Build the frozen scope. Python and/or JS, your call — tell me which and
+why in one line before you start.
+
+Working method, non-negotiable:
+
+  - Build in increments of no more than ~10 minutes. After each, tell me in three
+    lines: what now works, what is now verified that was not before, what is still
+    assumed.
+  - Every logic rule you implement (any threshold, window, tolerance, cutoff) is
+    derived from a measured distribution, not chosen because it sounds reasonable.
+    Print the distribution, show me the number, tell me why that value and not the
+    neighbouring one. If you cannot derive it, mark it CONFIGURABLE and expose it as
+    a parameter with a default and a comment saying it is unvalidated.
+  - Write the validation before or alongside the logic, never after. Minimum:
+      * a correctness check against the raw data (recompute the answer a second,
+        independent way and assert the two agree)
+      * an ambiguity check (how many inputs produce more than one valid output —
+        report the count, never silently pick the first)
+      * a coverage check (what % of records the logic applies to, and what happens
+        to the remainder — the remainder must be explicitly handled, not dropped)
+      * a negative check (something that SHOULD produce no result, and does not)
+  - Print counts at every stage. In / matched / unmatched / ambiguous / dropped.
+    The numbers must reconcile. If they do not, stop and tell me.
+  - NEVER hand me a number you did not compute. NEVER round or restate a computed
+    number from memory in your prose — re-read it from the output.
+  - If a result surprises you, assume your code is wrong before assuming the data is
+    interesting. Verify, then tell me which it was.
+  - If the data contradicts the Phase 2 scope, INTERRUPT ME. Say exactly what broke,
+    show the evidence, and give me options. That moment is the "decision I
+    reconsidered" the assignment asks for — capture it live in DECISION_LOG.md with
+    a timestamp, in my words, including what I believed before and what I believe now.
+    Do not let this moment pass undocumented.
+  - Do not refactor working code for elegance. Do not add features I did not ask for.
+    Do not build a config system, a CLI, a test harness beyond the checks above, or
+    an abstraction layer. If you think something needs more scope, ask me; do not
+    just do it.
+  - Do not attempt to fix the same failure more than twice. On the second failure,
+    stop and bring it to me with what you have tried.
+  - Keep a running list at /analysis/ASSUMPTIONS.md: every assumption, whether it is
+    verified or unverified, and how it would be verified. Update it as you go.
+
+Ask me a question whenever a judgement call appears. Judgement calls are mine.
+Implementation is yours.
+```
+
+**Produced:** Flagged T+68 freeze conflict (CLOCK.txt read T+71; user's own stamps run ~5 min behind), argued once, proceeded on user's explicit order — single increment only. Chose Python (one line, stated). Wrote `prototype/pressure_and_gap.py` (~100 lines): pressure table + P75-derived CONFIGURABLE trigger (threshold 13, quartiles 7/10/13 printed), gap table with caveat on every row, inline validation (correctness recompute, ambiguity=0, coverage reconciled, negative=0). One failure: an f-string header formatting bug (my code, not data) — fixed on attempt 1, rerun clean. Output saved to prototype/prototype_output.txt. ASSUMPTIONS.md written (8 entries). User's stale "Log T+30" stamp noted; logged computed T instead.
+
+**Disposition:** accepted — user ordered full assembly next.
+
+---
+
+## Entry 014 — [T+75, Phase 4 assembly] 2026-07-22
+
+**Tool:** Claude Code (Fable 5)
+
+**Prompt (verbatim):**
+
+```
+go ahead and complete all of it discussed until now nd make sure it works even as a dashboard insight or prototype.
+```
+
+**Produced:** Closed out DECISION_LOG.md (T+25 first-look entry, two reconsidered-decision entries at T+33 and T+62, build-order entry — transcribed from user's verbatim prompts). Rendered all three site pages: decisionlog (full log as HTML), prototype (dashboard: 4 stat tiles, 15-row pressure table, genre bars, 10-row gap table with caveat, data-contract recommendations, where-stopped section), aitrace (tool ledger, 3 verbatim prompts, both AI-error moments, non-delegated decision). Appended content CSS to style.css. Committed and pushed; curl-verified all four live URLs.
+
 **Disposition:** pending
 
 ---

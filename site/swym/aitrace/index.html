@@ -3,9 +3,66 @@
 <title>AI Trace — Swym build assignment</title>
 <link rel="stylesheet" href="/swym/style.css">
 <h1>AI Trace</h1>
-<p class="placeholder">Swym build assignment — placeholder.</p>
+<p class="meta">A record, not a reflection. The full append-only log with every prompt verbatim is <a href="https://github.com/majorjayant/swym/blob/main/ai-trace/AI_TRACE.md"><span class="mono">ai-trace/AI_TRACE.md</span></a> (13 entries at freeze). This page is the appendix the assignment asks for.</p>
+
+<h2>Tools used, and when</h2>
+<table>
+<tr><th>Phase</th><th>Tool / model</th><th>What it did</th></tr>
+<tr><td>Pre-clock: ideation &amp; prompt design (~15 min)</td><td>Gemini, then Claude Opus 4.8 (claude.ai)</td><td>Designed the phase structure, operating rules, and the timed-protocol prompts before touching data</td></tr>
+<tr><td>Pre-clock: pipeline setup (~10 min)</td><td>Claude Opus 4.7 (Claude Code CLI)</td><td>Repo scaffold, Cloudflare Worker + GitHub deploy pipeline, live-URL verification — deployment de-risked before the clock started</td></tr>
+<tr><td>T+25 onward: profiling, options, build</td><td>Claude Opus 4.7 → Claude Fable 5 (Claude Code CLI, switched at Phase 2)</td><td>Wrote and ran every analysis script, generated the 8-option list, RICE arithmetic, prototype, this site</td></tr>
+</table>
+<p>Division of labour, enforced by written rules: the AI never chose the problem, never ranked options, and transcribed the decision log in my words. Every claim about the data had to come from executed code with output saved to the repo.</p>
+
+<h2>Three prompts I actually sent (verbatim excerpts)</h2>
+<details open><summary>1 · Phase 1 rework — catching the AI's contradiction (T+33)</summary>
+<pre>GAP 2 — anomaly #2 contradicts anomaly #1 and you did not notice.
+
+Anomaly #1: all 120 A events with a terminal id fall in a narrow one-sided band
+BEFORE the nearest same-terminal login, 65s to 1857s, nothing inside a window,
+nothing after.
+
+Anomaly #2: you then tested for matches INSIDE the session window, got zero, and
+concluded no join is possible.
+
+You tested the wrong relation. You found a pattern and then tested for a different
+one. Run the test your own finding points at [...]
+    - events with 2 or more candidates (this is the ambiguity number — I want it
+      explicitly, never silently resolved)</pre>
+</details>
+<details><summary>2 · Phase 2 options — forcing unranked trade-offs (T+53)</summary>
+<pre>Give me 6 to 8 distinct things that could be built from this data. [...]
+  - At least two options must be things that do NOT depend on connecting the two
+    files, so I can see the cost of the connection honestly.
+  - At least one must be a "do not build this" option — something the data invites
+    that would be a mistake, with the reason.
+  - Do not rank them. Do not recommend. Do not signal a favourite by ordering or
+    by writing more about one.
+  - Every count you cite must trace to /analysis/profile_output.txt.</pre>
+</details>
+<details><summary>3 · RICE triage in my words (T+59)</summary>
+<pre>lets run a prioritization framework for tehse features to see what makes sense,
+how about using rice for this dummy set &amp; a few asusmptions around it?
+option 1 is not needed for now. we can add agents to it later. [...]
+option 2 yes its genuine &amp; required.
+option 3, yes uts nedded to generate more engagement see which titles are not
+performing and how to make them perform theses insights would be valuable. [...]
+option 8 - yes we need to suggest alll of it to them. but not build.</pre>
+</details>
+
+<h2>Where AI output was not good enough</h2>
+<p>Twice, in the same Phase 1 report — both caught by me, both recorded as errors in the log (Entry 009):</p>
+<ol>
+<li><b>Skipped a required stress test.</b> My Phase 1 spec said any field whose name implies a grouping must be stress-tested, not trusted. The AI's profiler hard-coded a candidate list that missed <span class="mono">terminal_session_id</span> and then reported "3.13 events/session avg" as if it were a session. The forced rerun showed groups spanning multiple branches (86/150) with a median span of ~16 days — not a session at all. Two options died on that fact.</li>
+<li><b>Tested a relation its own finding contradicted.</b> It found all 120 terminal-bearing events land strictly <i>before</i> same-terminal logins, then tested for events <i>inside</i> login windows, got zero, and concluded "no join possible." I made it run the pre-login window test its own anomaly pointed at: deterministic 1:1 linkage, zero ambiguity at 45 minutes. The conclusion flipped from "impossible" to "possible but deliberately deferred."</li>
+</ol>
+
+<h2>A decision I did not delegate, and why</h2>
+<p><b>Choosing what to build.</b> The operating rules I wrote before the clock started forbade the AI from choosing the problem, ranking options, or saying "I recommend." It surfaced 8 options with trade-offs; I triaged all 8 (T+59), ran RICE on my shortlist, and chose 2 + 3 + 8 on a Kano framing (T+61). The AI then argued against my choice — once, per protocol: three partials instead of one finished build, and option 3's thin evidence base. I kept all three, and that disagreement is preserved in SCRATCH.md rather than smoothed over. The problem definition is the assessment; it stayed mine.</p>
+<p class="meta">Also not delegated: the T+68 scope freeze (a rule I imposed on the AI, which it enforced against me at T+71 — overrule logged), and every decision-log entry, which the AI transcribed but never authored.</p>
+
 <nav>
-  <a href="/swym/prototype">&larr; Back</a>
+  <a href="/swym/prototype">&larr; Prototype</a>
   <span></span>
 </nav>
-<footer>jayantarora.in/swym</footer>
+<footer>jayantarora.in/swym · full logs, scripts and outputs: <a href="https://github.com/majorjayant/swym">github.com/majorjayant/swym</a></footer>

@@ -1,0 +1,68 @@
+==============================================================================
+BRIDGE 1 — (branch_terminal_id, time within [login, end]) between A and B
+==============================================================================
+A branch_terminal_id: 13 distinct (incl None=350)
+B branch_terminal_id: 15 distinct
+A terminals NOT in B: []
+B terminals NOT in A: ['BR001_T3', 'BR002_T2', 'BR003_T2']
+
+A rows with branch_terminal_id: 120 / 470 (25.5%)
+
+Of 120 A rows with branch_terminal_id:
+  inside a B window: 0   before nearest B window: 120   after nearest B window: 0   no B session at that terminal: 0
+  deltas before B window (seconds, negative) n=120 min=-1857s max=-65s median=-675s
+     -1h..-10m: 67
+     -10m..-1m: 53
+  deltas after B window (seconds, positive): empty
+
+B sessions matched by >=1 A event: 0 / 95
+
+==============================================================================
+BRIDGE 2 — coverage of ALL A rows (with or without branch_terminal_id) via any B info
+==============================================================================
+A rows WITHOUT branch_terminal_id: 350
+  Of those, timestamp falls inside SOME B session at the same branch: 1 (0.3%)  (ambiguous — could match multiple terminals)
+
+==============================================================================
+BRIDGE 3 — terminal_session_id (A) vs session_record_id (B). Any prefix/value overlap?
+==============================================================================
+A terminal_session_id distinct: 150   prefix sample: ['TERM_LKQZFPQ0', 'TERM_7V5F1BCP', 'TERM_8DTNQFLL']
+B session_record_id distinct: 95   prefix sample: ['SRD_A9HL1737', 'SRD_5PVYIOMK', 'SRD_4RS7GU0E']
+Direct value overlap: 0
+
+Do A terminal_session_id groups fall entirely inside one B session?
+  A terminal_session_id groups: 150
+    all-events-in-one-B-session (1:1): 0
+    events-span-multiple-B-sessions:  0
+    no B session matches:             29
+    inconclusive (no or mixed terminal): 121
+
+==============================================================================
+BRIDGE 4 — items in B.items_checked_out vs A.item_id
+==============================================================================
+A distinct item_ids: 60  total occurrences: 470
+B distinct items_checked_out: 18  total occurrences: 22
+Overlap (item appears in both): 18
+Items in B checkouts NOT in A: []
+
+==============================================================================
+BRIDGE 5 — account_holds_active anomaly: 22-value cluster in B
+==============================================================================
+value -> count: [(0, 4), (1, 6), (2, 8), (3, 11), (4, 14), (5, 10), (6, 13), (7, 10), (8, 11), (15, 1), (17, 2), (20, 1), (21, 3), (22, 1)]
+B rows with account_holds_active >= 15: 8
+  SRD_2NV01ZDE  PATRON_00058  branch=BR001  ah=22  login=2024-03-01T18:36:43Z  end=2024-03-01T19:37:43Z  checkouts=0
+  SRD_JA0ASSNH  PATRON_00026  branch=BR004  ah=21  login=2024-01-18T11:24:32Z  end=2024-01-18T12:04:32Z  checkouts=0
+  SRD_XJ4PNJY1  PATRON_00008  branch=BR003  ah=21  login=2024-02-14T12:11:59Z  end=2024-02-14T12:31:59Z  checkouts=0
+  SRD_UR9U1OE5  PATRON_00083  branch=BR004  ah=20  login=2024-03-04T11:15:54Z  end=2024-03-04T12:23:54Z  checkouts=0
+  SRD_DS22WYBO  PATRON_00053  branch=BR001  ah=17  login=2024-02-01T15:32:21Z  end=2024-02-01T16:31:21Z  checkouts=0
+  SRD_DJNV07OX  PATRON_00024  branch=BR001  ah=21  login=2024-01-24T10:44:23Z  end=2024-01-24T11:48:23Z  checkouts=0
+  SRD_XPHX2KBV  PATRON_00070  branch=BR003  ah=17  login=2024-03-08T08:20:43Z  end=2024-03-08T08:29:43Z  checkouts=0
+  SRD_MX9DJOYO  PATRON_00068  branch=BR005  ah=15  login=2024-02-01T19:52:56Z  end=2024-02-01T21:17:56Z  checkouts=0
+
+==============================================================================
+BRIDGE 6 — session duration distribution (B)
+==============================================================================
+duration seconds: min=120 median=2700 mean=2713 max=5100
+negative durations (end<login): 0
+
+[end bridge]

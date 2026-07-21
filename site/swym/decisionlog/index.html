@@ -3,9 +3,42 @@
 <title>Decision Log — Swym build assignment</title>
 <link rel="stylesheet" href="/swym/style.css">
 <h1>Decision Log</h1>
-<p class="placeholder">Swym build assignment — placeholder.</p>
+<p class="meta">Written as it happened, timestamped [T+MM] from a 90-minute clock. T+0–25 was pre-data setup (prompt design with Gemini + Claude Opus 4.8, then repo/Cloudflare pipeline with Opus 4.7 — proven live before the datasets were opened). Author: Jayant Arora; the AI transcribed, computed, and was not allowed to choose the problem.</p>
+
+<h2>[T+25] Clock start — what I looked at first</h2>
+<p>Phase 1 was facts only: "No recommendations, no ideas, no problem framing." One profiling script covering structure, field inventory (partial fields matter more than complete ones), cross-file overlap, key analysis, integrity, session-field stress tests, distributions, and the temporal relationship between the files — every number from executed code, saved to <span class="mono">analysis/profile_output.txt</span>.</p>
+<p><b>What it told me:</b> file A is 470 interaction events with <b>no <span class="mono">library_card_id</span> and no <span class="mono">device_session_id</span></b> — the join fields the brief describes don't exist in the data. File B is 95 identified sessions, exactly one per patron. The only shared fields are <span class="mono">branch_id</span> and <span class="mono">branch_terminal_id</span>. The connection the brief implies had to be earned, not joined.</p>
+
+<h2>[T+33] Decision reconsidered (1): the join I almost wrote off</h2>
+<p>The agent's first pass concluded "no join is possible" because zero A events fall inside any B session window. I caught that this tested the wrong relation — its own finding showed all 120 terminal-bearing A events land 65s–1857s <b>before</b> the nearest same-terminal login, strictly one-sided. My rework order: "You found a pattern and then tested for a different one. Run the test your own finding points at."</p>
+<p><b>Believed before:</b> the files might not connect at all. <b>Believe now:</b> a deterministic pre-login bridge exists — at a 45-minute window all 120 events resolve to exactly one session each, zero ambiguity, zero conflicts (<span class="mono">stress_and_bridge_output.txt</span>). I still chose <b>not</b> to build on it — as a decision, not a data failure. The same rework killed <span class="mono">terminal_session_id</span> as a "session": 86/150 groups span multiple branches, median span ≈16 days; any per-visit funnel died with it.</p>
+
+<h2>[T+53–59] The options and my triage</h2>
+<p>I had the agent surface 8 options without ranking (two independent of any file connection, two explicit do-not-builds). My dispositions:</p>
+<table>
+<tr><th>#</th><th>Option</th><th>My call</th><th>My reason</th></tr>
+<tr><td>1</td><td>Pre-login activity linker</td><td>Later</td><td>Not needed now; agents/bots can handle it later, network-level controls exist</td></tr>
+<tr><td>2</td><td>Hold-queue pressure</td><td><b>Build</b></td><td>Genuine &amp; required</td></tr>
+<tr><td>3</td><td>Interest-vs-circulation gap</td><td><b>Build</b></td><td>Needed for engagement — see which titles aren't performing and how to make them perform</td></tr>
+<tr><td>4</td><td>Terminal utilisation</td><td>Later</td><td>Low user impact; compliance-side, plan when resources allow</td></tr>
+<tr><td>5</td><td>High-holds account flag</td><td>Deferred</td><td>Seemed impactful — see reconsidered (2) below</td></tr>
+<tr><td>6</td><td>Session funnel</td><td>Skip</td><td>Do-not-build: the grouping field it needs is provably not a session</td></tr>
+<tr><td>7</td><td>Patron profiles</td><td>Later</td><td>Once the system is capable enough; also a privacy inversion at 28 linkable patrons</td></tr>
+<tr><td>8</td><td>Data contract</td><td><b>Recommend, not build</b></td><td>We need to suggest all of it to them</td></tr>
+</table>
+<p>Ran RICE over the shortlist (R and C from computed data, I and E stated assumptions; <span class="mono">analysis/rice_output.txt</span>): option 2 → 22.5, option 3 → 2.1, option 5 → 1.4, option 8 → 70.6.</p>
+
+<h2>[T+62] Decision reconsidered (2): option 5's "high reach"</h2>
+<p>I called the high-holds flag "impactful and high reach." The agent flagged the computed number: 8 patrons of 95 = 8.4% — low reach, high per-account impact. I accepted the correction; RICE used the measured reach and option 5 dropped to last among buildables. It stayed deferred.</p>
+
+<h2>[T+61] What I chose, and why over the others</h2>
+<p>Go with <b>8, 2 &amp; 3</b> — basic, performance &amp; delightful, using the Kano model: 8 (data contract) is the basic expectation a data team owes its source system; 2 (hold pressure) is the performance feature staff would feel; 3 (gap list) is the delighter, shipped with its confidence stated on every row. The agent argued once against the three-way split (three partials vs one finished; option 3's 22-checkout evidence base; option 5 given up as the only completable build) — recorded in SCRATCH.md. I kept all three.</p>
+
+<h2>[T+64→75] Build order and freeze</h2>
+<p>On scope questions I said "do as you like" — threshold derived from the distribution and marked CONFIGURABLE, caveat baked into every gap row, script-form prototype. The agent's clock passed my T+68 freeze while my phone timer ran behind; I ordered the build anyway — one increment, then assembly. Final order: "go ahead and complete all of it discussed until now and make sure it works even as a dashboard insight or prototype."</p>
+
 <nav>
   <span></span>
-  <a href="/swym/prototype">Next &rarr;</a>
+  <a href="/swym/prototype">Next: Prototype &rarr;</a>
 </nav>
-<footer>jayantarora.in/swym</footer>
+<footer>jayantarora.in/swym · full logs, scripts and outputs: <a href="https://github.com/majorjayant/swym">github.com/majorjayant/swym</a></footer>

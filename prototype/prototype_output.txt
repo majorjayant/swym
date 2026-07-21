@@ -1,0 +1,55 @@
+IN: A=470  B=95
+A split: hold_placed=225  hold_cancelled=20  browse/save=225  reconciles=True
+AMBIGUITY: item_ids with >1 title/genre: 0 []
+NEGATIVE: cancels carrying hold_position (expect 0): 0
+CORRECTNESS: per-item hold counts recomputed via hold_position presence — agree (total 225)
+DISTRIBUTION per-item max hold_position -> item count: [(1, 1), (2, 1), (5, 1), (6, 5), (7, 7), (8, 5), (9, 5), (10, 9), (11, 6), (12, 4), (13, 4), (14, 6), (15, 5)]
+quartiles of per-item max hold_position: [7.0, 10.0, 13.0]
+TRIGGER RULE: flag item when max hold_position >= 13  [CONFIGURABLE, default=P75, unvalidated]
+
+PRESSURE TABLE (15 flagged of 59 items with holds):
+item_id         genre                        holds maxpos cancels  title
+ITEM_PSEIMVIH   Children's Picture Books         8     15       0  The Very Stubborn Potato
+ITEM_253J2D54   Automotive Repair                5     15       0  Auto Electrics for Beginners
+ITEM_0LVSNUJZ   Travel Guides                    4     15       0  West Africa on a Budget
+ITEM_PHR62GDS   History                          3     15       0  The Forgotten Colonies
+ITEM_PAC56T4U   Automotive Repair                2     15       0  Engine Diagnosis Simplified
+ITEM_X7EEDTJV   Financial Planning               7     14       0  Beyond the Pay Cheque
+ITEM_A7TZ0YNC   Travel Guides                    3     14       1  Hidden Portugal
+ITEM_8MDD4V30   Literary Fiction                 3     14       0  The Long Return
+ITEM_ID25OWF7   Automotive Repair                3     14       0  Classic Car Restoration
+ITEM_53LC58DR   Science Fiction                  2     14       1  Drift Protocol
+ITEM_C11ERTJ5   Science Fiction                  1     14       0  Starfall Atlas
+ITEM_I7P5TB94   Horror                           8     13       0  Below the Roots
+ITEM_XAJI0Y6D   Literary Fiction                 8     13       0  The Quiet Hours
+ITEM_DPPQ0Y9D   Children's Picture Books         8     13       1  Where Do Clouds Sleep?
+ITEM_OM5IGQPK   Children's Picture Books         4     13       2  The Enormous Turnip Remix
+
+GENRE ROLLUP (holds): [("Children's Picture Books", 31), ('Automotive Repair', 30), ('Financial Planning', 26), ('Literary Fiction', 25), ('Travel Guides', 23), ('History', 23), ('Horror', 22), ('Cooking', 17), ('Mystery & Thriller', 17), ('Science Fiction', 11)]
+COVERAGE(2): 245/470 A rows used (52.1%); remainder 225 browse/save rows are used by (3) below, not dropped
+
+B checkout evidence: 22 occurrences of 18 distinct items in 12/95 sessions
+CAVEAT applied to every row: 'INDICATIVE ONLY - evidence base: B checkout lists (22 occurrences, 12/95 sessions)'
+NEGATIVE: checked-out items appearing in gap list (expect 0): 0
+CORRECTNESS: gap(42) + checked_out(18) == items_with_activity(60)
+
+GAP TABLE top 15 (of 42), each row carries the caveat:
+  ITEM_PSEIMVIH   Children's Picture Books     browse=  3 save=  3 hold=  8 cancel=  0  The Very Stubborn Potato  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_PJA1WJ0T   Automotive Repair            browse=  4 save=  3 hold=  4 cancel=  2  The Home Mechanic's Bible  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_XAJI0Y6D   Literary Fiction             browse=  3 save=  1 hold=  8 cancel=  0  The Quiet Hours  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_253J2D54   Automotive Repair            browse=  7 save=  0 hold=  5 cancel=  0  Auto Electrics for Beginners  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_N9J2QP89   Horror                       browse=  6 save=  1 hold=  2 cancel=  2  The Second Tenant  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_L58KXO9T   Travel Guides                browse=  1 save=  1 hold=  7 cancel=  1  72 Hours in Osaka  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_KTAKPUXQ   History                      browse=  4 save=  3 hold=  3 cancel=  0  Silk Road Empires  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_OHP6VZ41   Cooking                      browse=  3 save=  1 hold=  5 cancel=  1  The Spice Cupboard  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_X7EEDTJV   Financial Planning           browse=  3 save=  0 hold=  7 cancel=  0  Beyond the Pay Cheque  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_DBDW2PCN   Mystery & Thriller           browse=  4 save=  3 hold=  2 cancel=  0  Seventh Floor  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_YKL1CQ99   Financial Planning           browse=  3 save=  3 hold=  3 cancel=  0  Retire Before 55  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_OM5IGQPK   Children's Picture Books     browse=  2 save=  1 hold=  4 cancel=  2  The Enormous Turnip Remix  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_1T2TALA7   Science Fiction              browse=  2 save=  1 hold=  4 cancel=  2  The Corrected World  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_A7TZ0YNC   Travel Guides                browse=  2 save=  2 hold=  3 cancel=  1  Hidden Portugal  [INDICATIVE ONLY - evidence base: B checkout lists]
+  ITEM_UJV6OH9S   Mystery & Thriller           browse=  4 save=  0 hold=  4 cancel=  0  The Empty Chair  [INDICATIVE ONLY - evidence base: B checkout lists]
+COVERAGE(3): all 470 A rows aggregated; 83 B sessions carry no item evidence and contribute nothing (stated, not dropped)
+
+OUT: pressure_rows=15  gap_rows=42  ambiguous=0  negative_failures=0
+[end prototype]
