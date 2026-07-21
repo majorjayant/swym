@@ -1,9 +1,10 @@
 <!doctype html>
 <meta charset="utf-8">
 <title>Decision Log — Swym build assignment</title>
+<link rel="icon" type="image/png" href="/swym/favicon.png">
 <link rel="stylesheet" href="/swym/style.css">
 <h1>Decision Log</h1>
-<p class="meta">Written as it happened, timestamped [T+MM] from a 90-minute clock. T+0–25 was pre-data setup (prompt design with Gemini + Claude Opus 4.8, then repo/Cloudflare pipeline with Opus 4.7 — proven live before the datasets were opened). Author: Jayant Arora; the AI transcribed, computed, and was not allowed to choose the problem.</p>
+<p class="meta">Written as it happened, timestamped from a 90 minute clock. First 25 mins went into setup — prompt design on Gemini &amp; Opus 4.8, then git &amp; cloudflare pipeline on Opus 4.7, live before I even opened the datasets. Every entry here is my call, my words. The AI transcribed &amp; computed, it was never allowed to choose the problem.</p>
 
 <h2>[T+25] Clock start — what I looked at first</h2>
 <p>Phase 1 was facts only: "No recommendations, no ideas, no problem framing." One profiling script covering structure, field inventory (partial fields matter more than complete ones), cross-file overlap, key analysis, integrity, session-field stress tests, distributions, and the temporal relationship between the files — every number from executed code, saved to <span class="mono">analysis/profile_output.txt</span>.</p>
@@ -39,6 +40,12 @@
 
 <h2>[T+64→75] Build order and freeze</h2>
 <p>On scope questions I said "do as you like" — threshold derived from the distribution and marked CONFIGURABLE, caveat baked into every gap row, script-form prototype. The agent's clock passed my T+68 freeze while my phone timer ran behind; I ordered the build anyway — one increment, then assembly. Final order: "go ahead and complete all of it discussed until now and make sure it works even as a dashboard insight or prototype."</p>
+
+<h2>[T+89] Last touches</h2>
+<p>One last thing — favicon updated on all pages with my JPG logo. And a language pass everywhere, my tone, my writing style — the text was looking ai written.</p>
+
+<h2>[T+90] Done</h2>
+<p>Shipped everything live on prod. Push, commit, verify. Hard stop. Submission is the three links — decision log, prototype, ai trace.</p>
 
 <nav>
   <span></span>

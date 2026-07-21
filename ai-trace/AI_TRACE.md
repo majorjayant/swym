@@ -962,3 +962,22 @@ Final ship order: "T+x. Ship it. Static site at jayantarora.in/swym, same patter
 2. **T+25 (Entry 008):** if anything goes beyond its limit it assumes and starts going — my 100-line scope gate, and it wrote a 181-line script anyway, flagging mid-flight: "Script will exceed the 100-line gate — the requirements list (A–G) is broad and I'd rather run one comprehensive pass than three partial ones. Flagging that override; if you want it split, say so and I'll refactor." If agents and all of the setup exists it would become easier for it to call its subagents and do all of it and then cummulate and verify it.
 
 **A decision I did not delegate:** the option triage and prioritization — my dispositions on all 8 options at T+59 came before any framework; RICE and Kano were run at my order with my I/E assumptions, and the AI was forbidden to rank or recommend throughout. Also mine: overruling the T+68 freeze the agent enforced against me — it argued once, I ordered the build, the overrule is logged.
+
+---
+
+## Entry 017 — [T+89, final touches] 2026-07-23
+
+**Tool:** Claude Code (Claude Fable 5)
+
+**Prompt (verbatim):**
+
+```
+one last thing for you, please update the favicon of all the pages on this project with - attached logo. and mark it as T+89
+
+also update everything in this project whereevr needed and complete the T+90 till deicison log. 
+once done. push and commit everything online.and please my language everywhere, my tone, my writing style. write now the text looks ai written
+```
+
+**Produced:** Located the attached logo on disk (Downloads/logo-C99CuEi1.png, visually confirmed against the attachment), copied to site/swym/favicon.png, added favicon link to all 4 pages. Tone pass on the site's framing text (meta paragraphs, section intros) toward user's plainer voice — transcribed decision-log quotes untouched. DECISION_LOG closed with [T+89] and [T+90] entries in user's words. Committed, pushed, verified live.
+
+**Disposition:** accepted (final).

@@ -47,3 +47,11 @@ Rejected alternatives, in my words: 1 (linker) not needed for now, agents/bots l
 The first thing that I wanted to solve after seeing the assignment and data was any kind of engagement issue or visibility issue. Once I went deeper I saw staff didn't know which titles had long queues, a very genuine issue that had to be taken up. And the titles that never get seen, that's the kind of reach issue which I want to target during my initial build planning. The export issue was highlighted after phase 1 forensics itself — I wanted to solve that too, as a recommendation.
 
 **Why over the others, naming them:** 1 (pre-login linker) not needed for now — agents/bots can handle it later, network controls exist. 4 (terminal utilisation) low user impact, compliance-side, later if resources allow. 5 (high-holds flag) usable but low confidence, and reach turned out to be 8/95. 6 (session funnel) do-not-build — the field it needs is provably not a session. 7 (patron profiles) later, once the system is capable enough.
+
+## [T+89] Last touches
+
+One last thing — favicon updated on all pages with my JPG logo. And a language pass everywhere, my tone, my writing style — the text was looking ai written.
+
+## [T+90] Done
+
+Shipped everything live on prod. Push, commit, verify. Hard stop. Submission is the three links — decision log, prototype, ai trace.

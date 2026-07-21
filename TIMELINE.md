@@ -35,3 +35,4 @@
 2026-07-22T23:41Z | T+79 | Phase 5 begin: submission assembly — interview first, no writing yet
 2026-07-22T23:52Z | T+84 | interview done (2 batches); drafts approved; Phase 6 ship: DECISION_LOG problem entry, prototype/README.md, AI_TRACE appendix + Fable-5 attribution note, brand-guide restyle of site
 2026-07-22T23:58Z | T+87 | SHIPPED + VERIFIED: restyle live ~40s after push; four URLs 200; nav links resolve; new content confirmed on all three pages (one stale-cache re-check on decisionlog, passed)
+2026-07-23T00:08Z | T+89 | favicon (JPG logo) added to all 4 pages; tone pass on site framing text; DECISION_LOG closing entries T+89/T+90
