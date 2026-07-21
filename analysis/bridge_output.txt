@@ -26,8 +26,8 @@ A rows WITHOUT branch_terminal_id: 350
 ==============================================================================
 BRIDGE 3 — terminal_session_id (A) vs session_record_id (B). Any prefix/value overlap?
 ==============================================================================
-A terminal_session_id distinct: 150   prefix sample: ['TERM_LKQZFPQ0', 'TERM_7V5F1BCP', 'TERM_8DTNQFLL']
-B session_record_id distinct: 95   prefix sample: ['SRD_A9HL1737', 'SRD_5PVYIOMK', 'SRD_4RS7GU0E']
+A terminal_session_id distinct: 150   prefix sample: ['TERM_QBNKX9DV', 'TERM_CQNVQHW0', 'TERM_LGJLPEFJ']
+B session_record_id distinct: 95   prefix sample: ['SRD_DJNV07OX', 'SRD_ME6RPKZG', 'SRD_P2FMR0TJ']
 Direct value overlap: 0
 
 Do A terminal_session_id groups fall entirely inside one B session?

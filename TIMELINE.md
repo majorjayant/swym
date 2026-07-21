@@ -30,3 +30,4 @@
 2026-07-22T23:24Z | T+79 | Phase 4 assembly: DECISION_LOG closed out; all three site pages rendered (decisionlog, prototype w/ dashboard tiles+tables, aitrace); committing + pushing
 2026-07-22T23:26Z | T+80 | push rejected (remote had PR #1 worker-rename); rebased cleanly, pushed as e772e39 — no force-push
 2026-07-22T23:29Z | T+81 | DEPLOY VERIFIED: all four /swym* URLs return 200 with final content (live ~30s after push)
+2026-07-22T23:35Z | T+87 | HARD FREEZE: full pipeline re-run end-to-end, all 5 scripts exit 0; one cosmetic non-determinism documented (bridge.py sample IDs); STOPPED_HERE.md written; ASSUMPTIONS.md confirmed current

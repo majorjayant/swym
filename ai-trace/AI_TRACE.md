@@ -859,7 +859,42 @@ Implementation is yours.
 go ahead and complete all of it discussed until now nd make sure it works even as a dashboard insight or prototype.
 ```
 
-**Produced:** Closed out DECISION_LOG.md (T+25 first-look entry, two reconsidered-decision entries at T+33 and T+62, build-order entry — transcribed from user's verbatim prompts). Rendered all three site pages: decisionlog (full log as HTML), prototype (dashboard: 4 stat tiles, 15-row pressure table, genre bars, 10-row gap table with caveat, data-contract recommendations, where-stopped section), aitrace (tool ledger, 3 verbatim prompts, both AI-error moments, non-delegated decision). Appended content CSS to style.css. Committed and pushed; curl-verified all four live URLs.
+**Produced:** Closed out DECISION_LOG.md (T+25 first-look entry, two reconsidered-decision entries at T+33 and T+62, build-order entry — transcribed from user's verbatim prompts). Rendered all three site pages: decisionlog (full log as HTML), prototype (dashboard: 4 stat tiles, 15-row pressure table, genre bars, 10-row gap table with caveat, data-contract recommendations, where-stopped section), aitrace (tool ledger, 3 verbatim prompts, both AI-error moments, non-delegated decision). Appended content CSS to style.css. Push initially rejected (remote had PR #1 worker-rename merge); rebased cleanly, no force-push, pushed as e772e39. Curl-verified all four live URLs (200, final content, ~30s after push).
+
+**Disposition:** accepted.
+
+---
+
+## Entry 015 — [T+87, HARD FREEZE] 2026-07-22
+
+**Tool:** Claude Code (Fable 5)
+
+**Prompt (verbatim):**
+
+```
+HARD FREEZE. Stop building. Do not write another line of prototype logic, do
+not fix a known bug, do not finish a half-done function. If something is broken, it
+ships broken and documented — that is a better outcome than an undocumented fix.
+
+Do these four things only:
+
+1. Run the full pipeline end to end one final time. Save the output. Tell me if it
+   runs clean or fails, and where.
+2. Write /prototype/STOPPED_HERE.md:
+   - exactly what is finished and works
+   - exactly what is half-finished, and what state it is in
+   - what is broken and why
+   - what I would do next, in specific ordered steps. Specific means "validate the
+     30-minute window against the 14 sessions that have no preceding events" not
+     "refine the matching logic." Every next step names a thing.
+   - what I would need that I do not have (fields, data, time, access)
+3. Give me the honest limitations list: where the prototype would fail in the real
+   world, what it assumes that a real library system would violate, what scale it
+   would break at.
+4. Confirm ASSUMPTIONS.md is current.
+```
+
+**Produced:** Re-ran all 5 scripts end-to-end: all exit 0. One diff vs committed outputs: bridge.py's three "prefix sample" IDs vary per run (set iteration order) — cosmetic only, all computed numbers identical; documented in STOPPED_HERE.md, not fixed per freeze rule. Wrote prototype/STOPPED_HERE.md (finished/half-finished/broken, 7 named next steps with computed numbers — e.g. 67 = 95−28 unlinked B sessions, the W=15m no-patron group — needs list, honest limitations incl. hold_position proxy flaw, missing holdings counts, gap-table false-positive expectation, P75 drift, RAM-bound scale). Fixed one typo in the doc itself (stray characters). Confirmed ASSUMPTIONS.md current (8 entries, no edits needed).
 
 **Disposition:** pending
 
