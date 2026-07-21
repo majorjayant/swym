@@ -28,3 +28,5 @@
 2026-07-22T23:15Z | T+71 | Phase 3 begin on user order (user timer behind CLOCK.txt; T+68 freeze overrule logged); single-increment build authorized
 2026-07-22T23:19Z | T+75 | prototype/pressure_and_gap.py runs clean (1 fix: f-string header, not data); prototype_output.txt saved; ASSUMPTIONS.md written; 15 flagged items, 42-row gap list, 0 ambiguity, 0 negative failures
 2026-07-22T23:24Z | T+79 | Phase 4 assembly: DECISION_LOG closed out; all three site pages rendered (decisionlog, prototype w/ dashboard tiles+tables, aitrace); committing + pushing
+2026-07-22T23:26Z | T+80 | push rejected (remote had PR #1 worker-rename); rebased cleanly, pushed as e772e39 — no force-push
+2026-07-22T23:29Z | T+81 | DEPLOY VERIFIED: all four /swym* URLs return 200 with final content (live ~30s after push)
