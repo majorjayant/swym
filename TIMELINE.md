@@ -34,3 +34,4 @@
 2026-07-22T23:40Z | T+78 | clock corrected to user's timer: agent T+85 = user T+78; CLOCK.txt shifted +7 min; all future stamps on user time
 2026-07-22T23:41Z | T+79 | Phase 5 begin: submission assembly — interview first, no writing yet
 2026-07-22T23:52Z | T+84 | interview done (2 batches); drafts approved; Phase 6 ship: DECISION_LOG problem entry, prototype/README.md, AI_TRACE appendix + Fable-5 attribution note, brand-guide restyle of site
+2026-07-22T23:58Z | T+87 | SHIPPED + VERIFIED: restyle live ~40s after push; four URLs 200; nav links resolve; new content confirmed on all three pages (one stale-cache re-check on decisionlog, passed)
