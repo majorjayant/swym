@@ -1,0 +1,328 @@
+# AI Trace Log
+
+Append-only. Entries are never edited or tidied after the fact.
+Format per entry: timestamp, tool, prompt verbatim, one-line note on output, disposition.
+
+---
+
+## Entry 001 — [SETUP, pre-clock] 2026-07-22
+
+**Tool:** Claude Code (Claude Fable 5)
+
+**Prompt (verbatim):**
+
+```
+@"C:\swym\Build Assignment - Product Builder.pdf"
+You are my build partner for a timed 90-minute product assignment. Setup only right
+now. The clock has NOT started. Do not read the dataset. Do not open, cat, head, or
+glob the two JSON files. If you touch them, the clock starts and I lose time.
+
+Read only: "C:\swym\Build Assignment - Product Builder.pdf"
+Then do these six things:
+
+1. Create this structure:
+   /decision-log/DECISION_LOG.md     (chronological, timestamped [T+MM])
+   /decision-log/SCRATCH.md          (dead ends, rejected ideas, raw notes)
+   /ai-trace/AI_TRACE.md             (append-only)
+   /prototype/                       (code)
+   /analysis/                        (profiling scripts + outputs)
+   /site/                            (static site, built later)
+
+2. Set up AI_TRACE.md as an append-only log. From this moment on, after EVERY
+   exchange, append: T+MM timestamp, the tool (Claude Code / model), my prompt
+   VERBATIM with zero paraphrase or cleanup, a one-line note on what you produced,
+   and my disposition (accepted / edited / rejected / rewrote). Do this without
+   being asked. Never edit or tidy a past entry.
+
+3. Set up a timer mechanism. I will tell you "CLOCK START" at the top of Phase 1.
+   From then, announce elapsed time unprompted at T+15, T+30, T+45, T+60, T+68,
+   T+75, T+82. Announcements are one line only.
+
+4. Verify your own environment and tell me if anything is missing. I need, by the
+   end of this task, to deploy a static site to jayantarora.in/swym via Cloudflare
+   Pages, pushed from a GitHub repo under my account majorjayant. Check: git
+   installed and authed, gh CLI authed, wrangler installed and authed, node and
+   python3 available, which Cloudflare account and project names already exist.
+   Report a PASS/FAIL table. For every FAIL, tell me the exact command I need to run
+   to fix it. I want zero deployment surprises at T+85. Ask me now for anything you
+   need that you cannot discover yourself.
+
+5. Confirm you understand the three deliverables required by the assignment, and
+   quote from the PDF the exact bullet requirements of each. I want to check you
+   parsed them correctly before we start.
+
+6. Read these operating rules back to me in your own words so I know they landed:
+
+   - You never choose the problem. You never rank options. You never say "I
+     recommend." You surface options with trade-offs and I decide.
+   - You never write decision-log content in your own voice. You transcribe MY words.
+     If my note is too thin to stand as a log entry, ask me ONE sharpening question.
+   - Every claim you make about the data must come from code you actually ran, with
+     the output shown. No claim from pattern-matching, memory, or plausibility. If
+     you did not compute it, you say "not computed."
+   - Every inference about what a field MEANS is labelled "INFERRED — UNVERIFIED"
+     until a test confirms it. Say what test would confirm it.
+   - You never invent, impute, backfill, or synthesise a data value. Missing is
+     missing.
+   - You do not over-engineer. Before writing any file over 100 lines, you stop and
+     ask me whether the scope is right.
+   - You do not silently repair. If something you built breaks, you tell me it broke
+     and what you changed, before changing it.
+   - If an assumption I made in an earlier phase is contradicted by the data, you
+     interrupt me IMMEDIATELY and say so in plain words. Do not work around it.
+   - You are allowed to cost me time. Accuracy over speed. If I am about to do
+     something wrong, argue with me once, hard, then do it my way and log that I
+     overruled you.
+   - You ask me a question rather than assume, roughly every few minutes. Batch
+     questions; never more than 3 at once.
+   - Arithmetic, counts, percentages, and joins are computed in code and printed.
+     Never estimated in prose.
+
+Reply with: the PASS/FAIL environment table, the quoted deliverable requirements,
+the rules read back, and any questions. Then wait. Do not proceed.
+
+PDF Text - Heres the text from pdf - Build Assignment 
+
+Build Assignment  
+
+Swym | July 2026 
+
+What this is 
+
+A 90-minute build task. 
+
+There is no right answer. There is no expected output format. What we are assessing is how 
+
+you think, how you use AI, and how you make decisions when the problem is not fully defined. 
+
+Partial completion is expected and normal. Ninety minutes is a hard stop. Where you get to in 
+
+that time, and what you chose to prioritise, is part of the signal. 
+
+The scenario 
+
+You have been given interaction logs from a public library system. 
+
+The library wants to do more with its patron interaction data. Here are the logs. Tell us what you 
+
+would build and why. 
+
+That is the entire brief. Start by deciding what matters most. That decision is part of the 
+
+assessment. 
+
+[ATTACH: library_interactions_final.json] 
+
+What you are working with 
+
+The dataset contains approximately 450-500 interaction events from a fictional library system. 
+
+Events cover patron holds, checkouts, reading list saves, browse activity, and session metadata. 
+
+The dataset is fully synthetic. It was generated for this assignment and contains no real patron 
+
+data. 
+
+Sessions in this dataset originate from in-branch library terminals. Patrons may browse, place 
+
+holds, and save items to reading lists without logging in. Some choose to log in during the same 
+
+session to access their account. 
+
+Some events are tied to a library_card_id. Others carry only a device_session_id. No 
+
+schema is provided. No data dictionary is attached. 
+
+The two files were exported from the same system. Fields that appear in both may connect 
+
+records across them. 
+
+A second file contains the library's identified session log. 
+
+[ATTACH: library_sessions_final.json] 
+
+What to submit 
+
+Three components. In this order. If you run out of time, note exactly where you stopped and 
+
+what you would have done next. A missing component with a clear explanation is more useful 
+
+signal than a rushed one. 
+
+1. Decision log 
+
+Before you build anything, write this. It should cover: - - - 
+
+What problem you decided to solve, and why that problem over others 
+
+What you looked at in the data first, and what it told you 
+
+At least one decision you reconsidered mid-task, and why 
+
+This is not a post-hoc summary of what you built. Write it as you go. The sequence of your 
+
+thinking matters. 
+
+2. Prototype 
+
+Build toward the problem you defined. Partial implementation is fine. A schema, a working 
+
+function, a data model, a trigger rule, any combination is acceptable provided it connects 
+
+directly to the decision log above. 
+
+If you ran out of time, note exactly where you stopped and what you would have done next. 
+
+3. AI trace log 
+
+A short appendix covering: - - 
+
+What AI tools you used and at what point in the task 
+
+Two or three prompts you actually sent, verbatim 
+
+- - 
+
+One place where the AI output was not good enough and what you did about it 
+
+One decision you made that you did not delegate to AI, and why 
+
+This is not a reflection exercise. It is a record. Keep it factual and specific. 
+
+Practicalities 
+
+Time: 90 minutes from when you open the dataset. Hard stop. 
+
+Tools: Use whatever AI tools you normally use. No restrictions. 
+
+Format: Plain text, markdown, or a shared doc. No specific template required. 
+
+Submission: Email us with all three components attached or linked. 
+
+What happens next 
+
+You will hear from us within 5 working days of submission, regardless of outcome. 
+
+If your submission moves forward, there is a follow-up conversation. It will focus on specific 
+
+decisions you made, specific moments in your AI trace log, and specific things you would do 
+
+differently with more time. 
+
+The conversation is not a gotcha. It is a continuation of the task.
+```
+
+**Produced:** Read the assignment PDF (not the datasets); created /decision-log, /ai-trace, /prototype, /analysis, /site scaffold; ran environment checks (git/gh/wrangler/node/python); replied with PASS/FAIL table, quoted deliverable requirements, rules read-back, and 3 setup questions.
+
+**Disposition:** edited — user kept framework, rescoped: (a) passive timer only, no proactive announcements, T+68 freeze self-enforced by me; (b) deploy the site shell in Phase 0 before CLOCK START to remove deployment risk from the end.
+
+---
+
+## Entry 002 — [SETUP, pre-clock] 2026-07-22
+
+**Tool:** Claude Code (Claude Fable 5 / user requested switch to claude-opus-4-7 mid-message)
+
+**Prompt (verbatim):**
+
+```
+Two changes to the plan before we go further.
+
+=== CHANGE 1 — the timer. Simplify it. ===
+
+Scrap the background sleep chain entirely. Kill any scheduled wakeups. I do not want
+to be pinged, I do not want you interrupted mid-task, and I do not want tokens spent
+on clock machinery.
+
+Replace it with passive tracking only:
+
+  - At CLOCK START, write the exact ISO start timestamp to C:\swym\CLOCK.txt. Once.
+  - At the top of every response you send me thereafter, first line only, print
+    [T+MM] computed from that file. Nothing else. No commentary, no "we're making
+    good progress," no warnings unless I ask.
+  - Append a one-line entry to C:\swym\TIMELINE.md whenever a phase starts or ends
+    and whenever a meaningful artifact is produced: timestamp, T+MM, what happened.
+    One line each. This is my evidence that the work fit in 90 minutes, nothing more.
+  - Never proactively announce a threshold. Never interrupt yourself to report time.
+
+One exception, and it is the only one: T+68 hard freeze. You enforce it silently —
+when you compute T+68 or later at the top of a response, you stop building in that
+same response and move to Phase 4 without being told. You do not warn me in advance
+that it is coming. Confirm you understand the freeze is yours to enforce, not mine.
+
+I will keep my own timer on my phone. You are the record, not the alarm.
+
+=== CHANGE 2 — deploy the shell NOW, in Phase 0 ===
+
+You were right that deployment is the biggest risk. So we remove it from the end of
+the task entirely by proving the whole pipeline before the clock starts.
+
+Build and ship a placeholder site now, at jayantarora.in/swym, using the Worker +
+path route pattern I described. Content is irrelevant — one blank page saying "Swym
+build assignment — placeholder" is enough. What matters is that the route is live and
+the push-to-deploy path is proven.
+
+Do this:
+  1. Create the four routes as static HTML in /site:
+       /swym            -> redirect to /swym/decisionlog
+       /swym/decisionlog
+       /swym/prototype
+       /swym/aitrace
+     Each is a near-empty page with a title, a placeholder line, and working Back /
+     Next links between them in that order. Plus one CSS file. No framework, no build
+     step, no dependencies. Keep it under 100 lines total — this is scaffolding, not
+     design. In Phase 6 you will only be swapping in rendered markdown content; the
+     structure, styling, and navigation will already be done and will not be touched
+     again.
+  2. Write wrangler.toml with the Worker name, the static assets binding, and the
+     route pattern jayantarora.in/swym* on the correct zone. Match the shape of my
+     existing workers if you can read their config; ask me if you cannot.
+  3. Commit and push to https://github.com/majorjayant/swym.git
+  4. Deploy. If wrangler auth works, deploy it yourself. If it does not, stop, tell
+     me exactly what to click, and I will create the Worker and bind the route in the
+     Cloudflare dashboard myself — I have done it five times.
+  5. VERIFY, do not assume. curl all four URLs and show me the HTTP status codes and
+     the first line of each body. Confirm the redirect from /swym works. Confirm the
+     Back/Next links resolve to real pages, not 404s.
+
+When this is green, deployment is a solved problem and Phase 6 becomes: render three
+markdown files into the existing pages, commit, push, curl to confirm. Nothing else.
+
+=== ALSO ===
+
+Add to Phase 6 in your plan: because the shell is already live, if we run out of time
+the site still exists and still resolves. Content swap is the only remaining step and
+it can be partial. A page saying "ran out of time, here is where I stopped" is an
+acceptable end state and should not be treated as failure.
+
+=== FINALLY ===
+
+Everything from my previous message still stands: the folder consolidation, the git
+email question, the proven push, the full PASS / NOT-REQUIRED table.
+
+Do not start Phase 1. Do not read, list, glob, or stat either JSON file. Reply with:
+the four curl results, the consolidated folder tree, the environment table, your
+questions. Then wait for CLOCK START.
+```
+
+**Produced:** Wrote site scaffold (4 HTML pages + CSS, 51 lines total, under-100 budget met); wrote wrangler.toml with `jayantarora.in/swym*` route on zone `jayantarora.in` and `[assets]` binding to `./site`; wrote .gitignore and TIMELINE.md; installed wrangler globally (v4.113.0); ran `git init` in C:\swym and set git identity to majorjayant/jayant.arora1312@gmail.com; verified GitHub repo `majorjayant/swym` exists (HTTP 200); flagged that `ls -la` revealed the two JSON filenames + sizes (contents NOT opened, but the listing was arguably a "stat"); flagged an unexpected `swym-main/` directory. Reported status table, blocked on wrangler login (needs browser) and on decisions about swym-main + dataset commit + email.
+
+**Disposition:** pending
+
+---
+
+## Entry 003 — [SETUP, pre-clock] 2026-07-22
+
+**Tool:** Claude Code
+
+**Prompt (verbatim):**
+
+```
+1. swym-main is the github repo i created and downloaded inside this project folder swym, just that, so maybe if you get inside that and move all the files there relevant to porject and then use it to push or anyhting. only if it makes sense. 
+
+2. gitignore them
+3. cf api token, but i need to link this repo from github to cf. let me create a worker in cf & link it with github and route its path, will that be goood? what all do you need from my side?
+```
+
+**Produced:** Discovered swym-main is a "Download ZIP" extract (no .git inside), duplicates of the PDF and both JSONs plus a two-line README. Discovered the GitHub remote already has one commit — likely containing the datasets and PDF (public). Proposed cleanup: delete swym-main, gitignore datasets + PDF, add remote to fresh C:\swym\.git, force-push over the throwaway remote commit (called out explicitly as destructive). Confirmed CF Workers + GitHub integration is the deploy path and listed the exact dashboard steps. Explained CF API token isn't strictly required for that path. Asked 3 questions: force-push OK, rm swym-main OK, provide token or skip.
+
+**Disposition:** pending

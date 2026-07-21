@@ -1,0 +1,14 @@
+node_modules/
+.wrangler/
+.dev.vars
+.env
+CLOCK.txt
+*.log
+.DS_Store
+Thumbs.db
+.claude/settings.local.json
+
+# Assignment dataset (public repo — keep out of push per user)
+library_interactions_final.json
+library_sessions_final.json
+Build Assignment - Product Builder.pdf

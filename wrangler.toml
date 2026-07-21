@@ -1,0 +1,9 @@
+name = "swym-build-assignment"
+compatibility_date = "2025-01-01"
+
+[assets]
+directory = "./site"
+
+[[routes]]
+pattern = "jayantarora.in/swym*"
+zone_name = "jayantarora.in"
