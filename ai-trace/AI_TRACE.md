@@ -325,4 +325,192 @@ questions. Then wait for CLOCK START.
 
 **Produced:** Discovered swym-main is a "Download ZIP" extract (no .git inside), duplicates of the PDF and both JSONs plus a two-line README. Discovered the GitHub remote already has one commit — likely containing the datasets and PDF (public). Proposed cleanup: delete swym-main, gitignore datasets + PDF, add remote to fresh C:\swym\.git, force-push over the throwaway remote commit (called out explicitly as destructive). Confirmed CF Workers + GitHub integration is the deploy path and listed the exact dashboard steps. Explained CF API token isn't strictly required for that path. Asked 3 questions: force-push OK, rm swym-main OK, provide token or skip.
 
+**Disposition:** accepted — user answered: (1) force-push yes; (2) rm swym-main yes (one-time setup); (3) skip API token, use GitHub-integration deploy only. User also reported CF deploy #1 failed with "Could not detect a directory containing static files" — root cause was that wrangler.toml + site/ weren't on the remote yet (deploy ran against the throwaway initial commit).
+
+---
+
+## Entry 004 — [SETUP, pre-clock] 2026-07-22
+
+**Tool:** Claude Code
+
+**Prompt (verbatim):**
+
+```
+1. force push yes. 
+2. ok just for this one time during initial setup 
+3. skip, git hub is good but heres the problem i encountered while deploying this worker on cf. 
+
+* Build command
+None
+* Deploy command
+npx wrangler deploy
+* Root directory
+/
+* Build token
+swym build token
+* Build variables
+None
+
+Initializing
+2s done
+03:28:42.111
+Cloning
+1s done 
+03:28:44.401
+Installing
+133ms done 
+03:28:45.401
+Deploying
+20s failed 
+03:28:45.534
+
+1. 03:28:42.111
+Initializing build environment...
+2. 03:28:43.940
+Success: Finished initializing build environment
+3. 03:28:44.516
+Cloning repository...
+4. 03:28:45.530
+No build output detected to cache. Skipping.
+5. 03:28:45.530
+No dependencies detected to cache. Skipping.
+6. 03:28:45.532
+Detected the following tools from environment:
+7. 03:28:45.688
+Executing user deploy command: npx wrangler deploy
+8. 03:28:42.111
+Initializing build environment...
+9. 03:28:43.940
+Success: Finished initializing build environment
+10. 03:28:44.516
+Cloning repository...
+11. 03:28:45.530
+No build output detected to cache. Skipping.
+12. 03:28:45.530
+No dependencies detected to cache. Skipping.
+13. 03:28:45.532
+Detected the following tools from environment:
+14. 03:28:45.688
+Executing user deploy command: npx wrangler deploy
+15. 03:28:52.891
+npm warn exec The following package was not found and will be installed: wrangler@4.113.0
+16. 03:29:03.966
+17. 03:29:03.966
+ ⛅️ wrangler 4.113.0
+18. 03:29:03.967
+────────────────────
+19. 03:29:04.149
+20. 03:29:04.150
+Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+21. 03:29:04.150
+22. 03:29:04.230
+✘ [ERROR] Could not detect a directory containing static files (e.g. html, css and js) for the project
+23. 03:29:04.233
+24. 03:29:04.233
+25. 03:29:04.278
+🪵  Logs were written to "/opt/buildhome/.config/.wrangler/logs/wrangler-2026-07-21_21-59-03_555.log"
+26. 03:29:04.392
+Failed: error occurred while running deploy command
+```
+
+**Produced:** Diagnosed the deploy failure: remote had no wrangler.toml or site/, so wrangler's auto-detect gave up. Executed the approved cleanup: deleted swym-main/, added `.claude/settings.local.json` and dataset patterns to .gitignore, verified via `git status` and `git ls-files --ignored` that datasets + PDF + local settings are excluded, unstaged .claude/settings.local.json, committed (`4319984`, 14 files, 417 insertions), force-pushed to `main` — replaced `a3be244` on remote. Instructed user to retry the CF deploy from the dashboard. Flagged the token-permissions risk (Zone Workers Routes:Edit on jayantarora.in) and asked whether jayantarora.in is on the same CF account as the Worker.
+
+**Disposition:** accepted — user confirmed the redeploy went green (all four URLs return 200 after CF's trailing-slash 307). Setup phase closed.
+
+---
+
+## Entry 005 — [SETUP, pre-clock] 2026-07-22
+
+**Tool:** Claude Code (Opus 4.7)
+
+**Prompt (verbatim):**
+
+```
+You're my build partner for the Swym Product Builder assignment (PDF at C:\swym\Build Assignment - Product Builder.pdf). Setup is COMPLETE. Do NOT read the two dataset JSONs yet — clock has not started.
+
+STATE (verify with Read/Bash if you want)
+- Repo: C:\swym\ pushed to github.com/majorjayant/swym (commit 4319984 on main)
+- Site shell deployed via Cloudflare Workers + GitHub integration, live at:
+    https://jayantarora.in/swym            → redirects to /swym/decisionlog
+    https://jayantarora.in/swym/decisionlog
+    https://jayantarora.in/swym/prototype
+    https://jayantarora.in/swym/aitrace
+- wrangler.toml at repo root: assets = ./site, route = jayantarora.in/swym* on zone jayantarora.in
+- decision-log/DECISION_LOG.md and SCRATCH.md — empty, my voice only
+- ai-trace/AI_TRACE.md — append-only, entries 001–004 already logged
+- prototype/, analysis/ — empty scaffolds with .gitkeep
+- TIMELINE.md — one-line evidence trail
+- .gitignore excludes: library_interactions_final.json, library_sessions_final.json, the PDF, CLOCK.txt, .claude/settings.local.json, .wrangler/, node_modules/
+- Both dataset JSONs are on disk, untouched. Do not read, cat, head, glob, or stat them until CLOCK START.
+
+
+TIMER (passive only — I keep my own timer on my phone)
+- On CLOCK START: write ISO start timestamp to C:\swym\CLOCK.txt, once.
+- Every response thereafter: first line only is [T+MM] computed from CLOCK.txt. Nothing else on that line. No commentary about pacing. No warnings unless I ask.
+- Append one line to TIMELINE.md at every phase start/end and every meaningful artifact: `ISO | T+MM | event`.
+- No proactive threshold announcements.
+- ONE exception: T+68 hard freeze. YOU enforce silently. When you compute T+68 or later at the top of a response, stop building in that same response and move to Phase 4 (assemble + push + verify). No advance warning. This is yours to enforce, not mine.
+
+OPERATING RULES
+- You never choose the problem. You never rank. You never say "I recommend." Options with trade-offs; I decide.
+- Decision log is MY voice — you transcribe. If my note is too thin, ask ONE sharpening question.
+- Every claim about the data comes from executed code with output shown. No pattern-matching, no memory, no plausibility. If you didn't compute it, say "not computed."
+- Every field-meaning inference is labelled INFERRED — UNVERIFIED plus the specific test that would confirm it.
+- Never invent, impute, backfill, or synthesise a data value. Missing is missing.
+- Scope gate at 100 lines. Stop and ask before writing any file over 100 lines.
+- No silent repairs. If something breaks, tell me before changing anything.
+- If data contradicts an assumption I made earlier, interrupt me IMMEDIATELY, plainly. Do not work around it.
+- Accuracy over speed. If I'm about to do something wrong, argue once, hard, then do it my way and log that I overruled you.
+- Ask instead of assume, roughly every few minutes. Batch questions, max 3.
+- Arithmetic, counts, percentages, joins — computed in code, printed. Never estimated in prose.
+
+AI_TRACE DISCIPLINE
+After every exchange from here on, append to ai-trace/AI_TRACE.md: T+MM timestamp, tool (Claude Code / model), my prompt VERBATIM (zero paraphrase, zero cleanup), one-line note on what you produced, my disposition (accepted / edited / rejected / rewrote). Never edit past entries. Do this unprompted.
+
+DELIVERABLES (PDF verbatim)
+1. Decision log — "What problem you decided to solve, and why that problem over others / What you looked at in the data first, and what it told you / At least one decision you reconsidered mid-task, and why. Write it as you go."
+2. Prototype — "Build toward the problem you defined. Partial implementation is fine. A schema, a working function, a data model, a trigger rule, any combination is acceptable provided it connects directly to the decision log."
+3. AI trace log — "What AI tools you used and at what point / Two or three prompts you actually sent, verbatim / One place where AI output was not good enough and what you did about it / One decision you made that you did not delegate to AI, and why."
+
+Deploy pipeline is proven — Phase 6 = render markdown into existing pages, commit, push, curl. Nothing else.
+
+REPLY WITH
+- The four curl results (status codes + first line of body)
+- One line: setup understood, waiting for CLOCK START
+- Up to 3 questions, if you have any
+
+Then wait. Do not open the JSONs. Do nothing else until I type CLOCK START.
+
+[Context note from user: this chat begins at IST 3:45 pm as a fresh session, prior chat covered T+0 to T+20 (15m prompt-setup + 10m git/CF-setup) and should be mentioned in the submission. Verbatim prior setup prompt included as reference.]
+```
+
+**Produced:** Verified all four routes with curl (all 200 after CF's trailing-slash 307). Reported status table, confirmed setup understood, asked 2 questions (Phase 1 shape: profiler-in-file vs raw-in-chat; whether to commit dirty working tree before CLOCK START).
+
+**Disposition:** accepted — (1) Phase 1 shape deferred until user tells me on CLOCK START. (2) Commit dirty working tree now.
+
+---
+
+## Entry 006 — [SETUP, pre-clock] 2026-07-22
+
+**Tool:** Claude Code (Opus 4.7)
+
+**Prompt (verbatim):**
+
+```
+1. you will get to know this when i tell you on phase 1. 
+2. yes please modify them. and everything from now on starts with t+25 not. because i have spent 25 minutes already in phase 0 as metnioned above. which was prompt designing pormpt enginerring bwetween gemini initially and then claude opus 4.8 for ideation and prompt setup. and then opus 4.7 for phase 0 setup, and now for phase 1 we will use fable. rememebr and mention in submission.
+```
+
+**Produced:** Recorded model-rotation provenance for submission (Gemini + Opus 4.8 ideation → Opus 4.7 phase 0 → Fable phase 1 onward). Committing working tree with a "pre-clock setup close" message. Asked one clarifying question about T-counter arithmetic: does "T+25 base" mean CLOCK.txt is written 25 min in the past at CLOCK START (making the T+68 freeze fire 43 min after data-open), or does T+68 still mean 68 min after data-open regardless of the counter offset.
+
 **Disposition:** pending
+
+---
+
+## Model rotation (running ledger — for submission)
+
+- Phase −1 (ideation / prompt engineering, ~15 min): **Gemini** then **Claude Opus 4.8** in Claude.ai.
+- Phase 0 (repo scaffold, CF Worker deploy, verification, ~10 min): **Claude Opus 4.7** in Claude Code CLI.
+- Phase 1 onward (build): **Claude Fable 5** in Claude Code CLI (per user's decision).
+- Model changes after this point are appended here.
+
