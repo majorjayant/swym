@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Branch Vision — Who Watches the AI? An AI Governance Assignment</title>
+<link rel="icon" type="image/png" href="/protiviti/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f1626;        /* deep blue-black base */
+  --panel:#182238;      /* graphite console panel */
+  --panel2:#1f2b45;
+  --line:#34435f;
+  --brass:#c9a24a;      /* brass linework */
+  --signal:#e08a2e;     /* alert amber */
+  --paper:#e9e4d6;      /* warm phosphor text */
+  --paper-dim:#a9a596;
+  --red:#c2493c;
+  --green:#4e8f6e;
+  --blue:#5b86c9;
+  --sheet:#f3efe6;      /* light working-page background */
+  --sheet-line:#d9d2c2;
+  --sheet-ink:#1a2233;
+  --sheet-dim:#5b6479;
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'IBM Plex Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
+  --rail:220px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+body{margin:0;overflow-x:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:17px;line-height:1.55;}
+a{color:var(--brass)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.12;margin:0 0 .5em}
+h1{font-size:clamp(2.6rem,5.5vw,4.8rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.9rem,3.2vw,2.8rem)}
+h3{font-size:1.45rem}
+h4{font-size:1.1rem;font-family:var(--sans);font-weight:600}
+p{max-width:68ch;margin:0 0 1em}
+.lede{font-family:var(--serif);font-size:1.35rem;font-weight:300;line-height:1.4;max-width:60ch}
+.dim{color:var(--paper-dim)}
+small,.small{font-size:.86rem}
+strong{font-weight:600}
+code{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.9em}
+
+/* rail */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);border-right:1px solid var(--line);background:var(--ink);padding:26px 18px;overflow:auto;z-index:20}
+.rail .brand{font-family:var(--serif);font-size:1.05rem;line-height:1.2;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.rail .brand span{display:block;font-family:var(--sans);font-size:.78rem;color:var(--paper-dim);margin-top:6px}
+.rail a{display:block;color:var(--paper-dim);text-decoration:none;font-size:.86rem;padding:5px 8px;border-left:2px solid transparent;margin-left:-8px}
+.rail a:hover,.rail a.on{color:var(--paper);border-left-color:var(--brass)}
+.rail .act{margin:14px 0 4px;font-size:.72rem;color:var(--brass);letter-spacing:.04em}
+.rail a.uc{padding-left:18px}
+.rail a:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.rail-toggle{display:none}
+main{margin-left:var(--rail)}
+@media (max-width:980px){
+  .rail{transform:translateX(-100%);transition:transform .2s}
+  .rail.open{transform:none}
+  main{margin-left:0}
+  .rail-toggle{display:block;position:fixed;left:12px;top:12px;z-index:30;background:var(--panel);color:var(--paper);border:1px solid var(--line);border-radius:4px;padding:8px 12px;font:inherit}
+}
+
+/* sections */
+section{padding:88px 64px;border-bottom:1px solid var(--line);position:relative}
+section.sheet{background:var(--sheet);color:var(--sheet-ink)}
+section.sheet .dim{color:var(--sheet-dim)}
+section.sheet a{color:#8a6a1c}
+.wrap{max-width:1180px}
+.eyebrow{font-size:.85rem;color:var(--brass);margin-bottom:14px}
+section.sheet .eyebrow{color:#8a6a1c}
+.cols{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:1100px){.cols,.cols3{grid-template-columns:1fr}section{padding:64px 28px}}
+
+/* hero */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:40px;padding:80px 64px;border-bottom:1px solid var(--line);overflow:hidden}
+.hero .aperture{width:100%;max-width:560px;justify-self:center}
+.hero .facts{display:flex;gap:36px;margin-top:34px;flex-wrap:wrap}
+.hero .facts div{font-family:var(--serif);font-size:2rem;line-height:1}
+.hero .facts small{display:block;font-family:var(--sans);font-size:.8rem;color:var(--paper-dim);margin-top:8px}
+@media (max-width:1100px){.hero{grid-template-columns:1fr;padding:80px 28px}}
+
+/* ledger rows (used instead of cards) */
+.ledger{border-top:1px solid var(--line);margin:22px 0}
+.ledger .row{display:grid;grid-template-columns:200px 1fr;gap:20px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.ledger .row b{font-weight:600;color:var(--brass)}
+section.sheet .ledger,section.sheet .ledger .row{border-color:var(--sheet-line)}
+section.sheet .ledger .row b{color:#8a6a1c}
+.ledger.tight .row{grid-template-columns:150px 1fr}
+
+/* rupee strip */
+.money{display:flex;gap:0;border:1px solid var(--brass);margin:26px 0;flex-wrap:wrap}
+.money div{flex:1 1 160px;padding:14px 18px;border-right:1px solid var(--brass)}
+.money div:last-child{border-right:0}
+.money b{display:block;font-family:var(--serif);font-size:1.6rem;font-weight:500}
+.money small{color:var(--paper-dim)}
+section.sheet .money small{color:var(--sheet-dim)}
+
+/* tables */
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+@media (max-width:760px){
+  .wrap table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  .wrap table td,.wrap table th{white-space:normal;min-width:110px}
+  .money div{flex:1 1 100%;border-right:0;border-bottom:1px solid var(--brass)}
+  .money div:last-child{border-bottom:0}
+  .uc-open .id{font-size:4rem;right:24px}
+  .ledger .row,.ledger.tight .row{grid-template-columns:1fr;gap:4px}
+  svg{max-width:100%;height:auto}
+}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--brass);font-size:.82rem}
+section.sheet th,section.sheet td{border-color:var(--sheet-line)}
+section.sheet th{color:#8a6a1c}
+tr:hover td{background:rgba(201,162,74,.06)}
+
+/* badges */
+.tag{display:inline-block;font-size:.74rem;padding:2px 8px;border:1px solid currentColor;border-radius:2px;margin-right:6px;line-height:1.5}
+.tier-Critical{color:#ff8b7f}.tier-High{color:var(--signal)}.tier-Moderate{color:#8fb4ec}.tier-Low{color:#8ccca9}
+section.sheet .tier-Critical{color:var(--red)}section.sheet .tier-High{color:#b3641a}section.sheet .tier-Moderate{color:#2f5aa8}section.sheet .tier-Low{color:#2e7a52}
+.speed-instant{color:var(--brass)}.speed-minutes{color:#b5b0a0}.speed-overnight{color:#8fb4ec}
+section.sheet .speed-instant{color:#8a6a1c}section.sheet .speed-minutes{color:#5b6479}
+
+/* use-case chapters */
+.uc-open{background:radial-gradient(ellipse at 70% 40%,#22304f 0%,var(--ink) 60%);min-height:60vh}
+.uc-open .id{font-family:var(--serif);font-size:7rem;font-weight:300;line-height:.9;color:var(--brass);opacity:.35;position:absolute;right:64px;top:40px}
+.uc-open .incident{border-left:2px solid var(--signal);padding:10px 18px;margin:26px 0;max-width:62ch;font-family:var(--serif);font-size:1.15rem;font-weight:300;font-style:italic}
+.uc-open .incident small{display:block;font-style:normal;font-family:var(--sans);color:var(--paper-dim);margin-top:8px}
+.uc-body h3{margin-top:34px}
+.scorecard{border:1px solid var(--sheet-line);padding:18px 20px;background:#fff}
+.scorecard table td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--sheet-line);position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:#8a6a1c}
+.ku{display:grid;grid-template-columns:1fr auto;gap:6px 14px;font-size:.92rem}
+.ku span{padding:2px 10px;font-size:.78rem;border-radius:2px;color:#fff}
+.ku .Known{background:var(--green)}.ku .Partial{background:var(--signal)}.ku .Unknown{background:var(--red)}
+.hitl{display:flex;gap:10px;align-items:stretch;margin:14px 0;flex-wrap:wrap}
+.hitl div{flex:1 1 120px;border:1px solid var(--sheet-line);padding:10px 12px;font-size:.88rem;background:#fff;position:relative}
+.hitl div.human{border-color:#8a6a1c;background:#fbf4e3}
+.hitl div::after{content:'→';position:absolute;right:-14px;top:40%;color:#8a6a1c}
+.hitl div:last-child::after{content:''}
+.callout{border:1px solid #8a6a1c;padding:16px 20px;margin:22px 0;background:#fbf4e3;max-width:72ch}
+.callout b{font-family:var(--serif);font-weight:500;font-size:1.1rem;display:block;margin-bottom:6px}
+.floorplan{width:100%;max-width:520px}
+
+/* control tower */
+.tower{background:#0b111e}
+.console{border:1px solid var(--line);background:var(--panel);margin-top:26px}
+.console .tabs{display:flex;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.console .tabs button{background:none;border:0;border-right:1px solid var(--line);color:var(--paper-dim);padding:12px 18px;font:inherit;font-size:.9rem;cursor:pointer}
+.console .tabs button.on{color:var(--paper);background:var(--panel2);box-shadow:inset 0 -2px 0 var(--brass)}
+.console .tabs button:focus-visible{outline:2px solid var(--brass);outline-offset:-2px}
+.console .pane{display:none;padding:22px 24px;min-height:520px}
+.console .pane.on{display:block}
+.console h3{font-size:1.25rem;margin-bottom:4px}
+.console .sub{color:var(--paper-dim);font-size:.9rem;margin-bottom:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:1000px){.grid2,.grid3{grid-template-columns:1fr}}
+.readout{border:1px solid var(--line);padding:12px 14px;background:var(--ink)}
+.readout b{display:block;font-family:var(--serif);font-size:1.9rem;font-weight:500;line-height:1.1}
+.readout small{color:var(--paper-dim)}
+.readout.warn b{color:var(--signal)}.readout.bad b{color:#ff8b7f}.readout.ok b{color:#8ccca9}
+label.ctl{display:block;font-size:.85rem;color:var(--paper-dim);margin:10px 0 4px}
+input[type=range]{width:100%;accent-color:var(--brass)}
+select,button.btn{background:var(--ink);color:var(--paper);border:1px solid var(--line);padding:8px 10px;font:inherit;font-size:.9rem}
+button.btn{cursor:pointer;border-color:var(--brass);color:var(--brass)}
+button.btn:hover{background:var(--brass);color:var(--ink)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.vars{display:grid;grid-template-columns:1fr 1fr;gap:4px 22px}
+.vars label{display:grid;grid-template-columns:1fr 34px;align-items:center;font-size:.86rem;color:var(--paper-dim)}
+.vars label b{color:var(--paper);font-weight:500;text-align:right}
+.vars input{grid-column:1/3}
+.matrix td.y{color:#8ccca9}.matrix td.n{color:#4a5670}
+.matrix td.e{cursor:pointer}
+.gate{border:1px solid var(--line);padding:14px 16px;margin-bottom:12px;background:var(--ink)}
+.gate h4{margin:0 0 6px}
+.gate label{display:block;font-size:.88rem;padding:4px 0;color:var(--paper-dim);cursor:pointer}
+.gate label input{margin-right:8px;accent-color:var(--brass)}
+.gate .status{float:right;font-size:.8rem}
+.steps{list-style:none;padding:0;margin:0}
+.steps li{padding:10px 12px;border-left:2px solid var(--line);margin-left:6px;color:var(--paper-dim);font-size:.92rem}
+.steps li.done{border-left-color:var(--brass);color:var(--paper)}
+.steps li.now{border-left-color:var(--signal);color:var(--paper);background:rgba(224,138,46,.08)}
+.gauge{height:10px;background:#0f1626;border:1px solid var(--line);position:relative}
+.gauge i{position:absolute;left:0;top:0;bottom:0;background:var(--brass)}
+.gauge.bad i{background:var(--red)}
+.detail{border:1px solid var(--brass);padding:16px 18px;margin-top:16px;background:var(--ink)}
+.detail h4{margin-top:0}
+.kbd{border:1px solid var(--line);padding:0 6px;border-radius:3px;font-size:.8rem;color:var(--paper-dim)}
+figure{margin:24px 0}
+figcaption{font-size:.85rem;color:var(--paper-dim);margin-top:8px;max-width:70ch}
+section.sheet figcaption{color:var(--sheet-dim)}
+svg text{font-family:var(--sans)}
+.principles{list-style:none;padding:0;margin:20px 0;counter-reset:p}
+.principles li{font-family:var(--serif);font-size:1.5rem;font-weight:300;padding:12px 0;border-bottom:1px solid var(--line);counter-increment:p}
+.principles li::before{content:counter(p);color:var(--brass);font-size:1rem;margin-right:16px;font-family:var(--sans)}
+footer{padding:40px 64px;color:var(--paper-dim);font-size:.85rem}
+.notice{font-size:.8rem;color:var(--paper-dim);border:1px dashed var(--line);padding:8px 12px;display:inline-block;margin-top:10px}
+</style>
+</head>
+<body>
+<button class="rail-toggle" onclick="document.querySelector('.rail').classList.toggle('open')">Contents</button>
+<nav class="rail" id="rail" aria-label="Contents">
+  <div class="brand">Branch Vision<span>AI governance assignment · 4,000 branches</span></div>
+  <div id="railLinks"></div>
+</nav>
+<main>
+</file_text><script>
+
+const VARS = [
+  ["impact","Impact","What happens if it is wrong? 0 inconvenience → 5 severe harm"],
+  ["decision","Decision criticality","Inform → recommend → decide → trigger action"],
+  ["autonomy","Autonomy","A0 informational → A4 autonomous multi-step"],
+  ["data","Data sensitivity","Public → personal → biometric / regulated"],
+  ["scale","Scale","One branch vs 4,000 × 32,000 cameras"],
+  ["reversibility","Reversibility","Can the consequence be undone?"],
+  ["regulatory","Regulatory exposure","Banking, privacy, HR, surveillance, fire code"],
+  ["uncertainty","Uncertainty","Known / partially known / unknown behaviour"],
+  ["blast","Blast radius","One branch, one region, all 4,000"],
+  ["action","Action surface","Systems, APIs, permissions it can touch"],
+];
+const TIERS = [[0,18,"Low"],[19,26,"Moderate"],[27,35,"High"],[36,50,"Critical"]];
+function tierOf(total){ for (const [a,b,t] of TIERS) if (total>=a && total<=b) return t; return "Critical"; }
+
+const THEMES = {
+  safety:"Safety", custody:"Custody & security", people:"People-monitoring", resilience:"Resilience", compliance:"Compliance & records"
+};
+
+const UC = [
+{ id:"01", name:"Two-person rule at the vault", theme:"custody", speed:"instant", zone:"vault", models:["M1 person","M3 door state"],
+  rule:"When the vault door opens, two custodians must be inside — if only one is, someone is told in seconds and it is recorded forever.",
+  hours:414, eng:"₹4.99 L", perBranch:"₹7,462", cloud:"₹0.9 L/yr", alertsPerDay:0.3,
+  incident:"A clerk swapped a customer's pledged gold worth ₹39.48 lakh for fakes, using vault keys left in the manager's cabin.", where:"Jamnagar, Gujarat",
+  sees:["Vault door opens (door-state model or ₹2,000 magnetic sensor)","Count people inside the vault polygon","Three-second grace, self-cancels when the second custodian walks in","Alert branch manager and security officer; 30 s clip saved on the box"],
+  asks:["Was the camera operational and the angle certified for this vault?","Which model version and threshold produced the event?","Who received the alert, who acknowledged it, and within how long?","Was any individual named, or only 'one custodian present'?","Who has opened the clip since, and why?","If the door-state model is unreliable, why are we not using the sensor?"],
+  risk:{impact:4,decision:4,autonomy:1,data:3,scale:5,reversibility:2,regulatory:3,uncertainty:2,blast:3,action:1},
+  failures:["Camera angle does not show the door clearly","Second custodian occluded by the first","Door-state model misreads a half-open door","Lighting change inside the vault","Alert delivered but nobody acknowledges"],
+  controls:["Camera suitability certificate per vault (Gate 1)","Door sensor fallback where door-state confidence is below threshold","Dual-custody rule expressed as a deterministic rule, not a model output","Human confirmation before any custody consequence","Alert acknowledgement logged with time-to-acknowledge","Clip access logged and reviewed monthly","Model version pinned in the registry","Monthly false-positive review; per-branch threshold calibration","Kill switch per branch"],
+  hitl:["AI counts one person, door open","Rule waits 3 s","Alert to manager & security officer","Human reviews the clip","Outcome logged; no automatic consequence"],
+  evidence:["Gate 1 staged-event results (≥95%)","Footage sample with annotated breaches","False-positive log per branch","Acknowledgement log","Registry record with approved version","Branch manager sign-off that alerts are actionable"],
+  ku:[["Model identified","Known"],["Camera angle at each vault","Partial"],["Door-state reliability","Partial"],["Custodian roster integration","Unknown"],["Vault lighting variation","Known"],["Retention period for clips","Partial"]],
+  simpler:"A ₹2,000 magnetic door sensor removes the hardest part of the model. If the sensor is enough, governance should prefer it.",
+  gate:"Gate 1 (instant tier)" },
+
+{ id:"02", name:"Weapon at the door", theme:"safety", speed:"instant", zone:"entrance", models:["M4 weapon"],
+  rule:"If a gun or knife shape enters, the control room and police protocol are triggered silently, without alerting the person carrying it.",
+  hours:748, eng:"₹9.01 L", perBranch:"₹7,684", cloud:"₹0.3 L/yr", alertsPerDay:0.05,
+  incident:"Five armed men, 1 pm, guard absent, alarm line cut, ₹52 lakh in fifty minutes.", where:"Surat, April 2026",
+  sees:["Weapon-shaped object detected at the entrance camera","Silent alert to the control room — no siren, no light","Control room views the live feed and the clip","Police protocol triggered only after human confirmation"],
+  asks:["What is the false-positive rate on real branch footage, per camera type?","What confidence threshold, and who approved it?","Is police escalation physically impossible without a human confirming?","What happened in the silent trial month, and who signed it off?","How fast can one branch or the whole estate be switched to advisory mode?","What does a wrong dispatch cost the bank, the person, and the police relationship?"],
+  risk:{impact:5,decision:5,autonomy:3,data:3,scale:5,reversibility:4,regulatory:4,uncertainty:3,blast:5,action:4},
+  failures:["Umbrella, tripod or long torch read as a weapon","Real weapon missed under a bag or in low light","Threshold set too low after a scare, flooding the control room","Control room acts on the alert without viewing the feed","Vendor model update changes behaviour without notice"],
+  controls:["Full-month silent trial before any live escalation","Hard rule: police dispatch requires human confirmation — no exception path","Confidence threshold approved by Security and Model Risk, recorded in the registry","False-positive harvesting: every false alert becomes training and threshold evidence","Weekly false-positive review during pilot, monthly thereafter","Kill switch to advisory mode per branch and estate-wide, tested quarterly","Vendor model-change notification clause; reassessment on any update","Executive approval (Tier 4) before Gate 2 and again before Gate 4"],
+  hitl:["AI flags weapon shape","Silent alert, no siren","Control room views feed","Human confirms or clears","Police protocol only on confirmation"],
+  evidence:["Silent-trial report with every alert classified","Threshold approval record","Dispatch-blocking control test result","Kill-switch test log","Executive approval minute","Incident register entries"],
+  ku:[["Model identified","Known"],["Camera resolution at entrances","Known"],["False-positive rate on real footage","Partial"],["Rural and monsoon performance","Unknown"],["Future camera models","Unknown"],["Police escalation protocol","Partial"],["Vendor model updates","Unknown"]],
+  simpler:"There is no simpler control — which is exactly why this is the one use case that earns Tier 4 governance and never has to justify itself on a RICE score.",
+  gate:"Gate 2 (after silent trial)" },
+
+{ id:"03", name:"Someone locked in after closing", theme:"safety", speed:"instant", zone:"strongroom", models:["M1 person"],
+  rule:"After the shutter comes down, if a human is still inside the locker or strongroom area, the guard's phone rings.",
+  hours:294, eng:"₹3.54 L", perBranch:"₹7,383", cloud:"₹0.3 L/yr", alertsPerDay:0.1,
+  incident:"A woman was locked inside a strong room overnight and found the next morning. The branch had CCTV. The guard sat outside.", where:"Delhi",
+  sees:["Shutter-closed signal switches locker cameras to one job","Person-shape present after closing?","Guard's phone rings; escalates to manager if unacknowledged","Repeats until cleared"],
+  asks:["What is the false-negative rate? A missed person here is the irreversible failure","Who is on call after hours, and does the escalation ladder actually reach someone?","What is the closing-time signal — a schedule, a sensor, or a person?","How do we prove the cameras were working after hours (UC04 dependency)?","Does anyone need to be identified? No — a person is enough"],
+  risk:{impact:5,decision:4,autonomy:1,data:3,scale:5,reversibility:3,regulatory:3,uncertainty:2,blast:2,action:1},
+  failures:["Person seated and still, below the detector's motion cue","Closing-time signal wrong on a holiday or half-day","Guard's phone off or out of range","Camera dead after hours and nobody knows","Cleaner or auditor legitimately inside, alert ignored the next time"],
+  controls:["False-negative testing with staged 'still person' scenarios","After-hours escalation ladder with named roles and a tested fallback","Closing-time signal validated per branch and per holiday calendar","UC04 camera-health check as a precondition — no health, no assurance","Acknowledgement required; unacknowledged alerts escalate on a timer","Quarterly drill"],
+  hitl:["AI sees a person after closing","Guard's phone rings","Guard checks physically","Manager escalation if silent","Drill log updated"],
+  evidence:["Staged false-negative results","Escalation ladder document and test","Holiday-calendar validation","Drill records"],
+  ku:[["Model identified","Known"],["Closing-time signal source","Partial"],["After-hours on-call coverage","Partial"],["Still-person detection rate","Unknown"],["Camera health after hours","Partial"]],
+  simpler:"A closing checklist with a physical walk-through remains the primary control. The AI is the backstop for the night the checklist is skipped.",
+  gate:"Gate 2" },
+
+{ id:"04", name:"Camera blinded or dead", theme:"resilience", speed:"instant", zone:"all", models:["M5 camera integrity + anti-spoof"],
+  rule:"If any camera goes black, blurred, moved or silent, someone finds out the same day instead of when they need the footage.",
+  hours:468, eng:"₹5.64 L", perBranch:"₹7,498", cloud:"₹0.9 L/yr", alertsPerDay:0.2,
+  incident:"Burglars cut the window grills, disabled the CCTV wiring, and took 10–11 kg of gold and ₹36–38 lakh.", where:"Thumukunta, Andhra Pradesh",
+  sees:["Each feed compared with its own baseline: brightness, sharpness, framing, signal","Deviation beyond tolerance opens an IT ticket the same day","Tampering pattern (sudden black, sudden move) alerts security immediately","Fleet-wide camera-health view at head office"],
+  asks:["Which of the other nine use cases are silently unprotected right now?","How long between camera failure and a human knowing?","Is deliberate tampering distinguished from a dirty lens?","Who owns the fix — branch, IT, or the AMC vendor — and what is the SLA?","Does a dead camera automatically suspend the use cases that depend on it?"],
+  risk:{impact:3,decision:2,autonomy:1,data:1,scale:5,reversibility:1,regulatory:2,uncertainty:1,blast:5,action:1},
+  failures:["Baseline drifts with seasons and the check becomes noisy","Camera moved a little each week, never enough to trip the tolerance","Ticket raised, nobody assigned, camera stays dead","Box itself offline — the checker cannot check"],
+  controls:["Camera-health as a precondition for every other use case's assurance","Dependency map: which cameras each use case relies on","Ticket SLA with AMC vendor; ageing report weekly","Box heartbeat monitored centrally; missing heartbeat is an incident","Seasonal baseline re-capture twice yearly","Tamper pattern escalates to security, not IT"],
+  hitl:["Feed deviates from baseline","Ticket to IT / AMC","Tamper pattern → security alert","Human confirms cause","Dependent use cases flagged"],
+  evidence:["Fleet camera-health report","Ticket ageing report","Dependency map","Heartbeat log"],
+  ku:[["Method identified","Known"],["Camera inventory per branch","Partial"],["AMC vendor SLA","Partial"],["Seasonal drift behaviour","Unknown"],["Box heartbeat coverage","Known"]],
+  simpler:"Rescoped after review: signal processing catches a black frame but not a printed photo taped over the lens or a looped still. M5 is 150 hours, not 90. This is the use case that protects the other nine.",
+  gate:"Gate 2" },
+
+{ id:"05", name:"Outsider behind the teller line", theme:"custody", speed:"instant", zone:"teller", models:["M1 person","M2 uniform"],
+  rule:"If a person not in staff uniform crosses into the cash-handling side, the guard is told immediately.",
+  hours:374, eng:"₹4.51 L", perBranch:"₹7,436", cloud:"₹0.8 L/yr", alertsPerDay:0.5,
+  incident:"A contract sweeper posed as permanent staff, used counterfeit deposit slips, and took ₹26.85 lakh from customers.", where:"Cherthala, Kerala",
+  sees:["A line drawn once on the floor plan","Person crossing the line without a staff uniform","Guard told immediately; clip saved","Branch-level count of crossings per day"],
+  asks:["What counts as 'staff uniform' in this branch, and who maintains that definition?","Is anyone identified, or only 'non-uniform person in zone'?","What happens to contract staff, auditors, engineers who legitimately cross?","How many alerts a day before the guard stops looking?","Does the alert change how the guard treats a customer?"],
+  risk:{impact:4,decision:4,autonomy:1,data:3,scale:5,reversibility:2,regulatory:3,uncertainty:3,blast:3,action:1},
+  failures:["Uniform model fails on new uniforms, jackets, winter clothing","Legitimate visitors trigger daily alerts and the guard tunes out","Line drawn in the wrong place at setup","Guard confronts a customer on a false alert"],
+  controls:["Zone drawn and signed off by the branch manager at setup","Uniform definition per branch, reviewed when uniforms change","No identification — 'non-uniform person' only","Alert cap per branch per day; response rate tracked","Guard briefing: verify, do not confront","Monthly false-positive review"],
+  hitl:["AI sees non-uniform person cross","Alert to guard","Guard looks, verifies","Escalate only if unexplained","Crossing count reported to branch"],
+  evidence:["Zone sign-off","Uniform definition record","Alert cap configuration","Response-rate report"],
+  ku:[["Models identified","Known"],["Uniform variation across regions","Partial"],["Legitimate crossing rate","Unknown"],["Zone accuracy at scale","Partial"]],
+  simpler:"A physical gate with a badge reader is the traditional control. The AI catches the branch where the gate is propped open.",
+  gate:"Gate 2" },
+
+{ id:"06", name:"Guard missing from post", theme:"people", speed:"minutes", zone:"gate", models:["M1 person","M2 uniform"],
+  rule:"If the gate is unmanned for more than fifteen minutes during banking hours, the manager knows — and so does the security vendor's scorecard.",
+  hours:394, eng:"₹4.75 L", perBranch:"₹7,449", cloud:"₹0.7 L/yr", alertsPerDay:0.8,
+  incident:"In the Surat robbery the guard was absent at 1 pm. Guard coverage is a contract requirement nobody measured.", where:"Surat, April 2026",
+  sees:["Guard-uniform presence in the gate polygon","Fifteen-minute threshold, paused during rostered breaks","Locally: an alert to the manager","Nationally: a security-vendor KPI with contract penalties"],
+  asks:["Are we monitoring the guard, or the coverage requirement?","Does the report name a person, or a branch and a gap?","Has HR and the union agreed the reporting level before deployment?","Does the roster integration exist, or are breaks guessed?","Who owns the vendor conversation when the scorecard is bad?"],
+  risk:{impact:3,decision:3,autonomy:1,data:4,scale:5,reversibility:2,regulatory:4,uncertainty:3,blast:3,action:1},
+  failures:["Guard present but out of uniform; counted as absent","Roster not integrated; every break becomes a breach","Report names individuals and reaches the union before HR","Vendor disputes the data; no evidence to back the penalty","Guard stands in frame to game the metric while ignoring the door"],
+  controls:["Branch-level reporting only: 'coverage gap at Branch 0421', never a name, until HR/union policy is agreed","Roster integration as a Gate 2 precondition","Vendor scorecard shared with the vendor before penalties apply","Evidence clip retained for disputed gaps only","HR and union briefed before deployment, not after","Employee-monitoring impact assessment on file"],
+  hitl:["AI sees no guard for 15 min","Manager nudged","Manager checks","Gap recorded at branch level","Vendor scorecard, monthly"],
+  evidence:["Employee-monitoring impact assessment","HR/union briefing record","Reporting-level configuration","Vendor scorecard and dispute log"],
+  ku:[["Models identified","Known"],["Roster system access","Unknown"],["Union position","Unknown"],["Vendor contract penalty clause","Partial"],["Uniform consistency","Partial"]],
+  simpler:"Measure the control, not the person. The dashboard says 'coverage requirement breached, Branch 0421' — not 'Rajesh Kumar was absent for 18 minutes'.",
+  gate:"Gate 2 (HR/union engagement first)" },
+
+{ id:"07", name:"Cash drawer open, unattended", theme:"custody", speed:"minutes", zone:"desk", models:["M3 drawer & seat state"],
+  rule:"If a drawer sits open with nobody in the chair, a light comes on at that desk — not an email to the manager.",
+  hours:408, eng:"₹4.92 L", perBranch:"₹7,458", cloud:"₹1.7 L/yr", alertsPerDay:1.5,
+  incident:"Adoption is a design problem. If the first thing this system does is get people into trouble, staff will block cameras with plants and files — and none of the other nine work either.", where:"Design principle from the programme",
+  sees:["Drawer state plus seat occupancy","30–60 second grace because tellers legitimately turn away","A small light at the teller's own desk","Only repeated, long gaps aggregate to a branch figure"],
+  asks:["Does the nudge stay local, or does it quietly become a scorecard?","Who can see the per-desk counts, and are they tied to a person?","What is the camera-obstruction rate — the adoption canary?","Is the threshold tuned per branch, or one number for 4,000?"],
+  risk:{impact:3,decision:3,autonomy:1,data:4,scale:5,reversibility:2,regulatory:3,uncertainty:2,blast:3,action:1},
+  failures:["Light seen as surveillance; camera obstructed with files","Drawer model confused by drawer types and lighting","Manager asks for per-teller export","Threshold too tight; light on all day; ignored"],
+  controls:["Nudge-first: desk light only; no message to the manager by default","Per-desk counts aggregated to branch level; no person linkage","Camera-obstruction incidents tracked as a system failure (Gate 2: zero tolerance)","Threshold tuned per branch; alert cap","Any change to reporting level is a material change → reassessment"],
+  hitl:["AI sees open drawer, empty chair","Wait 30–60 s","Desk light on","Teller closes drawer","Branch-level count only"],
+  evidence:["Reporting-level configuration","Camera-obstruction log","Threshold calibration record","Change requests for reporting level"],
+  ku:[["Model identified","Known"],["Drawer variety across branches","Partial"],["Staff reaction to the light","Unknown"],["Threshold per branch","Partial"]],
+  simpler:"The control is the light, not the report. Governance's job is to stop the light from becoming a report without a decision.",
+  gate:"Gate 2 (adoption canary)" },
+
+{ id:"08", name:"Queue too long / counters shut", theme:"people", speed:"minutes", zone:"queue", models:["M1 person","M9 counter state"],
+  rule:"If people are waiting while counters sit closed, the manager is told, and head office learns which branches are understaffed versus badly organised.",
+  hours:444, eng:"₹5.35 L", perBranch:"₹7,482", cloud:"₹2.6 L/yr", alertsPerDay:2.0,
+  incident:"Twelve people with six counters open is fine; twelve with two is not. The ratio, not the count. The highest-scoring use case, and the one that makes the system popular with staff rather than feared.", where:"Programme design note",
+  sees:["People waiting versus counters staffed — the ratio","Manager nudged when the ratio breaks","Footfall-by-hour across 4,000 branches","Head office view: understaffed vs badly organised"],
+  asks:["Is the head-office view about branches or about people?","Could footfall data be repurposed for customer identification later? (Purpose limitation)","Which branches get the wrong message from a metric designed elsewhere?","What is the alert cap — this is the noisiest use case?"],
+  risk:{impact:2,decision:2,autonomy:1,data:2,scale:5,reversibility:1,regulatory:2,uncertainty:2,blast:3,action:1},
+  failures:["Queue area drawn badly; passers-by counted as waiting","Counter-state model confused by a teller stepping away","Metric used to rank branch managers punitively","Data reused for a purpose nobody assessed"],
+  controls:["Branch-level analytics; no punitive employee scoring","Purpose limitation recorded in the registry; secondary use needs a new assessment","Alert cap and quiet hours","Zone review at every branch setup","Quarterly review of how head office actually uses the metric"],
+  hitl:["AI computes waiting-to-counters ratio","Manager nudged","Manager opens a counter","Branch metric to head office","Quarterly use review"],
+  evidence:["Purpose statement in registry","Alert cap configuration","Head-office usage review"],
+  ku:[["Models identified","Known"],["Queue-zone consistency","Partial"],["Head-office use of the metric","Unknown"],["Token-system integration","Partial"]],
+  simpler:"The token system already knows the queue in many branches. Where it exists, integrate it first; use the camera where it does not.",
+  gate:"Gate 1 (minutes tier)" },
+
+{ id:"09", name:"Fire exit blocked", theme:"safety", speed:"minutes", zone:"exit", models:["M6 object in path"],
+  rule:"If anything sits in the marked exit path for more than thirty minutes, facilities gets a ticket.",
+  hours:368, eng:"₹4.43 L", perBranch:"₹7,432", cloud:"₹0.5 L/yr", alertsPerDay:0.3,
+  incident:"Inspection-day compliance becomes something continuously true. The exit is clear when the inspector visits and blocked the other 364 days.", where:"Programme design note",
+  sees:["Objects sitting in the marked exit path","Thirty-minute threshold","Ticket to facilities","Branch compliance trend"],
+  asks:["Who closes the ticket, and is closure verified by the camera?","Does the fire-safety officer see this, or only facilities?","Is the exit path drawn where the fire plan says it is?","What happens when the ticket ages past a week?"],
+  risk:{impact:4,decision:2,autonomy:1,data:1,scale:5,reversibility:1,regulatory:3,uncertainty:2,blast:2,action:1},
+  failures:["Path drawn from the floor plan, not the fire plan","Ticket closed without the object moving","Seasonal stock (festive cash bags) blocks exits everywhere at once","Camera does not cover the full path"],
+  controls:["Exit path validated against the fire-safety plan","Camera-verified ticket closure","Ageing report to the fire-safety officer","Coverage check at setup"],
+  hitl:["AI sees object in path","Wait 30 min","Ticket to facilities","Facilities clears","Camera confirms closure"],
+  evidence:["Fire-plan validation","Ticket ageing report","Closure verification log"],
+  ku:[["Model identified","Known"],["Fire-plan alignment per branch","Partial"],["Facilities SLA","Partial"],["Camera coverage of exit paths","Partial"]],
+  simpler:"A painted line and a weekly walk. The camera makes the walk continuous.",
+  gate:"Gate 3" },
+
+{ id:"10", name:"UV lamp cheque check skipped", theme:"compliance", speed:"overnight", zone:"teller", models:["M7 cheque present","M8 UV lamp lit"],
+  rule:"Every morning the branch gets one line: cheques processed, UV checks done, checks skipped.",
+  hours:628, eng:"₹7.57 L", perBranch:"₹7,604", cloud:"₹0.4 L/yr", alertsPerDay:0,
+  incident:"Signature verification happens every time. The UV check gets skipped when the queue is long, and that is the step that catches a forged cheque. Nobody measures the skip rate today.", where:"Programme design note",
+  sees:["Runs overnight at 2 am in the cloud, not live","Cheque present? UV lamp lit?","Count per branch, reconciled against core-banking cheque volume","One line in the morning"],
+  asks:["Is the count reconciled against Finacle/CBS, and who signs the reconciliation?","Is this an audit record? Then what is the retention and who can alter it?","Does the morning line name a teller?","Both models are custom — what is the validation set and who validated it?","What is the CBS access scope — read-only, which fields, logged?"],
+  risk:{impact:3,decision:3,autonomy:1,data:3,scale:5,reversibility:2,regulatory:4,uncertainty:4,blast:3,action:2},
+  failures:["UV lamp lit but off-camera; counted as skipped","Cheque model misses small or folded cheques","Reconciliation gap blamed on tellers instead of the model","CBS access wider than needed","Morning line becomes a disciplinary tool"],
+  controls:["Validation set built from real branch footage; independent validation by Model Risk","Daily reconciliation against CBS with tolerance; exceptions reviewed","Branch-level line only; no teller linkage without a separate assessment","CBS read-only, field-scoped, logged","Audit-record retention schedule approved by the DPO","Compliance owner named"],
+  hitl:["Overnight count","Reconcile with CBS","Exception review by compliance","Branch line in the morning","Skip-rate trend to audit"],
+  evidence:["Independent validation report","Reconciliation log","CBS access record","DPO retention approval"],
+  ku:[["Models identified","Known"],["Validation set","Partial"],["CBS read access","Unknown"],["Retention schedule","Partial"],["Camera view of UV lamp per desk","Partial"]],
+  simpler:"There is no off-the-shelf model — which is why it is expensive and why it is valuable. Governance's contribution is the reconciliation, not the model.",
+  gate:"Gate 1 (overnight tier)" },
+];
+UC.forEach(u=>{ u.total = Object.values(u.risk).reduce((a,b)=>a+b,0); u.tier = tierOf(u.total); });
+
+const GATES = [
+  { n:1, name:"Qualify", scope:"1 branch · 3 use cases · 6 weeks", cost:"₹0.36 cr", ucs:["01","08","10"],
+    pass:["≥95% of staged events detected on real branch footage","≤2 false alarms per use case per week","Instant-tier alerts within 5 seconds","Box uptime ≥99% over 4 weeks, including two simulated outages","Branch manager confirms in writing that alerts are actionable"],
+    gov:["AI registered with owners named","Risk classified, tier recorded","Privacy assessment and data-flow map","Human oversight and escalation defined","Kill switch defined and tested","Test criteria approved before testing starts","Evidence captured to the repository"],
+    money:{eng:"₹34.8 L",hw:"₹0.9 L",cloud:"₹0.1 L",other:"₹0.5 L"} },
+  { n:2, name:"Pilot", scope:"50 branches · 6 use cases · 12 weeks", cost:"₹0.80 cr", ucs:["01","02","03","05","06","08"],
+    pass:["Response rate ≥70% — not detection rate","≤3 false alarms per branch per week across all six","Weak-connectivity branches at ≥98% uptime","Zero instances of staff obstructing cameras","Per-branch configuration under 45 minutes","At least one genuine incident caught that would otherwise have been missed"],
+    gov:["Weapon silent-trial report and executive approval","HR/union briefed on staff-related use cases","Roster and token integrations assessed","Access logs reviewed weekly","Incident process exercised at least once","Alert-cap and threshold calibration records per branch"],
+    money:{eng:"₹40.6 L",hw:"₹35.6 L",cloud:"₹0.6 L",other:"₹3.0 L"} },
+  { n:3, name:"Scale test", scope:"500 branches · all 10 · 16 weeks", cost:"₹4.03 cr", ucs:["01","02","03","04","05","06","07","08","09","10"],
+    pass:["≤0.5 support tickets per branch per month","Central platform 95th-percentile query under 3 seconds","≥60% of zonal managers using dashboards weekly","Rollout run-rate of ≥30 branches per week proven","Cost per branch within 10% of plan"],
+    gov:["Alert volume vs control-room capacity modelled and staffed","CBS read access scoped and DPO-approved (UC10)","Ticketing integrations governed (UC04, UC09)","Governance evidence produced at scale, not by hand","Model drift review cycle running monthly","Vendor scorecard process live (UC06)"],
+    money:{eng:"₹29.0 L",hw:"₹3.49 cr",cloud:"₹2.5 L",other:"₹15.0 L"} },
+  { n:4, name:"Full rollout", scope:"4,000 branches · 12–18 months", cost:"₹25.9 cr", ucs:["01","02","03","04","05","06","07","08","09","10"],
+    pass:["250–300 branches a month sequenced by risk","Currency chests and gold-loan branches first, then urban, then rural","Cost, uptime and response rate held within Gate 3 tolerances"],
+    gov:["Governance approval and risk-sequenced rollout plan signed by Risk","AMC vendor contract amended for installation","Zonal manager training complete","Incident, change and drift processes in BAU","Rollback and kill-switch tested per wave","Audit evidence available on demand"],
+    money:{eng:"₹11.6 L",hw:"₹24.5 cr",cloud:"₹10.0 L",other:"₹1.10 cr"} },
+];
+
+const CONTROLS = [
+  ["C001","Named business owner","Registry","Business owner","Annual","all"],
+  ["C002","Registered before production","Registry record","Governance office","Per system","all"],
+  ["C003","Risk classified before deployment","Scorecard","Governance office","Per system","all"],
+  ["C004","Impact assessment (Tier 3/4)","Assessment","Governance office","Before deployment","High"],
+  ["C005","Documented human oversight","SOP + ack log","Business owner","Annual","all"],
+  ["C006","Performance thresholds met before production","Gate evidence","Model risk","Per release","all"],
+  ["C007","Model version pinned","Model record","Technical owner","Per release","all"],
+  ["C008","Material change triggers reassessment","Change record","Model owner","Per change","all"],
+  ["C009","Monitoring metrics and thresholds defined","Monitoring config","Technical owner","Continuous","all"],
+  ["C010","Incidents enter the AI incident register","Incident record","Governance office","Per incident","all"],
+  ["C011","Role-based access to footage and evidence","Access logs","Security","Continuous","all"],
+  ["C012","Evidence retained per schedule","Deletion log","DPO","Monthly","all"],
+  ["C013","Tested kill switch","Kill-switch test log","Technical owner","Quarterly","High"],
+  ["C014","Vendor model-change notification","Contract clause + log","Vendor mgmt","Per change","vendor"],
+  ["C015","Auditable alerts, approvals, evidence access","Audit trail","Technology","Continuous","all"],
+  ["C016","Branch-level reporting for staff-related outputs","Reporting config","HR + business owner","Per change","people"],
+  ["C017","Camera-health precondition for dependent use cases","Dependency map","Technical owner","Continuous","all"],
+  ["C018","Alert cap and response-rate tracking","Alert config + report","Business owner","Weekly","all"],
+];
+
+/* ============ ESTIMATE SPINE — every figure traced ============ */
+
+const BOQ = {
+  standard:{ label:"Standard box", price:65500, count:3400, note:"3,400 branches",
+    items:[
+      ["Jetson Orin NX module","8 GB · 100 TOPS",34000,"Distributor volume tier at 4,000-unit commitment. <b>Assumption, not a quote.</b> A 10% move is ≈₹2.9 cr across the fleet."],
+      ["Industrial carrier board","I/O, power, camera interfaces",8500,"Indian OEM rather than imported reference carrier."],
+      ["PoE switch","8-port",5200,"Powers and connects the existing eight cameras to the box."],
+      ["Installation + commissioning","Mount, connect, zone config, test",5500,"Folded into the branch AMC vendor already visiting. ~30 min of zone configuration per branch."],
+      ["Enclosure, cabling, mounts","Back-room rack or wall mount",3600,"Branch back-room environment; dust and heat tolerance."],
+      ["SSD storage","256 GB — 30 days of local clips",2400,"Clip service writes 30 s either side of each event, on the box."],
+      ["UPS","30-minute hold",2900,"The box must outlive a short power cut."],
+      ["Power supply + surge","Industrial PSU",1800,"Branch power quality varies widely."],
+      ["Miscellaneous + freight","Cables, brackets, landed cost",1600,"Landed and commissioned pricing."],
+    ]},
+  enhanced:{ label:"Enhanced box", price:94000, count:600, note:"600 branches — currency chests, gold-loan, high-value",
+    deltas:[
+      ["Orin NX 16 GB instead of 8 GB",13000,"157 TOPS — headroom for 20–25 further use cases. <b>Not for capacity today:</b> the standard box already runs all ten."],
+      ["60-min UPS instead of 30",3400,"A currency chest cannot go blind in a power cut."],
+      ["1 TB SSD instead of 256 GB",3300,"Longer local clip retention at high-value sites."],
+      ["Managed PoE switch",4400,"VLAN separation from the branch network."],
+      ["4G failover modem",5400,"Alerts must reach head office if the branch line is cut — the Surat failure mode."],
+      ["Larger enclosure, cabling, install",2000,"More testing at commissioning."],
+    ]},
+  spares:{ pct:3, amount:8400000, note:"3% spares pool held centrally" },
+  fleet:{ std:222700000, enh:56400000, spares:8400000, total:287500000 },
+  perBranch:71868, perUCperBranch:7187,
+  rejected:[
+    ["Raspberry Pi 5","₹8,000","No CUDA. 8–12 fps against 24 required."],
+    ["Google Coral","cheaper/unit","Restricted model support — blocks anti-spoof and weapon models."],
+    ["Hailo","cheaper/unit","Same model-support restriction; kept as a fallback if NVIDIA pricing moves."],
+    ["Server-grade GPU","much higher","Wrong on power, cooling and cost for 24 fps in a branch back-room."],
+  ]
+};
+
+const ROLES = [
+  ["Senior CV Engineer",1800,650,"₹11.70 L","Model architecture, weapon and anti-spoof validation, review"],
+  ["Mid CV Engineer",1150,920,"₹10.58 L","Data preparation, training runs, tuning cycles"],
+  ["Senior Backend Engineer",1300,480,"₹6.24 L","Rule engine, edge agent, offline queue"],
+  ["Mid Backend Engineer",900,700,"₹6.30 L","Alert service, clip service, integrations"],
+  ["Cloud Engineer",1250,480,"₹6.00 L","Ingestion, event store, security, provisioning"],
+  ["DevOps Engineer",1250,340,"₹4.25 L","Edge deployment, OTA, fleet monitoring"],
+  ["Frontend Engineer",980,420,"₹4.12 L","Zone configuration tool, three dashboard tiers"],
+  ["QA Engineer",720,410,"₹2.95 L","Test scenarios, field validation, false-alarm logging"],
+  ["PM / Business Analyst",1400,140,"₹1.96 L","Requirements, accuracy criteria, governance pack"],
+];
+
+const MODELS = [
+  ["M1","Person detection",80,["01","03","05","06","08"]],
+  ["M2","Uniform / staff",120,["05","06"]],
+  ["M3","Door & drawer state",140,["01","07"]],
+  ["M4","Weapon",320,["02"]],
+  ["M5","Camera integrity + anti-spoof",150,["04"]],
+  ["M6","Static object",80,["09"]],
+  ["M7","UV lamp state",110,["10"]],
+  ["M8","Cheque presence",120,["10"]],
+  ["M9","Crowd counting",60,["08"]],
+];
+
+const HOURS = { platform:2080, models:1180, specific:1280, total:4540, blended:1205, cost:"₹54.71 L", billed:"₹1.20 cr", multiple:2.2 };
+
+const UCHOURS = {
+  "01":[120,"M1 + M3",86,208,414,"₹4.99 L"], "02":[220,"M4",320,208,748,"₹9.01 L"],
+  "03":[70,"M1",16,208,294,"₹3.54 L"],      "04":[110,"M5",150,208,468,"₹5.64 L"],
+  "05":[90,"M1 + M2",76,208,374,"₹4.51 L"], "06":[110,"M1 + M2",76,208,394,"₹4.75 L"],
+  "07":[130,"M3",70,208,408,"₹4.92 L"],     "08":[160,"M1 + M9",76,208,444,"₹5.35 L"],
+  "09":[80,"M6",80,208,368,"₹4.43 L"],      "10":[190,"M7 + M8",230,208,628,"₹7.57 L"],
+};
+
+const CAMERAS = [
+  [1,"Entry vestibule",["02","06"]], [2,"ATM vestibule",["02","04"]],
+  [3,"Banking hall",["02","08","09"]], [4,"Teller counters",["02","05","07","10"]],
+  [5,"Vault vestibule",["01","02","03"]], [6,"Back office",["02","04"]],
+  [7,"Manager cabin",["02","04"]], [8,"Locker room",["02","03","04"]],
+];
+
+const LOAD = [
+  ["Combined detector — person + weapon, 8 cameras @ 3 fps, single forward pass",31,"Stage 1 · once per camera"],
+  ["Uniform classifier — runs only on person crops already found",4,"Stage 2"],
+  ["Camera integrity + anti-spoof — 0.2 fps on all eight",3,"Stage 2"],
+  ["Door & drawer state — 1 fps on two cameras",2,"Stage 2"],
+  ["Static object in exit path — 0.2 fps on the hall",2,"Stage 2"],
+  ["Ten rule sets — arithmetic on detector output",0,"Stage 3"],
+];
+
+const MSGS = [
+  ["08",96,"Queue state sampled through the day"], ["07",40,"Highest-frequency everyday event"],
+  ["01",10,"6 vault openings, each logged"], ["04",10,"8 cameras, health beacon each"],
+  ["05",8,"Crossings, mostly legitimate"], ["06",6,"Post state changes"],
+  ["09",4,"Path state changes"], ["10",3,"One nightly tally"],
+  ["03",2,"One closing sweep result"], ["02",1,"Fires rarely; heartbeat only"],
+];
+const MSGTOT = { events:180, heartbeat:288, perBranch:468, fleet:"1.87 M", mbday:100, streamed:"86 TB" };
+
+const CLOUD = {
+  rows:[
+    ["Edge runtime","IoT Edge — free, open source",0,"Greengrass — $0.16/device/mo",640],
+    ["Ingestion","IoT Hub S1, 5 units × $25",125,"IoT Core, 56M @ $1.00/M",56],
+    ["Device provisioning","DPS, $0.10/1,000 ops",2,"IoT Device Management",8],
+    ["Event processing","Functions, 56M @ $0.20/M",11,"Lambda, 56M @ $0.20/M",11],
+    ["Event routing","Event Grid, 56M @ $0.60/M",34,"EventBridge",28],
+    ["Event store","Cosmos DB serverless, ~90 GB/mo",180,"DynamoDB on-demand",165],
+    ["Clip archive","Blob Storage, ~200 GB",6,"S3",5],
+    ["Dashboards","App Service P1v3",120,"ECS",130],
+    ["Monitoring","Azure Monitor, 60 GB @ $2.76",166,"CloudWatch",180],
+    ["Push notifications","Notification Hubs",25,"SNS + Pinpoint",60],
+    ["SMS, Indian routes","Local aggregator",430,"Local aggregator",470],
+    ["Secrets · registry · egress","Key Vault · ACR · ~300 GB",51,"Secrets Manager · ECR · egress",59],
+  ],
+  azure:1150, aws:1812, gap:662, greengrass:640, after:943, inr:"₹10 L a year", perBranchMo:"₹21"
+};
+
+const TCO = {
+  year1:[["Hardware, fleet of 4,000","₹28.75 cr","BOQ"],["Engineering, billed at 2.2×","₹1.20 cr","Effort"],
+         ["Rollout, training, change management","₹1.12 cr","Gates"],["Cloud, year 1","₹0.10 cr","Data flow"]],
+  y1total:"₹31.17 cr", annual:"₹5.10 cr", five:"₹51.57 cr",
+  perBranch5:"₹1,28,925", perCamMo:"₹269",
+  run:[["Hardware maintenance & replacement","12% of ₹28.75 cr fleet","₹3.45 cr","Failed boxes, switches, SSDs, PSUs, spares logistics. 12% rather than the 15–18% norm because a 5-year contract is committed and L1 stays in-house"],
+       ["L1/L2 support desk","8 FTE","₹0.72 cr","Branch queries, alert triage, escalation across 4,000 sites"],
+       ["Model retraining and drift","2 FTE","₹0.36 cr","The Phase B tuning loop, running permanently"],
+       ["Enhancements","2–3 new use cases a year","₹0.35 cr","From the 40 remaining in the wider catalogue. No additional hardware"],
+       ["Security patching and compliance","1 FTE","₹0.12 cr","OS patching, certificate rotation, audit support"],
+       ["Cloud","Measured message volume","₹0.10 cr","All ten use cases, 4,000 branches"]]
+};
+
+const CHALLENGE = [
+  ["320 hrs","M4 weapon model","The largest single technical unknown, and the only model carried by one use case alone","governance: Tier 4, silent trial, independent validation"],
+  ["₹34,000","Jetson module unit price","A volume-tier assumption, not a quote. All hardware scales from it — a 10% move is ≈₹2.9 cr","governance: procurement evidence, vendor lock-in control"],
+  ["42%","Measured compute load","If peak load in a crowded branch exceeds this materially, the box specification changes","governance: capacity monitoring as a control"],
+  ["₹29 cr","Imported hardware","Exposed to currency movement — larger than every technical risk combined","governance: named owner, hedge or fixed-rupee terms"],
+];
+
+const RISKS = [
+  ["Currency on ₹29 cr imports","High","±₹1.5–2.5 cr","Vendor fixes rupee pricing 18 months, or the bank hedges. Needs a named owner."],
+  ["Camera angles unsuitable","High","₹0.24 cr","Gate 1 exists for this. ~15% repositioning at ₹4,000 each, already budgeted."],
+  ["Weapon model below target","Medium","+₹0.15–0.30 cr","Silent trial; advisory mode; threshold rework before any live escalation."],
+  ["Anti-spoof harder than scoped","Medium","+₹0.10 cr","M5 already rescoped 90→150 hrs after review."],
+  ["Scope creep beyond the ten","High","unbounded","Waves are contractual. Wave 2 does not open until Wave 1 metrics are met."],
+  ["Staff resistance / unions","High","schedule","Branch-level reporting only. Brief unions before deployment, not after."],
+  ["Rural connectivity","High","absorbed","Everything critical runs on the box; records queue locally. 4G failover on enhanced boxes."],
+  ["Alert fatigue","Medium–High","schedule","Cap alerts per branch per day. A fall in response rate is treated as a system failure."],
+  ["Integration delays","Medium","schedule","Ship phase one without them. A log that says 'a person' is still useful."],
+  ["Board supply / lead time","Medium","schedule","Order against the gate plan, not the full fleet."],
+];
+
+const INCIDENTS = [
+  ["Surat","Apr 2026","₹52 lakh","Five armed men at 1 pm. Guard absent, alarm line cut, fifty minutes inside.",["02","06"]],
+  ["Jamnagar","2026","₹39.48 lakh","Clerk swapped pledged gold for fakes using vault keys left in the manager's cabin.",["01"]],
+  ["Thumukunta, AP","2026","₹36–38 L + 10 kg gold","Window grills cut, CCTV wiring disabled first, then lockers emptied.",["04","03"]],
+  ["Cherthala, Kerala","2026","₹26.85 lakh","Contract sweeper posed as permanent staff, used counterfeit deposit slips.",["05"]],
+  ["Saharanpur","2026","₹17.29 crore","Counterfeit notes through a currency chest. Three employees suspended.",["10"]],
+];
+
+/* ================= SVG helpers ================= */
+function apertureSVG(){
+  const R=150, r=58, n=8;
+  let blades='';
+  for(let i=0;i<n;i++){
+    const a0=(i*360/n)*Math.PI/180, a1=((i*360/n)+62)*Math.PI/180;
+    const x0=R*Math.cos(a0), y0=R*Math.sin(a0);
+    const x1=R*Math.cos(a1), y1=R*Math.sin(a1);
+    const xi=r*Math.cos(a1), yi=r*Math.sin(a1);
+    blades+=`<path d="M${x0.toFixed(1)},${y0.toFixed(1)} A${R},${R} 0 0,1 ${x1.toFixed(1)},${y1.toFixed(1)} L${xi.toFixed(1)},${yi.toFixed(1)} Z" fill="rgba(201,162,74,.05)" stroke="var(--brass)" stroke-width="1" opacity=".6"/>`;
+  }
+  let dots='';
+  for(let i=0;i<32;i++){const a=i*11.25*Math.PI/180,rr=196;dots+=`<circle cx="${(rr*Math.cos(a)).toFixed(1)}" cy="${(rr*Math.sin(a)).toFixed(1)}" r="2.4" fill="var(--brass)" opacity="${i%4===0?'.85':'.3'}"/>`;}
+  return `<svg class="aperture" viewBox="-230 -230 460 460" role="img" aria-label="Camera aperture; thirty-two markers, one per thousand cameras">
+    <circle r="215" fill="none" stroke="var(--line)"/><circle r="196" fill="none" stroke="var(--line)" opacity=".6"/>
+    ${dots}<g>${blades}</g>
+    <circle r="${r}" fill="var(--ink)" stroke="var(--signal)" stroke-width="1.4"/>
+    <circle r="6" fill="var(--signal)"/>
+    <text y="34" text-anchor="middle" fill="var(--paper-dim)" font-size="10.5">watching</text>
+    <text y="240" text-anchor="middle" fill="var(--paper-dim)" font-size="11">32,000 cameras · 4,000 branches</text>
+  </svg>`;
+}
+
+function pipelineSVG(){
+  const steps=[["1","See","feed arrives"],["2","Sample","3 fps not 30"],["3","Detect","what we look for"],["4","Locate","inside the zone"],["5","Judge","what the rule says"],["6","Wait","grace period"],["7","Tell","who is told"],["8","Prove","30 s clip, on box"],["9","Report","~400 bytes up"]];
+  const gov=["data provenance","sampling defensible","model risk","zone sign-off","rule is the control","threshold approved","human oversight","retention & access","audit trail"];
+  const W=1180,x0=30,gap=(W-60)/9;
+  let s=`<svg viewBox="0 0 ${W} 250" role="img" aria-label="Nine-step pipeline with the governance question at each step">`;
+  s+=`<line x1="${x0}" y1="92" x2="${W-30}" y2="92" stroke="var(--line)"/>`;
+  steps.forEach((st,i)=>{
+    const x=x0+gap*i+gap/2, variable=[2,4,6].includes(i);
+    s+=`<circle cx="${x}" cy="92" r="21" fill="${variable?'var(--signal)':'var(--panel2)'}" stroke="var(--brass)"/>`;
+    s+=`<text x="${x}" y="97" text-anchor="middle" font-size="13" fill="${variable?'#1b1205':'var(--paper)'}" font-weight="600">${st[0]}</text>`;
+    s+=`<text x="${x}" y="40" text-anchor="middle" font-size="13" fill="var(--paper)">${st[1]}</text>`;
+    s+=`<text x="${x}" y="58" text-anchor="middle" font-size="10.5" fill="var(--paper-dim)">${st[2]}</text>`;
+    s+=`<line x1="${x}" y1="113" x2="${x}" y2="140" stroke="var(--line)"/>`;
+    const words=gov[i].split(' ');
+    words.forEach((w,j)=>{ s+=`<text x="${x}" y="${156+j*13}" text-anchor="middle" font-size="10" fill="var(--brass)">${w}</text>`; });
+  });
+  s+=`<text x="${x0}" y="225" font-size="11" fill="var(--paper-dim)">Amber = the three steps that differ per use case (3, 5, 7). The other six are the shared platform — 46% of the engineering.</text>`;
+  return s+`</svg>`;
+}
+
+function floorSVG(active){
+  const rooms=[["entrance",30,150,110,90,"Entry"],["queue",150,90,200,150,"Banking hall"],["teller",360,90,180,90,"Teller counters"],["desk",360,190,180,50,"Desks"],["vault",550,90,120,80,"Vault"],["strongroom",550,180,120,60,"Locker"],["exit",30,60,110,80,"Fire exit"],["gate",30,250,110,60,"Gate"]];
+  let s=`<svg class="floorplan" viewBox="0 0 700 330" role="img" aria-label="Branch floor plan with the active zone highlighted">`;
+  s+=`<rect x="20" y="50" width="660" height="270" fill="none" stroke="var(--sheet-line)"/>`;
+  rooms.forEach(([k,x,y,w,h,label])=>{
+    const on = (active===k)||(active==='all');
+    s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${on?'#fbf4e3':'#fff'}" stroke="${on?'#8a6a1c':'var(--sheet-line)'}" stroke-width="${on?1.6:1}"/>`;
+    s+=`<text x="${x+w/2}" y="${y+h/2+4}" text-anchor="middle" font-size="11" fill="${on?'#8a6a1c':'#8d94a4'}">${label}</text>`;
+  });
+  CAMERAS.forEach(([n,,],i)=>{
+    const pos=[[75,165],[75,80],[250,110],[450,105],[610,105],[450,205],[300,300],[610,195]][i];
+    s+=`<circle cx="${pos[0]}" cy="${pos[1]}" r="8" fill="#1a2233"/><text x="${pos[0]}" y="${pos[1]+3.5}" text-anchor="middle" font-size="9" fill="#f3efe6">${n}</text>`;
+  });
+  return s+`</svg>`;
+}
+
+function radarSVG(risk){
+  const keys=VARS.map(v=>v[0]), n=keys.length, R=88, cx=120, cy=115;
+  const pt=(i,val)=>{const a=(i/n)*2*Math.PI-Math.PI/2,r=R*(val/5);return [cx+r*Math.cos(a),cy+r*Math.sin(a)];};
+  let rings='';
+  for(let g=1;g<=5;g++){ let p=''; for(let i=0;i<n;i++){const a=(i/n)*2*Math.PI-Math.PI/2,r=R*(g/5);p+=`${i?'L':'M'}${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`;} rings+=`<path d="${p}Z" fill="none" stroke="var(--sheet-line)"/>`; }
+  let poly=''; keys.forEach((k,i)=>{const [x,y]=pt(i,risk[k]);poly+=`${i?'L':'M'}${x.toFixed(1)},${y.toFixed(1)}`;});
+  let labels=''; VARS.forEach((v,i)=>{const [x,y]=pt(i,5.85);labels+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#5b6479">${v[1].split(' ')[0]}</text>`;});
+  return `<svg viewBox="0 0 240 235" role="img" aria-label="Risk profile across ten variables">${rings}<path d="${poly}Z" fill="rgba(138,106,28,.18)" stroke="#8a6a1c" stroke-width="1.6"/>${labels}</svg>`;
+}
+
+function boqSVG(){
+  const std=BOQ.standard.items, total=65500; let acc=0;
+  let s=`<svg viewBox="0 0 760 132" role="img" aria-label="Standard box cost build-up by component">`;
+  std.forEach((it,i)=>{
+    const w=(it[2]/total)*720, x=20+acc; acc+=w;
+    const big=it[2]>=5000;
+    s+=`<rect x="${x.toFixed(1)}" y="34" width="${Math.max(w-1.5,1).toFixed(1)}" height="40" fill="${i===0?'var(--brass)':(big?'#4a5b7d':'#2b374f')}"/>`;
+    if(big) s+=`<text x="${(x+w/2).toFixed(1)}" y="90" text-anchor="middle" font-size="9.5" fill="var(--paper-dim)">₹${(it[2]/1000).toFixed(1)}k</text>`;
+  });
+  s+=`<text x="20" y="22" font-size="11" fill="var(--paper-dim)">Standard box · ₹65,500</text>`;
+  s+=`<text x="${20+((34000/total)*720)/2}" y="60" text-anchor="middle" font-size="11" fill="#1b1205" font-weight="600">Module 52%</text>`;
+  s+=`<text x="20" y="118" font-size="10.5" fill="var(--paper-dim)">One assumption — the ₹34,000 module — sets 52% of a ₹28.75 cr line.</text>`;
+  return s+`</svg>`;
+}
+
+function alertScaleSVG(){
+  const pts=[[1,3],[50,150],[500,1500],[4000,12000]];
+  let s=`<svg viewBox="0 0 640 230" role="img" aria-label="Alert volume against human response capacity across the four gates">`;
+  s+=`<line x1="60" y1="180" x2="610" y2="180" stroke="var(--sheet-line)"/><line x1="60" y1="24" x2="60" y2="180" stroke="var(--sheet-line)"/>`;
+  const X=i=>60+i*180, lx=v=>Math.log10(v+1);
+  let path='',cap='';
+  pts.forEach((p,i)=>{ const y=180-(lx(p[1])/lx(12000))*150; path+=`${i?'L':'M'}${X(i)},${y.toFixed(1)}`;
+    s+=`<circle cx="${X(i)}" cy="${y.toFixed(1)}" r="4" fill="#8a6a1c"/>`;
+    s+=`<text x="${X(i)}" y="${(y-12).toFixed(1)}" text-anchor="middle" font-size="10.5" fill="#1a2233">${p[1].toLocaleString()}/day</text>`;
+    s+=`<text x="${X(i)}" y="198" text-anchor="middle" font-size="10.5" fill="#5b6479">Gate ${i+1} · ${p[0].toLocaleString()} br</text>`; });
+  const capY=180-(lx(2500)/lx(12000))*150;
+  s+=`<path d="${path}" fill="none" stroke="#8a6a1c" stroke-width="2"/>`;
+  s+=`<line x1="60" y1="${capY.toFixed(1)}" x2="610" y2="${capY.toFixed(1)}" stroke="var(--red)" stroke-dasharray="5 4"/>`;
+  s+=`<text x="64" y="${(capY+14).toFixed(1)}" font-size="10.5" fill="var(--red)">control-room capacity at current staffing</text>`;
+  s+=`<text x="60" y="220" font-size="10.5" fill="#5b6479">Alert volume is a governance metric. Detection that outruns response is not a working control.</text>`;
+  return s+`</svg>`;
+}
+
+function faceTreeSVG(){
+  const L=[["Recognise nobody","Count people, zones, objects","Default — all ten use cases today","ok"],
+           ["Verify staff","Is this person a rostered custodian?","Privacy, legal and HR assessment first","warn"],
+           ["Watchlist matching","Is this person on a security list?","Explicit legal, privacy, security approval","bad"],
+           ["Identify customers","Who walked into the branch?","Not in the first wave","bad"]];
+  let s=`<svg viewBox="0 0 720 250" role="img" aria-label="Four levels of face recognition and what each requires">`;
+  L.forEach((l,i)=>{
+    const y=18+i*58, col=l[3]==='ok'?'var(--green)':(l[3]==='warn'?'var(--signal)':'var(--red)');
+    s+=`<rect x="20" y="${y}" width="680" height="46" fill="${i===0?'#fbf4e3':'#fff'}" stroke="${col}"/>`;
+    s+=`<rect x="20" y="${y}" width="4" height="46" fill="${col}"/>`;
+    s+=`<text x="42" y="${y+20}" font-size="13" fill="#1a2233" font-weight="600">Level ${i+1} — ${l[0]}</text>`;
+    s+=`<text x="42" y="${y+37}" font-size="11" fill="#5b6479">${l[1]}</text>`;
+    s+=`<text x="690" y="${y+28}" text-anchor="end" font-size="11" fill="${col}">${l[2]}</text>`;
+  });
+  return s+`</svg>`;
+}
+
+function failureTreeSVG(){
+  const n=[["The alert",["umbrella read as a weapon"],400,26,"var(--signal)"],
+    ["Model",["was this object type in","the training data?"],105,112,"#4a5b7d"],
+    ["Data",["was the branch's camera","type in the set?"],300,112,"#4a5b7d"],
+    ["Application",["was the confidence","threshold too low?"],500,112,"#4a5b7d"],
+    ["Human",["did the officer have","context to clear it?"],700,112,"#4a5b7d"],
+    ["Governance",["was visual confirmation","a rule, or a habit?"],300,200,"var(--red)"],
+    ["Monitoring",["were false positives","already trending up?"],580,200,"var(--red)"]];
+  let s=`<svg viewBox="0 0 810 265" role="img" aria-label="Failure tree for a weapon-detection false positive">`;
+  [1,2,3,4].forEach(i=>{ s+=`<line x1="400" y1="48" x2="${n[i][2]}" y2="${n[i][3]-10}" stroke="var(--line)"/>`; });
+  s+=`<line x1="300" y1="140" x2="300" y2="190" stroke="var(--line)"/><line x1="500" y1="140" x2="580" y2="190" stroke="var(--line)"/>`;
+  n.forEach(([t,lines,x,y,c])=>{
+    s+=`<rect x="${x-95}" y="${y-10}" width="190" height="50" fill="var(--panel)" stroke="${c}"/>`;
+    s+=`<text x="${x}" y="${y+7}" text-anchor="middle" font-size="12" fill="var(--paper)" font-weight="600">${t}</text>`;
+    lines.forEach((ln,j)=>{ s+=`<text x="${x}" y="${y+22+j*12}" text-anchor="middle" font-size="9.5" fill="var(--paper-dim)">${ln}</text>`; });
+  });
+  return s+`</svg>`;
+}
+
+/* ================= section builder ================= */
+const S=[]; // {id,label,act,html}
+const add=(id,label,act,html)=>S.push({id,label,act,html});
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+
+/* ---------- ACT 1 ---------- */
+add('open','Recording is not watching','The problem',`
+<section class="sheet" id="open"><div class="wrap">
+  <div class="eyebrow">Act one · the problem</div>
+  <h2>Recording is not watching.</h2>
+  <p class="lede">Eight cameras per branch, recording continuously, footage held thirty days. Every camera in the five branches below was working at the time. The footage was opened after the money was gone.</p>
+  <table style="margin-top:28px"><thead><tr><th>Branch</th><th>When</th><th>Loss</th><th>What happened</th><th>Use case</th></tr></thead><tbody>
+  ${INCIDENTS.map(([b,w,l,d,u])=>`<tr><td><strong>${b}</strong></td><td>${w}</td><td>${l}</td><td>${d}</td><td>${u.map(x=>`<span class="tag">UC${x}</span>`).join('')}</td></tr>`).join('')}
+  </tbody></table>
+  <div class="callout"><b>The moment the estimate is approved, a second question arrives.</b>
+  Turning 32,000 cameras into something that produces an alert while the incident is still happening also creates an AI system that watches 4,000 branches, tens of thousands of staff, and every customer who walks in. Who watches that? This assignment answers the second question with the same rigour the estimate answered the first.</div>
+</div></section>`);
+
+add('ten','Ten rules, ten governance problems','The problem',`
+<section id="ten"><div class="wrap">
+  <div class="eyebrow">Act one · scope</div>
+  <h2>Ten trigger conditions. Ten different governance problems.</h2>
+  <p class="lede">The trigger is what gets built and what gets tested. It is also what gets governed — a rule written as a condition can be audited; a description cannot.</p>
+  <table style="margin-top:24px"><thead><tr><th>#</th><th>Use case</th><th>Speed</th><th>Risk tier</th><th>The governance problem it introduces</th></tr></thead><tbody>
+  ${UC.map(u=>`<tr><td><strong>${u.id}</strong></td><td>${u.name}</td><td class="speed-${u.speed}">${u.speed}</td><td class="tier-${u.tier}">${u.tier}</td><td>${({
+    "01":"High-impact custody decision from a model that may be replaced by a ₹2,000 sensor",
+    "02":"Irreversible consequence — a police dispatch — from a probabilistic output",
+    "03":"False negatives matter more than false positives; the failure is someone left overnight",
+    "04":"The control that silently underwrites the other nine",
+    "05":"Uniform classification is a proxy for belonging, and proxies fail on people",
+    "06":"Employee monitoring, union exposure, and a vendor penalty built on model output",
+    "07":"Adoption: the nudge that must never quietly become a scorecard",
+    "08":"Purpose limitation — footfall data collected for queues, wanted later for other things",
+    "09":"Compliance that was true on inspection day and is now continuously measured",
+    "10":"An audit record derived from a custom model, reconciled against core banking",
+  })[u.id]}</td></tr>`).join('')}
+  </tbody></table>
+  <figure>${pipelineSVG()}<figcaption>Nine steps. Six are identical across all ten — the shared platform. Only steps 3, 5 and 7 differ, and those three are exactly where governance attaches: what we look for, what the rule says, and who is told.</figcaption></figure>
+</div></section>`);
+
+/* ---------- ACT 2 — the machine ---------- */
+add('machine','The governance machine','The machine',`
+<section class="sheet" id="machine"><div class="wrap">
+  <div class="eyebrow">Act two · the machine</div>
+  <h2>One registry, one risk engine, one control library.</h2>
+  <p class="lede">Branch Vision is the first portfolio through the machine, not an exception to it. Everything below is reused for the next AI system the bank builds, buys or discovers.</p>
+  <div class="cols" style="margin-top:26px">
+    <div>
+      <h3>What the bank must answer at any moment</h3>
+      <div class="ledger">
+        <div class="row"><b>What AI do we have?</b><span>AI registry — every system carries an ID, an owner and a status. <code>AI-BV-UC01-001</code></span></div>
+        <div class="row"><b>How risky is it?</b><span>Ten-variable risk engine, scored 1–5, producing a tier — not a committee's feeling</span></div>
+        <div class="row"><b>What controls does it need?</b><span>Control library, applied by tier rather than uniformly</span></div>
+        <div class="row"><b>Is it allowed to run?</b><span>Governance gates wrapped around the four commercial gates</span></div>
+        <div class="row"><b>Is it still safe?</b><span>Monitoring, incident, change and drift — governance does not end at launch</span></div>
+      </div>
+      <div class="callout" style="background:#fff"><b>Unknown is not low risk.</b>
+      A system nobody understands well is not safe by default. The register tracks Known / Partially known / Unknown, and high impact combined with high uncertainty raises governance priority rather than lowering it.</div>
+    </div>
+    <div>
+      <h3>The four tiers</h3>
+      <div class="ledger tight">
+        <div class="row"><b class="tier-Low">Tier 1 · Low</b><span>Registration and basic controls</span></div>
+        <div class="row"><b class="tier-Moderate">Tier 2 · Moderate</b><span>Assessment, privacy and security review, evaluation</span></div>
+        <div class="row"><b class="tier-High">Tier 3 · High</b><span>Full assessment, independent validation, human oversight, formal approval, continuous monitoring</span></div>
+        <div class="row"><b class="tier-Critical">Tier 4 · Critical</b><span>Everything above, plus executive approval and a tested kill switch</span></div>
+      </div>
+      <p class="small dim">Scored from the ten variables: impact, decision criticality, autonomy, data sensitivity, scale, reversibility, regulatory exposure, uncertainty, blast radius, action surface. Of the ten use cases, one reaches Tier 4.</p>
+      <h3 style="margin-top:30px">The rule that holds everything</h3>
+      <div class="callout" style="background:#fff"><b>AI detects. Rules constrain. Humans decide.</b>
+      No path exists in which the system detects something and a consequence lands on a person automatically. For staff-related use cases this is the design, not a policy layered on top.</div>
+    </div>
+  </div>
+</div></section>`);
+
+/* ---------- ACT 3 — the money, derived ---------- */
+add('boq','The bill of quantities','The money',`
+<section id="boq"><div class="wrap">
+  <div class="eyebrow">Act three · the money, derived</div>
+  <h2>₹28.75 crore of hardware, built up component by component.</h2>
+  <p class="lede">Every figure here is derived rather than quoted. Where a number is an assumption it is marked as one — because governance of an estimate is the same discipline as governance of a model: show the working, name the uncertainty, give it an owner.</p>
+
+  <div class="money">
+    <div><b>₹22.27 cr</b><small>3,400 standard @ ₹65,500</small></div>
+    <div><b>₹5.64 cr</b><small>600 enhanced @ ₹94,000</small></div>
+    <div><b>₹0.84 cr</b><small>3% spares pool</small></div>
+    <div><b>₹28.75 cr</b><small>total fleet</small></div>
+    <div><b>₹71,868</b><small>per branch · ₹7,187 per use case per branch</small></div>
+  </div>
+
+  <div class="cols" style="margin-top:10px">
+    <div>
+      <h3>Standard box — ₹65,500</h3>
+      <table><thead><tr><th>Component</th><th>Spec</th><th style="text-align:right">₹</th></tr></thead><tbody>
+      ${BOQ.standard.items.map(it=>`<tr><td><strong>${it[0]}</strong><div class="small dim" style="margin-top:3px">${it[3]}</div></td><td class="small">${it[1]}</td><td style="text-align:right;white-space:nowrap">₹${it[2].toLocaleString('en-IN')}</td></tr>`).join('')}
+      <tr><td colspan="2"><strong>Total per standard box</strong></td><td style="text-align:right"><strong>₹65,500</strong></td></tr>
+      </tbody></table>
+      <figure>${boqSVG()}</figure>
+    </div>
+    <div>
+      <h3>Enhanced box — ₹94,000 · 600 branches</h3>
+      <p class="small dim">Not for capacity. The standard box already runs all ten use cases at 42% load. The delta buys resilience where an outage costs more — currency chests, gold-loan branches, high-value sites.</p>
+      <table><tbody>
+      ${BOQ.enhanced.deltas.map(d=>`<tr><td><strong>${d[0]}</strong><div class="small dim" style="margin-top:3px">${d[2]}</div></td><td style="text-align:right;white-space:nowrap;color:var(--signal)">+₹${d[1].toLocaleString('en-IN')}</td></tr>`).join('')}
+      </tbody></table>
+      <h3 style="margin-top:28px">What was rejected, and why</h3>
+      <table><tbody>${BOQ.rejected.map(r=>`<tr><td><strong>${r[0]}</strong></td><td class="small">${r[1]}</td><td class="small dim">${r[2]}</td></tr>`).join('')}</tbody></table>
+      <div class="callout" style="background:none;border-color:var(--brass)"><b>The single assumption that moves the most money.</b>
+      The ₹34,000 Jetson module is a distributor volume tier at a 4,000-unit commitment — an assumption, not a quote. It is 52% of the standard box and therefore roughly half of a ₹28.75 cr line. A 10% move is about ₹2.9 crore. Governance treats it the way it treats a vendor model: named owner, evidence on file, reassessment when it changes.</div>
+    </div>
+  </div>
+</div></section>`);
+
+add('load','Why this box','The money',`
+<section class="sheet" id="load"><div class="wrap">
+  <div class="eyebrow">Act three · the money, derived</div>
+  <h2>One detector pass. Ten rule sets read from it.</h2>
+  <p class="lede">The BOQ only holds if all ten use cases fit on one box. They do, at 42% measured load — and the rules themselves cost nothing, because they are arithmetic on the detector's output.</p>
+  <table style="margin-top:24px"><thead><tr><th>Stage</th><th>What runs</th><th style="text-align:right">Box capacity</th></tr></thead><tbody>
+  ${LOAD.map(l=>`<tr><td class="small dim">${l[2]}</td><td>${l[0]}</td><td style="text-align:right"><strong>${l[1]}%</strong></td></tr>`).join('')}
+  <tr><td></td><td><strong>Total used</strong></td><td style="text-align:right"><strong>42%</strong></td></tr>
+  <tr><td></td><td class="dim">Headroom — roughly 8–12 further use cases</td><td style="text-align:right" class="dim">58%</td></tr>
+  </tbody></table>
+  <div class="callout"><b>So why not a cheaper box?</b>
+  42% is the average. Three things consume the headroom: peak load in a crowded branch, where detection cost scales with objects rather than frames; model growth at every retraining cycle; and the forty further use cases in the wider catalogue. A board sized to 90% today needs replacing in year two. <strong>Governance adds one control to this: capacity is monitored continuously, and sustained load above tolerance is a change event, not a surprise.</strong></div>
+</div></section>`);
+
+add('effort','Engineering, role by role','The money',`
+<section id="effort"><div class="wrap">
+  <div class="eyebrow">Act three · the money, derived</div>
+  <h2>4,540 hours. ₹54.71 lakh cost, ₹1.20 crore billed.</h2>
+  <p class="lede">Nine roles at Indian market rates, staffed one senior to two mid to one junior. 72% of the hours are shared across all ten use cases — only the use-case band scales with scope.</p>
+  <div class="money">
+    <div><b>2,080 hrs</b><small>shared platform · 46%</small></div>
+    <div><b>1,180 hrs</b><small>detection models · 26%</small></div>
+    <div><b>1,280 hrs</b><small>use-case specific · 28%</small></div>
+    <div><b>₹1,205</b><small>blended rate per hour</small></div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>Where the hours sit</h3>
+      <table><thead><tr><th>Role</th><th style="text-align:right">₹/hr</th><th style="text-align:right">Hours</th><th style="text-align:right">Cost</th></tr></thead><tbody>
+      ${ROLES.map(r=>`<tr><td><strong>${r[0]}</strong><div class="small dim">${r[4]}</div></td><td style="text-align:right">₹${r[1].toLocaleString('en-IN')}</td><td style="text-align:right">${r[2]}</td><td style="text-align:right;white-space:nowrap">${r[3]}</td></tr>`).join('')}
+      <tr><td><strong>Total</strong></td><td style="text-align:right">₹1,205</td><td style="text-align:right"><strong>4,540</strong></td><td style="text-align:right"><strong>₹54.71 L</strong></td></tr>
+      </tbody></table>
+    </div>
+    <div>
+      <h3>Model hours, allocated by share</h3>
+      <table><thead><tr><th>Model</th><th style="text-align:right">Hrs</th><th>Serves</th></tr></thead><tbody>
+      ${MODELS.map(m=>`<tr><td><strong>${m[0]}</strong> ${m[1]}</td><td style="text-align:right">${m[2]}</td><td class="small">${m[3].map(u=>`<span class="tag">${u}</span>`).join('')}</td></tr>`).join('')}
+      </tbody></table>
+      <p class="small dim">M1 costs 80 hours and carries five of the ten use cases — 16 hours each. UC02 carries all 320 hours of M4 because nothing else uses it.</p>
+      <div class="callout" style="background:none;border-color:var(--brass)"><b>The figure to challenge first: 320 hours for M4.</b>
+      It is the only model carried by a single use case, and it needs the most validation because a false positive dispatches police. If any estimate here is wrong by a hundred hours or more, it is this one. That is also why UC02 is the only Tier 4 system in the portfolio — <strong>the largest technical unknown and the heaviest governance load land on the same use case, which is how it should be.</strong></div>
+    </div>
+  </div>
+  <h3 style="margin-top:30px">Per use case, hour by hour</h3>
+  <table><thead><tr><th>#</th><th>Use case</th><th style="text-align:right">Specific</th><th>Models</th><th style="text-align:right">Model hrs</th><th style="text-align:right">Platform</th><th style="text-align:right">Total</th><th style="text-align:right">At ₹1,205/hr</th></tr></thead><tbody>
+  ${UC.map(u=>{const h=UCHOURS[u.id];return `<tr><td><strong>${u.id}</strong></td><td>${u.name}</td><td style="text-align:right">${h[0]}</td><td class="small">${h[1]}</td><td style="text-align:right">${h[2]}</td><td style="text-align:right">${h[3]}</td><td style="text-align:right"><strong>${h[4]}</strong></td><td style="text-align:right">${h[5]}</td></tr>`}).join('')}
+  <tr><td colspan="2"><strong>Total</strong></td><td style="text-align:right"><strong>1,280</strong></td><td></td><td style="text-align:right"><strong>1,180</strong></td><td style="text-align:right"><strong>2,080</strong></td><td style="text-align:right"><strong>4,540</strong></td><td style="text-align:right"><strong>₹54.71 L</strong></td></tr>
+  </tbody></table>
+</div></section>`);
+
+add('flow','What travels, and what stays','The money',`
+<section class="sheet" id="flow"><div class="wrap">
+  <div class="eyebrow">Act three · the money, derived</div>
+  <h2>Findings travel. Video stays in the branch.</h2>
+  <p class="lede">468 messages per branch per day. About 100 MB a day for the entire country — against 86 terabytes if the same estate were streamed. This is the cloud bill, and it is also the strongest privacy control in the programme.</p>
+  <div class="cols">
+    <div>
+      <h3>Messages per branch per day</h3>
+      <table><thead><tr><th>UC</th><th style="text-align:right">Msgs</th><th>Why</th></tr></thead><tbody>
+      ${MSGS.map(m=>`<tr><td><strong>${m[0]}</strong></td><td style="text-align:right">${m[1]}</td><td class="small dim">${m[2]}</td></tr>`).join('')}
+      <tr><td colspan="1"><strong>Events</strong></td><td style="text-align:right"><strong>180</strong></td><td></td></tr>
+      <tr><td class="dim">Device heartbeat</td><td style="text-align:right">288</td><td class="small dim">8 cameras + box, periodic</td></tr>
+      <tr><td><strong>Total</strong></td><td style="text-align:right"><strong>468</strong></td><td class="small dim">1.87 M per day fleet-wide</td></tr>
+      </tbody></table>
+    </div>
+    <div>
+      <h3>Cloud, service by service</h3>
+      <table><thead><tr><th>Function</th><th style="text-align:right">Azure</th><th style="text-align:right">AWS</th></tr></thead><tbody>
+      ${CLOUD.rows.map(r=>`<tr><td>${r[0]}<div class="small dim">${r[1]}</div></td><td style="text-align:right">$${r[2]}</td><td style="text-align:right">$${r[4]}</td></tr>`).join('')}
+      <tr><td><strong>At list</strong></td><td style="text-align:right"><strong>$1,150</strong></td><td style="text-align:right"><strong>$1,812</strong></td></tr>
+      <tr><td>After EA, reserved instances, local SMS</td><td style="text-align:right"><strong>$943</strong></td><td style="text-align:right" class="dim">—</td></tr>
+      </tbody></table>
+      <p class="small dim">₹10 lakh a year · ₹21 per branch per month · 0.2% of the five-year total. 97% of the Azure–AWS gap is one line: Greengrass charges $0.16 per edge device per month, which is $640 on 4,000 devices. Azure's edge runtime is free.</p>
+    </div>
+  </div>
+  <div class="callout"><b>Data minimisation by architecture, not by policy.</b>
+  The cheapest design and the most defensible privacy position are the same design. Video never leaves the branch unless a high-severity alert pushes a clip or someone requests one — and both of those are logged. A governance framework rarely gets to inherit its strongest control from the cost model.</div>
+</div></section>`);
+
+add('perbranch','What a branch actually costs','The money',`
+<section id="perbranch"><div class="wrap">
+  <div class="eyebrow">Act three · the money, derived</div>
+  <h2>Hardware is 96% of a branch. The ten use cases sit ₹301 apart.</h2>
+  <p class="lede">Engineering varies 2.5× between the cheapest and dearest use case and barely registers per branch, because engineering is a one-time national cost spread across 4,000 sites.</p>
+  <div class="callout" style="background:none;border-color:var(--brass);max-width:none">
+  <b>The derivation</b>
+  Per branch = ( use-case engineering × 2.2 billing multiple ) ÷ 4,000 branches + ₹7,188 hardware share.<br>
+  Hardware share = ₹28.75 cr fleet ÷ 10 use cases ÷ 4,000 branches = ₹7,188, identical for all ten.<br>
+  <strong>Which means scope decisions must be made on engineering hours, not on per-branch cost.</strong> Dropping the cheapest use case saves 80 of 4,540 hours — under 2% — and changes a branch's cost by ₹195.</div>
+  <table style="margin-top:20px"><thead><tr><th>#</th><th>Use case</th><th style="text-align:right">Engineering share</th><th style="text-align:right">Hardware share</th><th style="text-align:right">Per branch</th><th style="text-align:right">Cloud/yr</th></tr></thead><tbody>
+  ${UC.map(u=>{const eng=parseInt(u.perBranch.replace(/[₹,]/g,''))-7188;return `<tr><td><strong>${u.id}</strong></td><td>${u.name}</td><td style="text-align:right">₹${eng}</td><td style="text-align:right" class="dim">₹7,188</td><td style="text-align:right"><strong>${u.perBranch}</strong></td><td style="text-align:right" class="dim">${u.cloud}</td></tr>`}).join('')}
+  </tbody></table>
+</div></section>`);
+
+add('tco','Five years, traced','The money',`
+<section class="sheet" id="tco"><div class="wrap">
+  <div class="eyebrow">Act three · the money, derived</div>
+  <h2>₹51.57 crore over five years. Model work is a permanent line.</h2>
+  <div class="money">
+    <div><b>₹31.17 cr</b><small>year 1, four gates</small></div>
+    <div><b>₹5.10 cr</b><small>annual run, years 2–5</small></div>
+    <div><b>₹51.57 cr</b><small>five-year total</small></div>
+    <div><b>₹1,28,925</b><small>per branch, five years</small></div>
+    <div><b>₹269</b><small>per camera per month</small></div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>Year one, line by line</h3>
+      <table><tbody>
+      ${TCO.year1.map(r=>`<tr><td>${r[0]}</td><td style="text-align:right;white-space:nowrap"><strong>${r[1]}</strong></td><td class="small dim">${r[2]}</td></tr>`).join('')}
+      <tr><td><strong>Year 1</strong></td><td style="text-align:right"><strong>₹31.17 cr</strong></td><td class="small dim">92% is hardware</td></tr>
+      </tbody></table>
+      <div class="callout" style="background:#fff"><b>This is a hardware deployment with software attached.</b>
+      Engineering across 4,000 branches is ₹300 a branch. Which is exactly why the gates are structured to prove the models work on real cameras before 4,000 boxes are bought — and why governance sits at the gates rather than after them.</div>
+    </div>
+    <div>
+      <h3>The annual run rate, itemised</h3>
+      <table><tbody>
+      ${TCO.run.map(r=>`<tr><td><strong>${r[0]}</strong><div class="small dim">${r[3]}</div></td><td class="small dim">${r[1]}</td><td style="text-align:right;white-space:nowrap"><strong>${r[2]}</strong></td></tr>`).join('')}
+      <tr><td><strong>Total</strong></td><td></td><td style="text-align:right"><strong>₹5.10 cr</strong></td></tr>
+      </tbody></table>
+      <p class="small dim">Maintenance is where estimates hide things, so it is itemised. ₹0.36 cr of it — two full-time people — is the model retraining and drift loop, running permanently. That line is simultaneously a cost item and a governance control: it is what makes monthly accuracy review, quarterly retraining and seasonal recalibration real rather than aspirational.</p>
+    </div>
+  </div>
+</div></section>`);
+
+/* ---------- ACT 4 — ten chapters ---------- */
+add('chapters','The ten, governed','The ten',`
+<section id="chapters"><div class="wrap">
+  <div class="eyebrow">Act four · the ten, governed</div>
+  <h2>Each use case, and the governance problem it forces.</h2>
+  <p class="lede">The same structure for all ten: what it sees, what governance asks instead, how it scores, how it fails, what controls it carries, what evidence exists, and what is still unknown. Money and governance sit side by side, because a control with no cost owner is a wish.</p>
+  <table style="margin-top:22px"><thead><tr><th>#</th><th>Use case</th><th style="text-align:right">Score</th><th>Tier</th><th style="text-align:right">Hours</th><th style="text-align:right">Engineering</th><th style="text-align:right">Per branch</th><th>Gate</th></tr></thead><tbody>
+  ${UC.map(u=>`<tr><td><strong>${u.id}</strong></td><td><a href="#uc${u.id}">${u.name}</a></td><td style="text-align:right">${u.total}</td><td class="tier-${u.tier}">${u.tier}</td><td style="text-align:right">${u.hours}</td><td style="text-align:right">${u.eng}</td><td style="text-align:right">${u.perBranch}</td><td class="small dim">${u.gate}</td></tr>`).join('')}
+  </tbody></table>
+</div></section>`);
+
+UC.forEach(u=>{
+  const h=UCHOURS[u.id], eng=parseInt(u.perBranch.replace(/[₹,]/g,''))-7188;
+  add('uc'+u.id, `UC${u.id} · ${u.name}`, 'The ten', `
+<section class="uc-open" id="uc${u.id}"><div class="wrap">
+  <div class="id">${u.id}</div>
+  <div class="eyebrow">${THEMES[u.theme]} · ${u.speed} · ${u.models.join(' + ')}</div>
+  <h2 style="max-width:20ch">${u.name}</h2>
+  <p class="lede">${u.rule}</p>
+  <div class="incident">${u.incident}<small>${u.where}</small></div>
+  <div class="money">
+    <div><b>${u.tier}</b><small>risk tier · score ${u.total}/50</small></div>
+    <div><b>${u.hours} h</b><small>${h[0]} specific + ${h[2]} model + ${h[3]} platform</small></div>
+    <div><b>${u.eng}</b><small>engineering, one-time national</small></div>
+    <div><b>${u.perBranch}</b><small>per branch · ₹${eng} of it is this use case</small></div>
+    <div><b>${u.cloud}</b><small>cloud, fleet-wide</small></div>
+  </div>
+</div></section>
+<section class="sheet uc-body" id="uc${u.id}b"><div class="wrap">
+  <div class="cols">
+    <div>
+      <h3>What the system sees</h3>
+      <ol class="small">${u.sees.map(x=>`<li>${x}</li>`).join('')}</ol>
+      <h3>What governance asks instead</h3>
+      <ul>${u.asks.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <h3>Human in the loop</h3>
+      <div class="hitl">${u.hitl.map((x,i)=>`<div class="${i===Math.floor(u.hitl.length/2)?'human':''}">${x}</div>`).join('')}</div>
+      <h3>How it fails</h3>
+      <ul class="small">${u.failures.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <h3>Controls it carries</h3>
+      <ul class="small">${u.controls.map(x=>`<li>${x}</li>`).join('')}</ul>
+    </div>
+    <div>
+      <div class="scorecard">
+        <h4 style="margin-top:0">Risk scorecard — ${u.total}/50 · <span class="tier-${u.tier}">${u.tier}</span></h4>
+        ${radarSVG(u.risk)}
+        <table style="margin-top:10px"><tbody>
+        ${VARS.map(v=>`<tr><td class="small">${v[1]}<div class="bar" style="margin-top:4px"><i style="width:${u.risk[v[0]]/5*100}%"></i></div></td><td>${u.risk[v[0]]}</td></tr>`).join('')}
+        </tbody></table>
+      </div>
+      <h3>Where it sits in the branch</h3>
+      ${floorSVG(u.zone)}
+      <h3>Evidence that must exist</h3>
+      <ul class="small">${u.evidence.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <h3>Known / unknown register</h3>
+      <div class="ku">${u.ku.map(k=>`<span style="color:inherit">${k[0]}</span><span class="${k[1]}">${k[1]}</span>`).join('')}</div>
+      <div class="callout" style="margin-top:22px"><b>The simpler-control question</b>${u.simpler}</div>
+      <p class="small dim">Enters at <strong>${u.gate}</strong>. Expected alert load ≈ ${u.alertsPerDay} per branch per day — ${(u.alertsPerDay*4000).toLocaleString()} a day at full rollout.</p>
+    </div>
+  </div>
+</div></section>`);
+});
+
+/* ---------- ACT 5 — scale ---------- */
+add('scale','What changes at scale','At scale',`
+<section id="scale"><div class="wrap">
+  <div class="eyebrow">Act five · at scale</div>
+  <h2>One branch produces ten alerts. Four thousand produce forty thousand.</h2>
+  <p class="lede">Everything that works at Gate 1 has to survive multiplication. Three things break first: human attention, evidence production, and the assumption that a metric designed for a branch means the same thing in head office.</p>
+  <figure style="background:var(--sheet);padding:20px">${alertScaleSVG()}</figure>
+  <div class="cols3" style="margin-top:10px">
+    <div><h3>Attention</h3><p class="small">A perfect alert nobody acts on is a failed control. Gate 2 makes response rate the pass criterion rather than detection rate — ≥70%, and a fall is treated as a system failure, not a staff failure.</p></div>
+    <div><h3>Evidence</h3><p class="small">At 500 branches, evidence has to be produced by the system rather than assembled by hand. If proving a control still takes a person a day, it will not be proved at 4,000.</p></div>
+    <div><h3>Meaning</h3><p class="small">A queue of twelve means different things in different towns. Thresholds are tuned per branch; a national number that ranks branch managers is a different system and needs a different assessment.</p></div>
+  </div>
+  <h3 style="margin-top:34px">Face recognition — four levels, four governance categories</h3>
+  <figure style="background:var(--sheet);padding:20px">${faceTreeSVG()}</figure>
+  <p class="small dim">None of the ten use cases requires identifying anyone. UC05 asks whether a person is in staff uniform; UC06 asks whether a guard-uniformed person is in the gate zone. Neither needs a name. Level 2 and above are separate decisions with separate assessments — and they are not in this wave.</p>
+  <h3 style="margin-top:34px">When it goes wrong: a weapon false positive</h3>
+  <figure>${failureTreeSVG()}</figure>
+  <p class="small dim">The model was wrong. Governance does not stop there — it asks six questions, and usually finds that the model was the least interesting of them. Detect → classify → contain → investigate → remediate → change control → reassess. The incident becomes a threshold change, a checklist item and a training example.</p>
+</div></section>`);
+
+add('gates','Governance at the gates','At scale',`
+<section class="sheet" id="gates"><div class="wrap">
+  <div class="eyebrow">Act five · at scale</div>
+  <h2>Four commercial gates. Four governance gates wrapped around them.</h2>
+  <p class="lede">₹0.36 crore is committed before the first real evidence — 1.2% of the programme. Governance does not add a fifth gate; it adds a precondition and an evidence requirement to each of the four that already exist.</p>
+  ${GATES.map(g=>`
+  <div style="border:1px solid var(--sheet-line);background:#fff;padding:22px 24px;margin-top:18px">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;align-items:baseline;gap:12px">
+      <h3 style="margin:0">Gate ${g.n} — ${g.name}</h3>
+      <div><strong style="font-size:1.3rem">${g.cost}</strong> <span class="dim small">· ${g.scope}</span></div>
+    </div>
+    <div class="small dim" style="margin:6px 0 14px">${g.ucs.map(x=>`<span class="tag">UC${x}</span>`).join('')}</div>
+    <div class="cols3">
+      <div><h4>Commercial pass criteria</h4><ul class="small">${g.pass.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+      <div><h4>Governance preconditions</h4><ul class="small">${g.gov.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+      <div><h4>Where the money goes</h4>
+        <div class="ledger tight" style="margin-top:0">
+          <div class="row"><b>Engineering</b><span>${g.money.eng}</span></div>
+          <div class="row"><b>Hardware</b><span>${g.money.hw}</span></div>
+          <div class="row"><b>Cloud</b><span>${g.money.cloud}</span></div>
+          <div class="row"><b>Rollout / other</b><span>${g.money.other}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>`).join('')}
+  <div class="callout" style="margin-top:24px"><b>Gate 1 needs no integration, no policy change and no committee.</b>
+  One branch, six weeks, three use cases — one from each speed tier — and the answer to the largest unknown in the estimate, which is whether these models work on the bank's actual camera angles. The heavier governance asks (roster access, HR and union engagement, DPO retention sign-off, core-banking read access) are staged to arrive only once there is evidence worth acting on.</div>
+</div></section>`);
+
+add('risk','Where the estimate can break','At scale',`
+<section id="risk"><div class="wrap">
+  <div class="eyebrow">Act five · at scale</div>
+  <h2>Currency exposure is larger than every technical risk combined.</h2>
+  <p class="lede">Ten risks, each with an effect on the estimate and an owner. If the medium risks land together it is roughly ₹2.5–3.0 crore on a ₹31 crore year one — about 9%.</p>
+  <table style="margin-top:22px"><thead><tr><th>Risk</th><th>Likelihood</th><th>Effect on estimate</th><th>Treatment, and who owns it</th></tr></thead><tbody>
+  ${RISKS.map(r=>`<tr><td><strong>${r[0]}</strong></td><td>${r[1]}</td><td style="white-space:nowrap">${r[2]}</td><td class="small dim">${r[3]}</td></tr>`).join('')}
+  </tbody></table>
+  <h3 style="margin-top:34px">The four figures to challenge first</h3>
+  <div class="cols">
+    <div class="ledger">
+    ${CHALLENGE.map(c=>`<div class="row"><b>${c[0]} — ${c[1]}</b><span>${c[2]}<br><span class="small" style="color:var(--brass)">${c[3]}</span></span></div>`).join('')}
+    </div>
+    <div>
+      <div class="callout" style="background:none;border-color:var(--brass)"><b>Estimate governance and model governance are the same discipline.</b>
+      Both ask: what is measured, what is assumed, who owns the assumption, what happens when it moves, and what evidence would change our mind. The estimate already marks its assumptions. The governance system does the same for every AI system the bank runs — and the four figures on the left each carry a control, not just a caveat.</div>
+    </div>
+  </div>
+</div></section>`);
+
+/* ---------- ACT 6 — the assignment ---------- */
+add('assignment','The 24-week assignment','The assignment',`
+<section class="sheet" id="assignment"><div class="wrap">
+  <div class="eyebrow">Act six · the assignment</div>
+  <h2>Twenty-four weeks, running alongside Gate 1 — not before it.</h2>
+  <p class="lede">Governance is built while a real AI programme is governed. If a high-risk system is found operating without an owner in week 3, it is escalated in week 3 rather than waiting for a framework to be finished.</p>
+  <table style="margin-top:22px"><thead><tr><th>Phase</th><th>Weeks</th><th>What happens</th><th>Output</th><th>Runs against</th></tr></thead><tbody>
+  <tr><td><strong>Mobilise</strong></td><td>1–2</td><td>Executive interviews, charter, scope, regulatory perimeter, existing policy review, first AI discovery sweep</td><td>Governance blueprint v0.1</td><td class="small dim">Gate 1 site survey</td></tr>
+  <tr><td><strong>Discover</strong></td><td>3–6</td><td>Enterprise AI inventory, shadow-AI discovery, vendor inventory, data-flow mapping, current control mapping</td><td>Current-state assessment + maturity score</td><td class="small dim">Gate 1 build</td></tr>
+  <tr><td><strong>Design</strong></td><td>7–10</td><td>Operating model, RACI, risk taxonomy and scoring, lifecycle, control library, assessment and incident frameworks</td><td>Target operating model</td><td class="small dim">Gate 1 test &amp; harden</td></tr>
+  <tr><td><strong>Build</strong></td><td>11–16</td><td>Registry, intake, risk engine, assessment and approval workflows, evidence repository, dashboard</td><td>Control Tower MVP</td><td class="small dim">Gate 1 close, Gate 2 start</td></tr>
+  <tr><td><strong>Pilot</strong></td><td>17–20</td><td>Run the governance process against UC01, UC02, UC08, UC10, then all ten</td><td>Ten governance packs</td><td class="small dim">Gate 2 pilot</td></tr>
+  <tr><td><strong>Launch</strong></td><td>21–24</td><td>Governance office stood up, committee cadence, training, exception process, KPI reporting</td><td>BAU governance capability</td><td class="small dim">Gate 2 close</td></tr>
+  </tbody></table>
+
+  <div class="cols" style="margin-top:34px">
+    <div>
+      <h3>The team, and what each person actually does</h3>
+      <table><thead><tr><th>Role</th><th style="text-align:right">Load</th><th>Owns</th></tr></thead><tbody>
+      <tr><td><strong>Engagement Partner</strong></td><td style="text-align:right">10–15%</td><td class="small">Executive relationship, steering committee, escalation</td></tr>
+      <tr><td><strong>AI Governance Lead</strong></td><td style="text-align:right">100%</td><td class="small">Operating model, methodology, overall delivery</td></tr>
+      <tr><td><strong>Governance Architect</strong></td><td style="text-align:right">80–100%</td><td class="small">Lifecycle, controls, platform, integration</td></tr>
+      <tr><td><strong>Model Risk Specialist</strong></td><td style="text-align:right">80%</td><td class="small">Risk taxonomy, model assessment, evaluation, drift</td></tr>
+      <tr><td><strong>Banking Risk / Compliance</strong></td><td style="text-align:right">50–80%</td><td class="small">Banking controls, regulatory mapping, forums</td></tr>
+      <tr><td><strong>Privacy / Data</strong></td><td style="text-align:right">40–60%</td><td class="small">Retention, purpose limitation, employee and customer data</td></tr>
+      <tr><td><strong>Cybersecurity</strong></td><td style="text-align:right">40–60%</td><td class="small">Edge security, access, model integrity, vendor security</td></tr>
+      <tr><td><strong>Business / Product Analyst</strong></td><td style="text-align:right">100%</td><td class="small">Use-case documentation, workflows, RACI, evidence</td></tr>
+      <tr><td><strong>Platform Engineer</strong></td><td style="text-align:right">50–100%</td><td class="small">Registry, workflows, dashboard, automation</td></tr>
+      <tr><td><strong>Change &amp; Training</strong></td><td style="text-align:right">30–50%</td><td class="small">Training, branch adoption, HR and union engagement</td></tr>
+      </tbody></table>
+      <p class="small dim">A week for the Governance Lead: Monday, three new AI intakes. Tuesday, Tier 3 evaluation requirements with Model Risk. Wednesday, the new weapon model with Branch Vision engineering. Thursday, the committee pack. Friday, overdue controls and open incidents.</p>
+    </div>
+    <div>
+      <h3>Who owns what</h3>
+      <div class="ledger">
+        <div class="row"><b>We design and build</b><span>Framework, methodology, controls, assessments, workflows, the Control Tower, training, operating rhythm</span></div>
+        <div class="row"><b>The bank owns</b><span>Risk appetite, final decisions, business ownership of each system, regulatory accountability, policy approval, exceptions, operational response</span></div>
+      </div>
+      <h3 style="margin-top:26px">What gets handed over</h3>
+      <p class="small">Charter and operating model · committee terms of reference and RACI · risk taxonomy, scoring model and tiering standard · impact assessment · control library with evidence and owners · intake, approval, change, incident and retirement workflows · registry schema · Control Tower · vendor questionnaire and contract clauses · acceptable-use policy and training · <strong>and ten Branch Vision governance packs, one per use case.</strong></p>
+      <div class="callout" style="background:#fff"><b>The ten packs are the practice IP.</b>
+      They are the reason the second client costs less than the first. Each pack is the chapter above, in working-paper form: purpose, risk scorecard, failure modes, controls, evidence, human oversight, data flow, monitoring plan and known/unknown register.</div>
+      <h3 style="margin-top:26px">Operating rhythm, once live</h3>
+      <div class="ledger tight">
+        <div class="row"><b>Daily</b><span>Automated monitoring, control failures, system health</span></div>
+        <div class="row"><b>Weekly</b><span>Governance office: intakes, incidents, exceptions, overdue actions</span></div>
+        <div class="row"><b>Monthly</b><span>Committee: high-risk portfolio, model performance, risk movement</span></div>
+        <div class="row"><b>Quarterly</b><span>Executive steering: portfolio, risk appetite, major incidents</span></div>
+        <div class="row"><b>Half-yearly</b><span>Bias and coverage review, maturity review</span></div>
+        <div class="row"><b>Annually</b><span>Is the governance system still fit for the portfolio?</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>`);
+
+/* ---------- CONTROL TOWER ---------- */
+add('tower','Control Tower','The assignment',`
+<section class="tower" id="tower"><div class="wrap" style="max-width:1320px">
+  <div class="eyebrow">Act six · the assignment</div>
+  <h2>The Control Tower, running on this portfolio.</h2>
+  <p class="lede">Not a mockup of a product — the actual governance state of the ten use cases, with the risk engine live. Change a score and watch the tier, the controls and the approval path change with it.</p>
+  <div class="console">
+    <div class="tabs" role="tablist">
+      <button class="on" data-p="registry" role="tab">Registry</button>
+      <button data-p="engine" role="tab">Risk engine</button>
+      <button data-p="controls" role="tab">Controls</button>
+      <button data-p="gatesx" role="tab">Gates</button>
+      <button data-p="money" role="tab">Cost model</button>
+      <button data-p="incident" role="tab">Incident</button>
+      <button data-p="exec" role="tab">Executive view</button>
+    </div>
+
+    <div class="pane on" id="p-registry">
+      <h3>AI registry</h3><div class="sub">Ten systems. Every one has an ID, an owner, a tier and a status.</div>
+      <div class="filters">
+        <select id="fTier"><option value="">All tiers</option><option>Critical</option><option>High</option><option>Moderate</option><option>Low</option></select>
+        <select id="fSpeed"><option value="">All speeds</option><option>instant</option><option>minutes</option><option>overnight</option></select>
+        <select id="fTheme"><option value="">All themes</option>${Object.entries(THEMES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select>
+        <button class="btn" id="fClear">Clear</button>
+      </div>
+      <div id="regTable"></div>
+      <div id="regDetail"></div>
+    </div>
+
+    <div class="pane" id="p-engine">
+      <h3>Risk engine</h3><div class="sub">Move any variable. The tier, the required controls and the approval path recompute.</div>
+      <div class="grid2">
+        <div>
+          <label class="ctl" for="engPick">Score a system</label>
+          <select id="engPick">${UC.map(u=>`<option value="${u.id}">UC${u.id} — ${u.name}</option>`).join('')}</select>
+          <div class="vars" id="engVars" style="margin-top:16px"></div>
+          <button class="btn" id="engReset" style="margin-top:14px">Reset to assessed values</button>
+        </div>
+        <div id="engOut"></div>
+      </div>
+    </div>
+
+    <div class="pane" id="p-controls">
+      <h3>Control library</h3><div class="sub">Eighteen controls. Applicability by tier — the point is that they are not applied uniformly.</div>
+      <div id="ctlTable"></div>
+    </div>
+
+    <div class="pane" id="p-gatesx">
+      <h3>Gate readiness</h3><div class="sub">Tick the governance preconditions. A gate opens only when every one is met.</div>
+      <div id="gateBoxes"></div>
+    </div>
+
+    <div class="pane" id="p-money">
+      <h3>Cost model</h3><div class="sub">Change the two assumptions that move the most money and watch the estimate respond.</div>
+      <div class="grid2">
+        <div>
+          <label class="ctl">Jetson module unit price — <b id="mLab">₹34,000</b> <span class="dim">(assumption, not a quote)</span></label>
+          <input type="range" id="mPrice" min="27000" max="45000" step="500" value="34000">
+          <label class="ctl">Branches in scope — <b id="bLab">4,000</b></label>
+          <input type="range" id="bCount" min="500" max="4000" step="100" value="4000">
+          <label class="ctl">Use cases in scope — <b id="uLab">10</b></label>
+          <input type="range" id="uCount" min="3" max="10" step="1" value="10">
+          <p class="small dim" style="margin-top:16px">Dropping use cases barely moves the total: hardware is 96% of a branch and the platform does not shrink. Dropping branches, or the module price moving, changes everything. That is the whole argument for gating the money rather than gating the scope.</p>
+        </div>
+        <div id="moneyOut"></div>
+      </div>
+    </div>
+
+    <div class="pane" id="p-incident">
+      <h3>Incident walkthrough</h3><div class="sub">UC02 generates 17 false alerts in one branch over two days. Step through what the process actually does.</div>
+      <div class="grid2">
+        <div><ul class="steps" id="incSteps"></ul>
+          <div style="margin-top:14px"><button class="btn" id="incNext">Next step</button> <button class="btn" id="incReset">Restart</button></div></div>
+        <div id="incOut"></div>
+      </div>
+    </div>
+
+    <div class="pane" id="p-exec">
+      <h3>Executive view</h3><div class="sub">What the steering committee sees each quarter.</div>
+      <div id="execOut"></div>
+    </div>
+  </div>
+  <p class="notice">Demonstration data. The registry, scores, gates and cost model are the real figures from this assignment; incident and adoption numbers are illustrative of a Gate 2 pilot.</p>
+</div></section>`);
+
+add('close','Five principles','The assignment',`
+<section class="sheet" id="close"><div class="wrap">
+  <div class="eyebrow">Act six · the assignment</div>
+  <h2>What we are actually selling.</h2>
+  <p class="lede">Not AI compliance — that sounds defensive, and it is the wrong product. Controlled AI adoption: the bank moves faster with AI because the route through is known, and the risk is assessed before deployment rather than discovered after it.</p>
+  <ol class="principles">
+    <li>No AI without a named owner.</li>
+    <li>No high-risk AI without evidence.</li>
+    <li>No consequential decision without human accountability.</li>
+    <li>No production AI without continuous monitoring.</li>
+    <li>No material change without reassessment.</li>
+  </ol>
+  <div class="cols" style="margin-top:30px">
+    <div><div class="callout" style="background:#fff"><b>The one-sentence story.</b>
+    We are not proposing another AI policy. We are building the bank's operating system for responsible AI — starting with Branch Vision, proving it across 4,000 branches, and reusing the same machinery for every AI system the bank builds, buys or discovers.</div></div>
+    <div><p>The decision in front of the bank is smaller than the programme. ₹0.36 crore, six weeks, one branch, three use cases — and the answer to the largest unknown in the estimate. Governance runs alongside it from week one, so that when Gate 1 passes, the bank has both a working system and a working way to govern it.</p>
+    <p class="small dim">Figures throughout are from the estimation review: 4,540 engineering hours, ₹28.75 cr hardware, ₹31.17 cr year one, ₹51.57 cr over five years, ₹269 per camera per month.</p></div>
+  </div>
+</div></section>`);
+
+/* ================= render page ================= */
+(function boot(){
+  const main=document.querySelector('main');
+  main.insertAdjacentHTML('beforeend',`
+  <div class="hero">
+    <div>
+      <div class="eyebrow">AI governance assignment · prepared alongside the estimation review</div>
+      <h1>Who watches<br>the AI?</h1>
+      <p class="lede" style="margin-top:18px">Thirty-two thousand cameras already exist. They record; nobody watches. Branch Vision makes them watch — and creates an AI system running in 4,000 branches that has to be governed from the first day, not the first audit.</p>
+      <div class="facts">
+        <div>10<small>use cases governed</small></div>
+        <div>1<small>reaches Tier 4</small></div>
+        <div>₹31.17 cr<small>year one, four gates</small></div>
+        <div>₹0.36 cr<small>committed before first evidence</small></div>
+      </div>
+    </div>
+    <div>${apertureSVG()}</div>
+  </div>`);
+  S.forEach(s=>main.insertAdjacentHTML('beforeend',s.html));
+  main.insertAdjacentHTML('beforeend',`<footer>Branch Vision Intelligence · AI governance assignment · figures traced to the estimation review. Prepared for client review.</footer>`);
+
+  // rail
+  const rl=document.getElementById('railLinks'); let act='';
+  S.forEach(s=>{ if(s.act!==act){act=s.act; rl.insertAdjacentHTML('beforeend',`<div class="act">${act}</div>`);} 
+    rl.insertAdjacentHTML('beforeend',`<a href="#${s.id}" class="${s.id.startsWith('uc')&&s.id!=='uc'?'uc':''}">${s.label}</a>`); });
+  const links=[...rl.querySelectorAll('a')];
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-40% 0px -55% 0px'});
+  S.forEach(s=>{const el=document.getElementById(s.id); if(el)obs.observe(el);});
+  rl.addEventListener('click',e=>{if(e.target.tagName==='A')document.querySelector('.rail').classList.remove('open');});
+
+  tower();
+})();
+
+/* ================= control tower ================= */
+function tower(){
+  const $=s=>document.querySelector(s);
+  document.querySelectorAll('.console .tabs button').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.console .tabs button').forEach(x=>x.classList.toggle('on',x===b));
+    document.querySelectorAll('.console .pane').forEach(p=>p.classList.toggle('on',p.id==='p-'+b.dataset.p));
+  });
+
+  /* registry */
+  function drawReg(){
+    const t=$('#fTier').value,sp=$('#fSpeed').value,th=$('#fTheme').value;
+    const rows=UC.filter(u=>(!t||u.tier===t)&&(!sp||u.speed===sp)&&(!th||u.theme===th));
+    $('#regTable').innerHTML=`<table><thead><tr><th>System ID</th><th>Use case</th><th>Owner</th><th>Tier</th><th>Speed</th><th>Status</th><th>Next review</th></tr></thead><tbody>
+    ${rows.map(u=>`<tr class="matrix"><td class="e" data-uc="${u.id}" style="color:var(--brass)">AI-BV-UC${u.id}-001</td><td class="e" data-uc="${u.id}">${u.name}</td><td class="small">${u.theme==='people'?'Branch Ops + HR':(u.theme==='safety'?'Security':(u.theme==='compliance'?'Compliance':'Branch Security'))}</td><td class="tier-${u.tier}">${u.tier}</td><td class="speed-${u.speed}">${u.speed}</td><td>${u.gate.startsWith('Gate 1')?'In qualification':'Proposed'}</td><td class="small dim">${u.tier==='Critical'?'Monthly':(u.tier==='High'?'Quarterly':'Half-yearly')}</td></tr>`).join('')}
+    </tbody></table>${rows.length?'':'<p class="dim">No systems match. Clear the filters.</p>'}`;
+    document.querySelectorAll('#regTable .e').forEach(c=>c.onclick=()=>detail(c.dataset.uc));
+  }
+  function detail(id){
+    const u=UC.find(x=>x.id===id),h=UCHOURS[id];
+    $('#regDetail').innerHTML=`<div class="detail"><h4>AI-BV-UC${u.id}-001 · ${u.name}</h4>
+    <div class="grid3">
+      <div><div class="ledger tight" style="margin:0">
+      <div class="row"><b>Tier</b><span class="tier-${u.tier}">${u.tier} · ${u.total}/50</span></div>
+      <div class="row"><b>Models</b><span>${u.models.join(', ')}</span></div>
+      <div class="row"><b>Decision role</b><span>${u.risk.decision>=4?'Influences a consequential decision':'Informs / recommends'}</span></div>
+      <div class="row"><b>Autonomy</b><span>A${u.risk.autonomy} — ${u.risk.autonomy<=1?'informational':'human-approved action'}</span></div>
+      </div></div>
+      <div><div class="ledger tight" style="margin:0">
+      <div class="row"><b>Hours</b><span>${u.hours} h</span></div>
+      <div class="row"><b>Engineering</b><span>${u.eng}</span></div>
+      <div class="row"><b>Per branch</b><span>${u.perBranch}</span></div>
+      <div class="row"><b>Cloud</b><span>${u.cloud}</span></div>
+      </div></div>
+      <div><div class="ledger tight" style="margin:0">
+      <div class="row"><b>Enters at</b><span>${u.gate}</span></div>
+      <div class="row"><b>Alert load</b><span>${u.alertsPerDay}/branch/day · ${(u.alertsPerDay*4000).toLocaleString()} fleet</span></div>
+      <div class="row"><b>Open unknowns</b><span>${u.ku.filter(k=>k[1]!=='Known').length} of ${u.ku.length}</span></div>
+      <div class="row"><b>Controls</b><span>${u.controls.length} assigned</span></div>
+      </div></div>
+    </div>
+    <p class="small dim" style="margin-top:12px"><a href="#uc${u.id}">Open the full governance chapter for UC${u.id}</a></p></div>`;
+  }
+  ['#fTier','#fSpeed','#fTheme'].forEach(s=>$(s).onchange=drawReg);
+  $('#fClear').onclick=()=>{$('#fTier').value='';$('#fSpeed').value='';$('#fTheme').value='';drawReg();$('#regDetail').innerHTML='';};
+  drawReg();
+
+  /* risk engine */
+  let cur={...UC[0].risk}, curId='01';
+  function drawVars(){
+    $('#engVars').innerHTML=VARS.map(v=>`<label title="${v[2]}">${v[1]}<b id="v-${v[0]}">${cur[v[0]]}</b>
+      <input type="range" min="0" max="5" step="1" value="${cur[v[0]]}" data-k="${v[0]}"></label>`).join('');
+    $('#engVars').querySelectorAll('input').forEach(i=>i.oninput=()=>{cur[i.dataset.k]=+i.value;$('#v-'+i.dataset.k).textContent=i.value;drawEng();});
+  }
+  function drawEng(){
+    const tot=Object.values(cur).reduce((a,b)=>a+b,0), tier=tierOf(tot), u=UC.find(x=>x.id===curId);
+    const need=CONTROLS.filter(c=>c[5]==='all'||(c[5]==='High'&&(tier==='High'||tier==='Critical'))||(c[5]==='people'&&u.theme==='people')||(c[5]==='vendor'));
+    const path=tier==='Critical'?['Governance office','Model Risk independent validation','CISO + DPO','Executive AI Steering Committee']
+      :tier==='High'?['Governance office','Model Risk','Business owner sign-off','AI Governance Committee']
+      :tier==='Moderate'?['Governance office','Business owner sign-off']:['Governance office — fast track'];
+    $('#engOut').innerHTML=`
+    <div class="grid2" style="gap:14px">
+      <div class="readout ${tier==='Critical'?'bad':(tier==='High'?'warn':'ok')}"><b>${tier}</b><small>tier · ${tot}/50</small></div>
+      <div class="readout"><b>${need.length}</b><small>controls required</small></div>
+    </div>
+    <div class="gauge ${tot>=36?'bad':''}" style="margin:14px 0"><i style="width:${tot/50*100}%"></i></div>
+    <p class="small dim">Assessed value for UC${u.id} is ${u.total}/50 — ${u.tier}. ${tot!==u.total?`You have moved it to ${tot} — ${tier}.`:''}</p>
+    <h4 style="margin-top:16px">Approval path</h4>
+    <ul class="steps">${path.map(p=>`<li class="done">${p}</li>`).join('')}</ul>
+    <h4 style="margin-top:16px">Controls this tier attracts</h4>
+    <div class="small dim">${need.map(c=>`<span class="tag">${c[0]}</span>`).join('')}</div>
+    ${tier==='Critical'?`<div class="detail" style="margin-top:14px"><h4 style="margin:0 0 6px">Tier 4 adds</h4><p class="small" style="margin:0">Executive approval before the gate, a tested kill switch, independent validation, and a silent trial before any live consequence. In this portfolio only UC02 reaches here — and it is also the largest technical unknown in the estimate at 320 model hours.</p></div>`:''}`;
+  }
+  $('#engPick').onchange=e=>{curId=e.target.value;cur={...UC.find(u=>u.id===curId).risk};drawVars();drawEng();};
+  $('#engReset').onclick=()=>{cur={...UC.find(u=>u.id===curId).risk};drawVars();drawEng();};
+  drawVars();drawEng();
+
+  /* controls */
+  $('#ctlTable').innerHTML=`<table><thead><tr><th>ID</th><th>Control</th><th>Evidence</th><th>Owner</th><th>Frequency</th><th>Applies to</th></tr></thead><tbody>
+  ${CONTROLS.map(c=>`<tr><td style="color:var(--brass)">${c[0]}</td><td>${c[1]}</td><td class="small dim">${c[2]}</td><td class="small">${c[3]}</td><td class="small">${c[4]}</td><td class="small">${c[5]==='all'?'Every system':(c[5]==='High'?'Tier 3 and 4':(c[5]==='people'?'Staff-related use cases':'Vendor models'))}</td></tr>`).join('')}
+  </tbody></table>
+  <p class="small dim" style="margin-top:12px">Every control names its evidence, its owner and its frequency. A control without those three is a sentence in a policy, not a control — and it cannot be tested at 4,000 branches.</p>`;
+
+  /* gates */
+  $('#gateBoxes').innerHTML=GATES.map((g,gi)=>`<div class="gate"><h4>Gate ${g.n} — ${g.name} <span class="dim" style="font-weight:400">· ${g.scope} · ${g.cost}</span><span class="status" id="gs-${gi}"></span></h4>
+    ${g.gov.map((p,i)=>`<label><input type="checkbox" data-g="${gi}"> ${p}</label>`).join('')}</div>`).join('');
+  function gstat(){
+    GATES.forEach((g,gi)=>{
+      const bs=[...document.querySelectorAll(`#gateBoxes input[data-g="${gi}"]`)], done=bs.filter(b=>b.checked).length;
+      const el=document.getElementById('gs-'+gi);
+      el.textContent=done===bs.length?'✓ ready to open':`${done} of ${bs.length} met`;
+      el.style.color=done===bs.length?'#8ccca9':'var(--paper-dim)';
+    });
+  }
+  document.querySelectorAll('#gateBoxes input').forEach(i=>i.onchange=gstat); gstat();
+
+  /* money */
+  function money(){
+    const mp=+$('#mPrice').value, br=+$('#bCount').value, uc=+$('#uCount').value;
+    const stdShare=0.85, std=Math.round(br*stdShare), enh=br-std;
+    const stdBox=65500+(mp-34000), enhBox=94000+(mp-34000)*(47000/34000);
+    const hw=(std*stdBox+enh*enhBox)*1.03;
+    const hours=2080+Math.round(1180*(uc/10))+Math.round(1280*(uc/10));
+    const engCost=hours*1205, billed=engCost*2.2;
+    const y1=hw+billed+11200000*(br/4000)+1000000;
+    const cr=v=>'₹'+(v/1e7).toFixed(2)+' cr';
+    $('#mLab').textContent='₹'+mp.toLocaleString('en-IN');
+    $('#bLab').textContent=br.toLocaleString('en-IN'); $('#uLab').textContent=uc;
+    $('#moneyOut').innerHTML=`
+    <div class="grid2" style="gap:14px">
+      <div class="readout"><b>${cr(hw)}</b><small>hardware fleet</small></div>
+      <div class="readout"><b>${cr(billed)}</b><small>engineering, billed at 2.2×</small></div>
+      <div class="readout ${mp>36000?'warn':''}"><b>${cr(y1)}</b><small>year one</small></div>
+      <div class="readout"><b>₹${Math.round((hw+billed)/br).toLocaleString('en-IN')}</b><small>per branch</small></div>
+    </div>
+    <div class="ledger tight" style="margin-top:18px">
+      <div class="row"><b>Hours</b><span>${hours.toLocaleString()} — platform 2,080 never shrinks</span></div>
+      <div class="row"><b>Hardware share</b><span>${(hw/y1*100).toFixed(0)}% of year one</span></div>
+      <div class="row"><b>vs baseline</b><span>${y1>=311700000?'+':''}${cr(y1-311700000)} against ₹31.17 cr</span></div>
+    </div>
+    ${mp!==34000?`<div class="detail" style="margin-top:14px"><h4 style="margin:0 0 6px">The module assumption moved</h4><p class="small" style="margin:0">A ₹${Math.abs(mp-34000).toLocaleString('en-IN')} change per module is ${cr(Math.abs(hw-287500000))} across the fleet. This is why the unit price carries a named owner and a reassessment trigger, exactly like a vendor model version.</p></div>`:''}
+    ${uc<10?`<div class="detail" style="margin-top:14px"><h4 style="margin:0 0 6px">Cutting scope barely helps</h4><p class="small" style="margin:0">Removing ${10-uc} use case${10-uc>1?'s':''} saves ${cr(HOURS.total*1205*2.2-billed)} — the platform and shared models do not shrink, and hardware is unchanged. Scope is the wrong lever; the gates are the right one.</p></div>`:''}`;
+  }
+  ['#mPrice','#bCount','#uCount'].forEach(s=>$(s).oninput=money); money();
+
+  /* incident */
+  const INC=[
+    ["Detect","Monitoring flags the false-positive rate on UC02 at Branch 0421 — 17 alerts in two days against a baseline of one a fortnight.","Threshold breach raised automatically. No human had to notice."],
+    ["Classify","AI incident · model performance · high operational impact. Tier 4 system, so the clock starts on executive notification.","Severity drives who is told and how fast."],
+    ["Contain","UC02 switched to advisory mode at that branch. Police escalation was already blocked without human confirmation, so no dispatch occurred.","The kill switch is used, not debated. This is why it is tested quarterly."],
+    ["Investigate","Footage reviewed. All 17 alerts trace to one camera. A replacement camera of a different model was fitted by the AMC vendor last week.","The model did not drift. The input changed."],
+    ["Root cause","New camera type, different lens and colour profile, not in the validation set.","Neither an engineering failure nor a governance failure alone — a change-management gap."],
+    ["Remediate","Recalibrate for the new camera type; add its footage to the validation set; retrain on the next quarterly cycle.","Every dismissed alert became a training example."],
+    ["Control change","Camera-type validation added to the deployment checklist. AMC vendor now notifies before camera replacement.","The permanent fix is the control, not the retraining."],
+    ["Reassess","UC02 re-qualified at the branch. Uncertainty on 'future camera models' moves from Unknown to Partially known.","The known/unknown register is updated — that is the learning made durable."],
+    ["Close","Incident closed with a complete record: detection, decision, evidence, approver and date.","Available to audit without asking five departments."],
+  ];
+  let ip=0;
+  function inc(){
+    $('#incSteps').innerHTML=INC.map((s,i)=>`<li class="${i<ip?'done':(i===ip?'now':'')}">${i+1}. ${s[0]}</li>`).join('');
+    const s=INC[Math.min(ip,INC.length-1)];
+    $('#incOut').innerHTML=`<div class="detail"><h4>${s[0]}</h4><p>${s[1]}</p><p class="small dim" style="margin:0">${s[2]}</p></div>
+    <div class="grid2" style="gap:14px;margin-top:14px">
+      <div class="readout ${ip>=2?'ok':'bad'}"><b>${ip>=2?'Contained':'Open'}</b><small>containment</small></div>
+      <div class="readout"><b>${ip>=8?'Closed':'Active'}</b><small>incident state</small></div>
+    </div>${ip>=INC.length-1?`<p class="small dim" style="margin-top:12px">Nine steps, one record. The incident produced a threshold change, a checklist item, a vendor clause and a register update — which is what distinguishes an incident process from an apology.</p>`:''}`;
+  }
+  $('#incNext').onclick=()=>{ip=Math.min(ip+1,INC.length-1);inc();};
+  $('#incReset').onclick=()=>{ip=0;inc();};
+  inc();
+
+  /* exec */
+  const crit=UC.filter(u=>u.tier==='Critical').length, high=UC.filter(u=>u.tier==='High').length,
+        mod=UC.filter(u=>u.tier==='Moderate').length, low=UC.filter(u=>u.tier==='Low').length;
+  const unknowns=UC.reduce((a,u)=>a+u.ku.filter(k=>k[1]==='Unknown').length,0);
+  $('#execOut').innerHTML=`
+  <div class="grid3" style="gap:14px">
+    <div class="readout"><b>10</b><small>AI systems registered</small></div>
+    <div class="readout bad"><b>${crit}</b><small>Tier 4 · critical</small></div>
+    <div class="readout warn"><b>${high}</b><small>Tier 3 · high</small></div>
+    <div class="readout"><b>${mod}</b><small>Tier 2 · moderate</small></div>
+    <div class="readout warn"><b>${unknowns}</b><small>open unknowns across the portfolio</small></div>
+    <div class="readout ok"><b>100%</b><small>systems with a named owner</small></div>
+  </div>
+  <div class="grid2" style="margin-top:22px">
+    <div>
+      <h4>Pilot health — Gate 2, 50 branches</h4>
+      <div class="ledger tight">
+        <div class="row"><b>Response rate</b><span>74% · pass criterion is 70% <span class="dim">— the metric that governs the programme</span></span></div>
+        <div class="row"><b>False alarms</b><span>2.6 per branch per week · criterion ≤3</span></div>
+        <div class="row"><b>Camera obstruction</b><span>0 instances · the adoption canary</span></div>
+        <div class="row"><b>Weak-connectivity uptime</b><span>98.4% · criterion ≥98%</span></div>
+        <div class="row"><b>Alerts per branch per day</b><span>4.9 · capped at 8</span></div>
+      </div>
+      <p class="small dim">Flag-to-action rate is measured at branch level, never at individual level. If it falls, the system is failing regardless of model accuracy.</p>
+    </div>
+    <div>
+      <h4>Governance health</h4>
+      <div class="ledger tight">
+        <div class="row"><b>Assessments</b><span>10 of 10 complete</span></div>
+        <div class="row"><b>Kill switches</b><span>tested this quarter on UC02; scheduled for the rest</span></div>
+        <div class="row"><b>Open incidents</b><span>1 · UC02 camera-type false positives · contained</span></div>
+        <div class="row"><b>Overdue reviews</b><span>0</span></div>
+        <div class="row"><b>Awaiting decision</b><span>Roster access for UC06 · HR and union position outstanding</span></div>
+      </div>
+      <h4 style="margin-top:22px">Money, against plan</h4>
+      <div class="ledger tight">
+        <div class="row"><b>Committed</b><span>₹1.16 cr through Gates 1 and 2</span></div>
+        <div class="row"><b>Year-one plan</b><span>₹31.17 cr</span></div>
+        <div class="row"><b>Largest exposure</b><span>Currency on ₹29 cr of imports — owner not yet named</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+</script>
+</main></body></html>
