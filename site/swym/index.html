@@ -42,9 +42,8 @@ h1{margin-top:20px;max-width:14ch;font-size:clamp(2.125rem,1.4rem + 3.4vw,3.75re
 .nw{white-space:nowrap}
 .card{position:relative;overflow:hidden;width:100%;max-width:460px;margin-top:clamp(40px,7vh,64px);padding:32px 28px 36px;border-radius:16px;background:var(--ink);color:var(--white);text-align:left;font-style:normal}
 .card::after{content:"";position:absolute;right:0;bottom:0;width:96px;height:56px;background:var(--red);clip-path:polygon(100% 0,100% 100%,0 100%)}
-.name{font-size:1.25rem;font-weight:800;letter-spacing:-.01em}
-.role{margin-top:2px;color:var(--grey);font-size:.9375rem}
-.card hr{width:32px;height:2px;margin:20px 0 12px;border:0;background:var(--red)}
+.kicker{margin-bottom:4px;color:var(--grey);font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.card hr{width:32px;height:2px;margin:16px 0 18px;border:0;background:var(--red)}
 .links{list-style:none;padding:0;display:flex;flex-direction:column;align-items:flex-start}
 .links a{display:inline-flex;align-items:center;min-height:44px;color:var(--white);font-size:1.0625rem;font-weight:600;text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:6px}
 .links a:hover{text-decoration-color:var(--white)}
@@ -62,7 +61,7 @@ html.intro #car-wipe-rect,html.intro #underline-wipe-rect{transform:scaleX(0);an
 @media (prefers-reduced-motion:reduce){html.intro .veil{display:none}html.intro .letter,html.intro #tagline{opacity:1}html.intro #car-wipe-rect,html.intro #underline-wipe-rect{transform:none}}
 </style>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"AutoDealer","name":"Mr Best Cars","description":"Pre-owned cars in Regina. Buy · Sell · Trade.","url":"https://jayantarora.in/swym/","image":"https://jayantarora.in/swym/assets/og-image.png","telephone":"+1-639-480-4400","address":{"@type":"PostalAddress","streetAddress":"909 8th Ave","addressLocality":"Regina","addressRegion":"SK","postalCode":"S4N 6S3","addressCountry":"CA"},"founder":{"@type":"Person","name":"Rohit Chawla","jobTitle":"Marketing Director & Founder"}}
+{"@context":"https://schema.org","@type":"AutoDealer","name":"Mr Best Cars","description":"Pre-owned cars in Regina. Buy · Sell · Trade.","url":"https://jayantarora.in/swym/","image":"https://jayantarora.in/swym/assets/og-image.png","telephone":["+1-639-480-4400","+1-306-999-2245","+1-306-942-7200"],"address":{"@type":"PostalAddress","streetAddress":"909 8th Ave","addressLocality":"Regina","addressRegion":"SK","postalCode":"S4N 6S3","addressCountry":"CA"}}
 </script>
 </head>
 <body>
@@ -98,11 +97,15 @@ html.intro #car-wipe-rect,html.intro #underline-wipe-rect{transform:scaleX(0);an
   <h1>Warming up. Back shortly.</h1>
   <p class="lead"><span class="nw">Pre-owned cars in Regina.</span> <span class="nw">Buy · Sell · Trade.</span></p>
   <address class="card">
-    <p class="name">Rohit Chawla</p>
-    <p class="role">Marketing Director &amp; Founder</p>
-    <hr>
+    <p class="kicker">Call</p>
     <ul class="links">
       <li><a href="tel:+16394804400">639-480-4400</a></li>
+      <li><a href="tel:+13069992245">306-999-2245</a></li>
+      <li><a href="tel:+13069427200">306-942-7200</a></li>
+    </ul>
+    <hr>
+    <p class="kicker">Visit</p>
+    <ul class="links">
       <li><a href="https://www.google.com/maps/search/?api=1&amp;query=909%208th%20Ave%2C%20Regina%2C%20SK%20S4N%206S3">909 8th Ave, Regina, SK&nbsp;&nbsp;S4N&nbsp;6S3</a></li>
     </ul>
   </address>

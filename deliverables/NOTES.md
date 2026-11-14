@@ -28,6 +28,7 @@ Nothing was redrawn. All artwork was extracted from the board:
 2. The logo's own tagline reads "Buy • Sell • Drive Better", and the page line keeps the brief's "Buy · Sell · Trade." Tell me if the page line should switch.
 3. The board's lifestyle mock-ups (shopfront, SUV wrap, business cards) are not used as photos. They are generated mock-ups of a building and vehicle that are not the dealership, and they are too low-resolution for the web.
 4. Address: 909 8th Ave, Regina, SK  S4N 6S3 (confirmed by the client). It is on the page, in the maps link and in the JSON-LD. The meta description keeps the brief's wording.
+4b. Contact: Rohit Chawla and his title were removed at the client's request. Phones are 639-480-4400, 306-999-2245 and 306-942-7200 (all tel: links, all in the JSON-LD `telephone` list). The card has small "Call" and "Visit" labels.
 5. "Kilometres" is not used, because nothing on the page refers to distance.
 6. Not verified: Lighthouse was not re-run for v2, since you asked for no local server and this environment cannot reach the live domain. Please run it on the live URL. v1 scored 100/100/100/100; v2 uses the same structure, but the inline logo is larger (page HTML about 66 KB, roughly 25 KB gzipped).
 7. Checked: no horizontal scroll at 360, 768 and 1440 px, all links 44 px tall or more, and no console errors. The page renders fully with JavaScript off.
