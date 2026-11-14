@@ -7,18 +7,12 @@ directory = "./site"
 binding = "ASSETS"
 run_worker_first = true
 
-[[routes]]
-pattern = "mrbestcars.ca"
-custom_domain = true
-
-[[routes]]
-pattern = "www.mrbestcars.ca"
-custom_domain = true
-
-[[routes]]
-pattern = "mrbestcars.com"
-custom_domain = true
-
-[[routes]]
-pattern = "www.mrbestcars.com"
-custom_domain = true
+# Worker routes (not custom domains): they attach to the zones' existing
+# proxied DNS records instead of trying to create new ones.
+# Each hostname below needs a DNS record with the orange cloud (Proxied) on.
+routes = [
+  { pattern = "mrbestcars.ca/*",      zone_name = "mrbestcars.ca" },
+  { pattern = "www.mrbestcars.ca/*",  zone_name = "mrbestcars.ca" },
+  { pattern = "mrbestcars.com/*",     zone_name = "mrbestcars.com" },
+  { pattern = "www.mrbestcars.com/*", zone_name = "mrbestcars.com" },
+]
