@@ -2,7 +2,7 @@
 
 > **Update after Brand Guidelines v1.0:** the guidelines already define a decorative element, the **sedan mark** (p. 8: "Derived. Decoration; carries no name"; p. 17: "Decoration only, at large sizes, never as the only brand mark"). That changes the recommendation. **Use the sedan mark, not the invented wheel drawing.** The wheel was original art, the user asked for nothing new to be created, and the guidelines now supply an approved piece.
 >
-> **Preview now shows:** the supplied sedan mark at large size, about 7% opacity (6% on phones), bleeding off the right edge so it appears to drive out from behind the contact card. It never sits behind any text, and the primary logo stays the main brand mark.
+> **Shipped (client's choice, Option A):** the supplied sedan mark at 5% opacity as a wide, full-bleed band across the bottom of the page above the footer line. It never sits behind text, and the primary logo stays the main brand mark. The temporary preview URL has been removed.
 >
 > **Why the sedan mark beats the wheel** (same evidence as below):
 > - **Repetition and mere exposure:** repeating a brand shape raises processing fluency and liking (Reber, Schwarz & Winkielman 2004 list stimulus repetition as a fluency driver). The wheel was a new shape to learn; the sedan mark repeats the logo.
@@ -22,8 +22,6 @@
 
 **Answer:** Yes, but only in one narrow form. Use a single fine-line drawing of a wheel with its brake disc, in brand black at about 7% opacity. It sits at the bottom-right edge, partly cropped by the screen, and never sits behind text. Everything else tested worse on the evidence below.
 
-Preview (not indexed, main page unchanged): https://jayantarora.in/swym/preview-bg/
-Screenshots: `deliverables/preview-bg-desktop-1440.png`, `-tablet-768.png`, `-mobile-360.png`
 
 ---
 
