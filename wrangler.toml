@@ -5,5 +5,5 @@ compatibility_date = "2025-01-01"
 directory = "./site"
 
 [[routes]]
-pattern = "jayantarora.in/protiviti*"
+pattern = "jayantarora.in/swym*"
 zone_name = "jayantarora.in"
