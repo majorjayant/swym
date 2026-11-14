@@ -1,5 +1,23 @@
 # Background art for the Mr Best Cars page: research and recommendation
 
+> **Update after Brand Guidelines v1.0:** the guidelines already define a decorative element, the **sedan mark** (p. 8: "Derived. Decoration; carries no name"; p. 17: "Decoration only, at large sizes, never as the only brand mark"). That changes the recommendation. **Use the sedan mark, not the invented wheel drawing.** The wheel was original art, the user asked for nothing new to be created, and the guidelines now supply an approved piece.
+>
+> **Preview now shows:** the supplied sedan mark at large size, about 7% opacity (6% on phones), bleeding off the right edge so it appears to drive out from behind the contact card. It never sits behind any text, and the primary logo stays the main brand mark.
+>
+> **Why the sedan mark beats the wheel** (same evidence as below):
+> - **Repetition and mere exposure:** repeating a brand shape raises processing fluency and liking (Reber, Schwarz & Winkielman 2004 list stimulus repetition as a fluency driver). The wheel was a new shape to learn; the sedan mark repeats the logo.
+> - **Prototypicality:** the silhouette reads as "car" instantly, just as the wheel did.
+> - **Brand consistency is part of trust** (the "Trusted" value, p. 2). One visual language across the logo, signage and web is more credible than a new motif.
+> - **Art infusion still applies** (Hagtvedt & Patrick 2008). It works through the general connotation of art, and the brush-stroke sedan drawing carries that.
+> - **Compliance:** it is supplied artwork used as the guideline says, as decoration at large size. Nothing is drawn or recoloured.
+>
+> **Needs your approval:** the guideline does not say whether the sedan mark may be shown faded. Low opacity is a tint, which is close to recolouring. If tinting is not allowed, the fallback is plain white (option A), not the full-strength sedan mark, which would compete with the logo.
+>
+> The original analysis follows unchanged for the record.
+
+---
+
+
 **Question:** Would adding fine-art automobile components to the page background make the page better, and if so, which treatment?
 
 **Answer:** Yes, but only in one narrow form. Use a single fine-line drawing of a wheel with its brake disc, in brand black at about 7% opacity. It sits at the bottom-right edge, partly cropped by the screen, and never sits behind text. Everything else tested worse on the evidence below.

@@ -1,34 +1,36 @@
-# Mr Best Cars: coming-soon page, delivery notes (v2: black/red identity)
+# Mr Best Cars: coming-soon page, delivery notes (v3: Brand Guidelines v1.0)
 
-The live page is `site/swym/index.html`. Cloudflare serves it at `https://jayantarora.in/swym/`.
-The folder `site/swym/` can also be deployed as-is to any static host.
+The live page is `site/swym/index.html` at https://jayantarora.in/swym/. The background preview is `site/swym/preview-bg/` (noindex).
+The folder `site/swym/` can be deployed as-is to any static host.
 
-## Source artwork
-The design comes from the brand identity board image (MR_Best_Cars_Brand_Identity_Board.png, 1672×941).
-The attached PDF is the earlier gold/ink guideline; it was not used for v2.
-Nothing was redrawn. All artwork was extracted from the board:
+## Source
+Brand Guidelines v1.0 (November 2026, 29 pages). The page now follows it. All logo artwork was extracted from the PDF's embedded masters (PNG with transparency). Nothing was redrawn.
 
-| Asset | How it was made |
+| Asset | From the guideline PDF |
 |---|---|
-| `assets/mr-best-cars-logo.svg` (also inlined in the page) | Logo crop (car silhouette, wordmark, red underline, tagline), upscaled 4× and traced with potrace into two flat colours. It is split into `#car`, `#wordmark .letter` ×10, `#underline` and `#tagline` so the loader can animate the parts. |
-| `assets/mr-best-cars-logo-on-dark.svg` | Same vectors with the black recoloured white, as the board shows on the shopfront and the black business card. |
-| `assets/mr-best-cars-icon.svg`, `favicon-32.png`, `apple-touch-icon.png` | Traced from the board's black rounded app icon |
-| `assets/og-image.png` | Logo on white, 1200×630 |
-| Colours | Sampled from the board's swatches: black #101416, red #E40103, light grey #DFE0E1, plus white |
-| Red corner on the contact card | Taken from the board's business-card mock-up |
+| Logo inlined in the page, `assets/mr-best-cars-logo.svg` | 1144×315 primary master (p. 3), traced to vectors in the two supplied colours #111315 / #E30613 |
+| `assets/mr-best-cars-logo-on-dark.svg` | The same, with black swapped for white only, as p. 4 specifies |
+| `assets/mr-best-cars-sedan-mark.svg` | 1138×172 sedan mark (p. 8), used only on the background preview |
+| `favicon-32.png`, `apple-touch-icon.png` | 297×290 app icon (p. 8), resized; no tracing |
+| `og-image.png` | Primary logo on white plus the corner wedge, laid out like the social cover (p. 26) |
 
-## Changes from v1
-- White page with black and red, matching the board. The gold, ink and Manrope look is gone.
-- Font: Montserrat (SIL OFL, self-hosted, weights 400–800). It is the closest open font to the board's spaced caption type. The logo lettering itself is vector outlines.
-- Loader: the car sweeps in from the left, the letters rise in with a stagger, the red underline draws, the tagline fades in, then the logo moves to the header as the white overlay fades. It ends within about 2.3 s, plays once per session and can be skipped. It animates only transform and opacity, uses no library, and respects reduced motion and no-JS. The v1 "roofline sheen" was dropped because this logo has no single roofline stroke.
-- Contact details and page copy are unchanged.
+## Guideline rules applied
+- **Palette (p. 11):** Ink #111315, Red #E30613, White, Light grey #DFE0E1 (card labels), Slate #3C4246 (secondary text). All pairings used are from p. 12: ink on white 18.6:1, slate on white 10.2:1, red on white 4.9:1, white on ink 18.6:1, light grey on ink 14.1:1. Red is never used for text on ink (p. 13).
+- **Type (pp. 15–16):** Montserrat only, with two weights in the layout: Regular 400 and Bold 700. The headline is 40 px Bold in sentence case (32 px on phones). The "COMING SOON" label is 12 px Bold, capitals, tracked 18%.
+- **Logo (pp. 5–7):** screen size 280–560 px wide, above the 260 px minimum. Clear space of one X is kept on every side. The logo is never placed on ink in full colour.
+- **Graphic elements (p. 17):** short red rule between groups, red underline on contact links, and the corner wedge at the exact geometry (starts 79% along the bottom, meets the right edge at 77% of a 3.5×2 card). On tall phone cards it keeps the same angle.
+- **Tone (p. 19):** "Warming up. Back shortly." is one of the guideline's own example headlines.
 
-## Assumptions and limits
-1. The logo's red has a soft shading gradient in the board image. The vector uses the flat red sampled from the swatch, which also follows the board's "flat" logic for print.
-2. The logo's own tagline reads "Buy • Sell • Drive Better", and the page line keeps the brief's "Buy · Sell · Trade." Tell me if the page line should switch.
-3. The board's lifestyle mock-ups (shopfront, SUV wrap, business cards) are not used as photos. They are generated mock-ups of a building and vehicle that are not the dealership, and they are too low-resolution for the web.
-4. Address: 909 8th Ave, Regina, SK  S4N 6S3 (confirmed by the client). It is on the page, in the maps link and in the JSON-LD. The meta description keeps the brief's wording.
-4b. Contact: Rohit Chawla and his title were removed at the client's request. Phones are 639-480-4400, 306-999-2245 and 306-942-7200 (all tel: links, all in the JSON-LD `telephone` list). The card has small "Call" and "Visit" labels.
-5. "Kilometres" is not used, because nothing on the page refers to distance.
-6. Not verified: Lighthouse was not re-run for v2, since you asked for no local server and this environment cannot reach the live domain. Please run it on the live URL. v1 scored 100/100/100/100; v2 uses the same structure, but the inline logo is larger (page HTML about 66 KB, roughly 25 KB gzipped).
-7. Checked: no horizontal scroll at 360, 768 and 1440 px, all links 44 px tall or more, and no console errors. The page renders fully with JavaScript off.
+## Contact
+Rohit Chawla and his title were removed at your request. The three phones are 639-480-4400, 306-999-2245 and 306-942-7200, all `tel:` links and all listed in the JSON-LD. The address is 909 8th Ave, Regina, SK  S4N 6S3, with a maps link and the postal code in the JSON-LD. The card uses small "Call" and "Visit" labels.
+
+## Loader
+The car sweeps in from the left, the letters rise in with a stagger, the red underline draws and the tagline fades in. Then the logo settles into the header as the white overlay fades. It ends within about 2.3 s, plays once per session, and any click, tap or key skips it. It animates only transform and opacity, with no library. With reduced motion or no JavaScript, the finished page shows immediately. Letters move only during the intro and end exactly where the master puts them (p. 5: "do not rebuild or re-space").
+
+## Open items and assumptions
+1. The guideline (p. 29) asks the designer for **vector masters**. Mine are high-fidelity traces of the PNG masters. Swap them in when the real SVG or PDF files arrive.
+2. **Monochrome logos and the MR monogram are marked MISSING (p. 9).** None were made. The favicon uses the supplied app icon.
+3. **Page line:** "Pre-owned cars in Regina. Buy · Sell · Trade." is kept from the original brief. The guideline story line is "Buy, sell and trade pre-owned cars on 8th Ave in Regina." Say if you want it switched.
+4. **"Kilometres"** is not used, because nothing on the page refers to distance.
+5. **Lighthouse not re-run:** you asked for no local server, and this environment cannot reach the live domain. Please run it on the live URL. HTML is about 49 KB (about 15 KB gzipped) plus a 38 KB font.
+6. **Checked:** no horizontal scroll at 360, 768 and 1440 px, all links 44 px tall or more, no console errors, and the page renders fully with JavaScript off.
