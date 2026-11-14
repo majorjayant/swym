@@ -1,7 +1,13 @@
 # Mr Best Cars: coming-soon page, delivery notes (v3: Brand Guidelines v1.0)
 
-The live page is `site/swym/index.html` at https://jayantarora.in/swym/.
-The folder `site/swym/` can be deployed as-is to any static host.
+The live page is `site/index.html` at https://mrbestcars.ca/.
+The `site/` folder can be deployed as-is to any static host.
+
+## Domains
+- **Main address:** `https://mrbestcars.ca/`. The canonical tag, Open Graph tags, JSON-LD, `robots.txt` and `sitemap.xml` all point here.
+- **Redirects:** `mrbestcars.com`, `www.mrbestcars.com` and `www.mrbestcars.ca` 301 to the main address, keeping the path and query. This is done by `src/worker.js` with `run_worker_first`.
+- **Hosting:** the same Worker (`swym`), with the four hostnames attached as Cloudflare custom domains in `wrangler.toml`.
+- **Old address:** the `jayantarora.in/swym*` route was removed, so that URL no longer serves the site.
 
 ## Source
 Brand Guidelines v1.0 (November 2026, 29 pages). The page now follows it. All logo artwork was extracted from the PDF's embedded masters (PNG with transparency). Nothing was redrawn.

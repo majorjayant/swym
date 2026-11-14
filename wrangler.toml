@@ -1,9 +1,24 @@
 name = "swym"
+main = "src/worker.js"
 compatibility_date = "2025-01-01"
 
 [assets]
 directory = "./site"
+binding = "ASSETS"
+run_worker_first = true
 
 [[routes]]
-pattern = "jayantarora.in/swym*"
-zone_name = "jayantarora.in"
+pattern = "mrbestcars.ca"
+custom_domain = true
+
+[[routes]]
+pattern = "www.mrbestcars.ca"
+custom_domain = true
+
+[[routes]]
+pattern = "mrbestcars.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.mrbestcars.com"
+custom_domain = true
