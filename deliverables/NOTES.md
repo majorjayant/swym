@@ -5,8 +5,8 @@ The `site/` folder can be deployed as-is to any static host.
 
 ## Domains
 - **Main address:** `https://mrbestcars.ca/`. The canonical tag, Open Graph tags, JSON-LD, `robots.txt` and `sitemap.xml` all point here.
-- **Redirects:** `mrbestcars.com`, `www.mrbestcars.com` and `www.mrbestcars.ca` 301 to the main address, keeping the path and query. This is done by `src/worker.js` with `run_worker_first`.
-- **Hosting:** the same Worker (`swym`), with the four hostnames attached as Cloudflare custom domains in `wrangler.toml`.
+- **Redirects:** `mrbestcars.com`, `www.mrbestcars.com` and `www.mrbestcars.ca` 301 to the main address, keeping the path and query. Plain http also redirects to https. This is done by `src/worker.js` with `run_worker_first`.
+- **Hosting:** the same Worker (`swym`), with the four hostnames attached as Worker routes in `wrangler.toml`. Each needs a proxied (orange-cloud) DNS record.
 - **Old address:** the `jayantarora.in/swym*` route was removed, so that URL no longer serves the site.
 
 ## Source
