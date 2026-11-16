@@ -7,12 +7,10 @@ directory = "./site"
 binding = "ASSETS"
 run_worker_first = true
 
-# Worker routes (not custom domains): they attach to the zones' existing
-# proxied DNS records instead of trying to create new ones.
-# Each hostname below needs a DNS record with the orange cloud (Proxied) on.
+# Worker routes. "*mrbestcars.ca/*" (no dot after the *) matches the bare
+# domain AND every subdomain such as www. "*.mrbestcars.ca/*" would miss the
+# bare domain. Each hostname needs a proxied (orange-cloud) DNS record.
 routes = [
-  { pattern = "mrbestcars.ca/*",      zone_name = "mrbestcars.ca" },
-  { pattern = "www.mrbestcars.ca/*",  zone_name = "mrbestcars.ca" },
-  { pattern = "mrbestcars.com/*",     zone_name = "mrbestcars.com" },
-  { pattern = "www.mrbestcars.com/*", zone_name = "mrbestcars.com" },
+  { pattern = "*mrbestcars.ca/*",  zone_name = "mrbestcars.ca" },
+  { pattern = "*mrbestcars.com/*", zone_name = "mrbestcars.com" },
 ]
