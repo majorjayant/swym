@@ -184,3 +184,6 @@ Also: `sm` buttons raised to 44 px.
 ### Process note
 - Stage 1's `pkill -f "next dev"` left the renamed `next-server` child running on :3100 (that was the server answering on 3100 during review). It was stopped; Gate 2 shots used `next start` on :3100, now stopped. No next processes remain.
 - Checks: `tsc --noEmit` pass; `eslint src` 0 problems; `npm run build` pass (7 routes static).
+
+### Gate 2 outcome
+Approved by the owner on 2026-11-17: design direction (Home and Contact, desktop and mobile) approved as shown; derived asset `mr-best-cars-sedan-mark-on-dark.svg` (black swapped for white, red unchanged) approved for background art on ink.
