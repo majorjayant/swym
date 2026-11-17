@@ -64,9 +64,9 @@ export function ProofBar({ section }: { section: ProofBarSection }) {
                 <dt className="text-sm text-slate">
                   {href && item.link ? (
                     isInternal(href) ? (
-                      <NextLink href={href} className="link-underline">{t(item.label)}</NextLink>
+                      <NextLink href={href} className="link-underline inline-flex min-h-6 items-center">{t(item.label)}</NextLink>
                     ) : (
-                      <a href={href} className="link-underline">{t(item.label)}</a>
+                      <a href={href} className="link-underline inline-flex min-h-6 items-center">{t(item.label)}</a>
                     )
                   ) : (
                     t(item.label)

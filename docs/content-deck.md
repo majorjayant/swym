@@ -596,6 +596,7 @@ Every string on the demo site, with its CMS field path. The source of truth is t
 | `microcopy.forms.consentRequired` | Please tick the box so we can reply to you. |
 | `microcopy.forms.genericError` | Something went wrong. Please try again, or call us. |
 | `microcopy.forms.optional` | optional |
+| `microcopy.forms.selectPrompt` | Choose one |
 | `microcopy.states.loading` | Loading |
 | `microcopy.states.empty` | Nothing here yet. |
 | `microcopy.states.offline` | You appear to be offline. Call us at 639-480-4400. |
@@ -757,3 +758,10 @@ Notes: the Google Business Profile category should be "Used car dealer" (researc
 - privacy contact email
 - real Google review, quoted with permission
 - short announcement, for example holiday hours or a new arrival
+
+## Added by QA (2026-11-17)
+
+| Field | String |
+|---|---|
+| `microcopy.forms.selectPrompt` | Choose one |
+| `microcopy.admin.optionLabels.*` | Human labels for admin select options (e.g. `kind.image` → Image, `variant.primary` → Main (red), `type.textarea` → Long text); full list in `demo/src/content/ui/microcopy.ts` |

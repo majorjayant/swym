@@ -207,3 +207,25 @@ Date: 2026-11-17.
 - Playwright against `next start` (127.0.0.1:3100), 19/19 checks pass: login continues; banner present; editing the home headline marks Draft; preview shows the new headline; the edit survives the preview round trip; SEO counter shown; publish blocked on an empty headline (error summary focused); publish after fixing turns the badge to Published (editor and dashboard); adding an FAQ item moves focus to its question; the new item appears and expands in preview; contact editor has phones and 7 hour rows with closed toggles; reload resets; no horizontal scroll at 390 (dashboard, editor); no console errors.
 - Screenshots: `docs/screenshots/admin/01-login-1440 … 11-page-editor-390`.
 - Server and next-server stopped after testing.
+
+## 5. QA Tester
+
+Date: 2026-11-17. Output: `docs/qa-report.md`, evidence in `docs/screenshots/qa/`. Production build served locally; Chromium via Playwright, axe-core, Lighthouse 12.6.0.
+
+### Checked
+1. Layout at 360/768/1024/1440/1920 for 7 public pages and 3 admin screens: no horizontal overflow, one `h1` each.
+2. Every internal link (200 or intended 404), `tel:`/`sms:` format, same-page anchors.
+3. 39 public functional checks (cookie banner, mobile menu and bar, FAQ, contact validation, carousel, reduced motion, keyboard, target sizes) and 13 admin-to-preview checks, one per editor type.
+4. axe WCAG 2.2 AA on 10 routes at two widths; 44-stop keyboard pass on Home.
+5. Lighthouse mobile and desktop on Home and Contact.
+6. Compliance grep of built HTML (restricted words, competitor names, personal names) and a grep for hard-coded visible strings.
+
+### Found and fixed
+- Admin logo link had no accessible name on phones (axe `link-name`): alt from content.
+- Proof-bar "Dealer licence" link was 18 px tall (WCAG 2.5.8): now ≥ 24 px. Contact checkboxes raised from 20 to 24 px.
+- Admin selects showed raw enum values: added `microcopy.admin.optionLabels` and used it in every select.
+- Contact select's empty option was a hard-coded "—": now `microcopy.forms.selectPrompt` ("Choose one"); content deck updated.
+- Test-script artefacts (cross-page anchors, a mid-animation contrast reading, banner timing) were verified as not defects and recorded.
+
+### Result
+0 high, 4 medium (fixed), 8 low (1 fixed, 1 not a defect, 6 open with reasons). Lighthouse: Performance 96–100, Accessibility 100, Best Practices 100, SEO 66 only because the demo is deliberately `noindex` (100 with that audit excluded). axe: 0 violations. tsc, lint and build pass.

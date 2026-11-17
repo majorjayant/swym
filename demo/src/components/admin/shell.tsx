@@ -40,7 +40,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto flex max-w-[90rem] items-center justify-between gap-4 px-4 py-3 md:px-6">
           <NextLink href="/admin" className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={content.site.logo.dark.src} alt="" width={1144} height={315} className="h-auto w-28 md:w-32" />
+            <img src={content.site.logo.dark.src} alt={t(content.site.logo.dark.alt)} width={1144} height={315} className="h-auto w-28 md:w-32" />
             <span className="label hidden text-grey sm:inline">{t(a.appName)}</span>
           </NextLink>
           <nav aria-label={t(a.adminNav)}>

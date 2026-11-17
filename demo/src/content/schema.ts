@@ -455,6 +455,7 @@ export type Microcopy = {
     consentRequired: LocalizedString;
     genericError: LocalizedString;
     optional: LocalizedString;
+    selectPrompt: LocalizedString; // empty first option in select fields
   };
   states: { loading: LocalizedString; empty: LocalizedString; offline: LocalizedString };
   faq: { expand: LocalizedString; collapse: LocalizedString; noResults: LocalizedString };
@@ -535,6 +536,8 @@ export type Microcopy = {
     globalDescriptions: Record<'site' | 'navigation' | 'announcement' | 'cookieBanner' | 'seo' | 'microcopy', LocalizedString>;
     sectionTypes: Record<string, LocalizedString>;
     fieldLabels: Record<string, LocalizedString>;
+    /** Human labels for select options. Key "field.value" wins over plain "value". */
+    optionLabels: Record<string, LocalizedString>;
     selectSection: LocalizedString;
     unsavedBadge: LocalizedString;
     lastUpdatedBy: LocalizedString; // "{date}" "{who}"

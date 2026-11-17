@@ -138,7 +138,7 @@ export function ContactForm({ section }: { section: ContactFormSection }) {
               type="checkbox"
               checked={!!values[f.name]}
               onChange={(e) => setValues((s) => ({ ...s, [f.name]: e.target.checked }))}
-              className="mt-0.5 size-5 shrink-0 accent-[var(--color-red)]"
+              className="mt-0 size-6 shrink-0 accent-[var(--color-red)]"
             />
             <span>
               <RichInline text={t(f.label)} />
@@ -164,7 +164,7 @@ export function ContactForm({ section }: { section: ContactFormSection }) {
         ) : f.type === 'select' ? (
           <select {...common} value={value} onChange={onChange} className={cn(inputCls, 'h-12 appearance-none bg-[length:16px] bg-[right_1rem_center] bg-no-repeat')} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111315' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m5 9 7 7 7-7'/%3E%3C/svg%3E\")" }}>
             <option value="" disabled>
-              {'—'}
+              {f.placeholder ? t(f.placeholder) : t(mc.forms.selectPrompt)}
             </option>
             {f.options?.map((o) => (
               <option key={o.value} value={o.value}>
@@ -227,7 +227,7 @@ export function ContactForm({ section }: { section: ContactFormSection }) {
                 {section.marketingConsentText ? (
                   <div className="sm:col-span-2">
                     <label className="flex items-start gap-3 text-sm">
-                      <input type="checkbox" name="marketing" className="mt-0.5 size-5 shrink-0 accent-[var(--color-red)]" checked={!!values.marketing} onChange={(e) => setValues((s) => ({ ...s, marketing: e.target.checked }))} />
+                      <input type="checkbox" name="marketing" className="mt-0 size-6 shrink-0 accent-[var(--color-red)]" checked={!!values.marketing} onChange={(e) => setValues((s) => ({ ...s, marketing: e.target.checked }))} />
                       <span><RichInline text={t(section.marketingConsentText)} /></span>
                     </label>
                   </div>

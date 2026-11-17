@@ -154,14 +154,19 @@ function StringInput({ value, onChange, path, readOnly }: { value: string | null
 }
 
 function SelectInput({ value, options, onChange, path, labelFor }: { value: string; options: string[]; onChange: (v: string) => void; path: Path; labelFor?: (o: string) => string }) {
-  const { label } = useAdminLabels();
+  const { label, a, t } = useAdminLabels();
+  const field = String(path[path.length - 1]);
+  const optionLabel = (o: string) => {
+    const hit = a.optionLabels[`${field}.${o}`] ?? a.optionLabels[o];
+    return hit ? t(hit) : o;
+  };
   const id = pathId(path);
   return (
     <FieldShell id={id} label={label(String(path[path.length - 1]))}>
       <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className={cn(inputCls(), 'h-10')}>
         {options.map((o) => (
           <option key={o} value={o}>
-            {labelFor ? labelFor(o) : o || '—'}
+            {labelFor ? labelFor(o) : optionLabel(o)}
           </option>
         ))}
       </select>
