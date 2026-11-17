@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mr Best Cars: demo redesign (Phase 0)
 
-## Getting Started
+A working demo of the new Mr Best Cars website and a mock admin portal. Frontend only: no database, no API, no login, no deploy.
 
-First, run the development server:
+> **This is not the live site.** https://mrbestcars.ca is served by the Cloudflare Worker in the repo root (`site/`, `src/worker.js`, `wrangler.toml`). This folder is a separate Next.js app on branch `claude/mbc-demo-redesign`. Nothing here is wired to Cloudflare, and `main` is never touched.
+
+## Run it
+
+Needs Node 20 or newer.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd demo
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For a production-like check: `npm run build && npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Public site: `/`, `/about`, `/contact`, `/faq`, `/privacy`, `/terms` (any other path shows the 404 page)
+- Admin portal: `/admin/login` (any email and password continue)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where the content lives
 
-## Learn More
+Every word, image, link, SEO field, FAQ item and legal paragraph comes from typed content files. No component contains visible text.
 
-To learn more about Next.js, take a look at the following resources:
+| What | File |
+|---|---|
+| Types for every field (the CMS schema) | `src/content/schema.ts` |
+| Contact details, phones, address, hours, licence, social links, mobile bar | `src/content/global/site.ts` |
+| Header, footer and mobile menu links | `src/content/global/navigation.ts` |
+| Announcement bar | `src/content/global/announcement.ts` |
+| Cookie banner | `src/content/global/cookie-banner.ts` |
+| Site-wide SEO, Open Graph, structured data | `src/content/global/seo.ts` |
+| Pages (sections, copy, page SEO) | `src/content/pages/*.ts` |
+| Buttons, form errors, empty states, admin labels | `src/content/ui/microcopy.ts` |
+| Brand tokens (Brand Guidelines v1.0) | `src/content/themes/tokens.ts`, `src/app/globals.css` |
+| Brand files (unmodified copies from the live site) | `public/brand/` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To change text, edit the content file and save; the dev server reloads. The same fields are what the admin portal edits.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Placeholders.** Anything the owner has not confirmed (licence number, hours, reviews, warranty, years in business and so on) is a `Placeholder` with `isPlaceholder: true` and shows a visible `[PLACEHOLDER]` chip on the page. The full list is in `../docs/content-deck.md`. To fill one, set its `value` and `isPlaceholder: false`.
 
-## Deploy on Vercel
+**Languages.** Every text field is `{ en, pa?, hi?, fr? }`. Only English is filled. See `../docs/audience-insights.md` s. 5.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Admin portal
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Design only. It edits an in-memory copy of the content: changes appear in Preview, Publish marks them as published, and **reloading the page resets everything**. Nothing is written to disk or sent anywhere, and the portal says so on every screen. Real saving, login and image upload arrive in Phase 1 (`../docs/roadmap.md`).
+
+## Code map
+
+| Folder | Contents |
+|---|---|
+| `src/app/(site)` | Public routes |
+| `src/app/admin` | Admin login, dashboard, editors, preview |
+| `src/components/sections` | One component per section type, plus the section renderer |
+| `src/components/site` | Header, footer, mobile menu and bar, cookie banner, announcement bar |
+| `src/components/ui` | Buttons, icons, layout pieces, placeholder chip |
+| `src/components/admin` | Field editors generated from the content shape |
+| `src/lib` | Content context, consent, SEO metadata and JSON-LD, link helpers |
+
+## Project documents
+
+All in `../docs/`: BRD, PRD, sitemap, content model, audience insights, content deck, design system, QA report, integrations, roadmap, compliance checklist, legal templates (`legal/`), agent log, and screenshots (`screenshots/`).
+
+## Fonts and licences
+
+Montserrat is self-hosted from `public/fonts/` under the SIL Open Font License 1.1 (`public/fonts/OFL.txt`). The logo and app icon are the owner's files. The page carries no stock photos; hero and section images are branded placeholders until the owner supplies photos.

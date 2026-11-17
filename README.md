@@ -8,3 +8,7 @@ Static site for **Mr Best Cars**, served by the Cloudflare Worker `swym` (Git-co
 - `deliverables/`: screenshots, loader recording, notes and research
 
 The old `jayantarora.in/swym` route was retired. The earlier `/protiviti` page is archived on branch `archive/protiviti-branch-vision`.
+
+## Demo redesign (Phase 0, branch `claude/mbc-demo-redesign`)
+
+A separate Next.js app in `demo/` with the new site design and a mock admin portal. It is not deployed and does not affect the live site. Run it with `cd demo && npm install && npm run dev`; see `demo/README.md`. Project documents are in `docs/`.
