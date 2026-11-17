@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { useHydrated, useStoredString, writeStored } from './client-store';
 import type { ConsentCategoryKey } from '@/content/schema';
 
 export type ConsentState = Record<ConsentCategoryKey, boolean> & { decided: boolean };
@@ -21,10 +22,9 @@ type ConsentContextValue = {
 
 const ConsentContext = createContext<ConsentContextValue | null>(null);
 
-function read(): ConsentState {
+function parse(raw: string | null): ConsentState {
+  if (!raw) return DEFAULT;
   try {
-    const raw = window.localStorage.getItem(KEY);
-    if (!raw) return DEFAULT;
     const parsed = JSON.parse(raw) as Partial<ConsentState>;
     return { ...DEFAULT, ...parsed, necessary: true };
   } catch {
@@ -33,22 +33,13 @@ function read(): ConsentState {
 }
 
 export function ConsentProvider({ children }: { children: React.ReactNode }) {
-  const [consent, setConsent] = useState<ConsentState>(DEFAULT);
-  const [ready, setReady] = useState(false);
+  const raw = useStoredString(KEY);
+  const ready = useHydrated();
+  const consent = useMemo(() => parse(raw), [raw]);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  useEffect(() => {
-    setConsent(read());
-    setReady(true);
-  }, []);
-
   const persist = useCallback((c: ConsentState) => {
-    setConsent(c);
-    try {
-      window.localStorage.setItem(KEY, JSON.stringify({ ...c, decidedAt: new Date().toISOString() }));
-    } catch {
-      /* storage unavailable: choice lasts for this page view only */
-    }
+    writeStored(KEY, JSON.stringify({ ...c, decidedAt: new Date().toISOString() }));
     // Phase 0 stub: no analytics or marketing scripts exist. Phase 1 loads them here only when allowed.
     if (process.env.NODE_ENV !== 'production') console.info('[consent]', c);
   }, []);

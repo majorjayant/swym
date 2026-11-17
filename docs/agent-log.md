@@ -138,3 +138,29 @@ Date: 2026-11-17. Output: `demo/src/content/global/{site,navigation,announcement
 - `site.phones[0].sms: true` is a working assumption; owner to confirm which numbers take texts and whether WhatsApp is staffed.
 - Reviews section ships three placeholder cards; the designer should render them clearly as placeholders (PRD HOME-05).
 - `fill()` in `index.ts` resolves `{year}`, `{n}`, `{count}`, `{max}` and the legal merge tokens; components should use it rather than string concatenation.
+
+## 4. Designer, stage 1 (design system)
+
+Date: 2026-11-17. Output: `demo/src/app/globals.css`, `demo/src/app/layout.tsx`, `demo/src/app/(site)/*`, `demo/src/app/not-found.tsx`, `demo/src/lib/*`, `demo/src/components/{ui,site,sections,pages}/*`, `demo/next.config.ts`, `docs/design-system.md`, `docs/screenshots/stage1-*.png`.
+
+### Checked
+- `npx tsc --noEmit`: pass. `npm run build`: pass, 7 routes plus `_not-found`, all static. `eslint src`: 0 errors; 2 warnings in `content/index.ts` (copywriter's file, unused params).
+- At 360 and 1440 px on `/`, `/contact`, `/faq`: no horizontal scroll, exactly one `h1`, no console or page errors.
+- No visible string literals in components: all text and aria labels via `useT()` from the content tree.
+- Only guideline colours exist in the Tailwind theme; two font weights (400/700).
+
+### Found and fixed
+- Italic everywhere: Montserrat files were swapped at download; renamed after a byte-for-byte match with the live site's upright file.
+- Mobile drawer clipped by the header's `backdrop-filter`; portalled to body; focus trap now includes the toggle.
+- Three weights in the hero (800/700/400); headings now 700.
+- `setState` in effects (5 places) replaced with `useSyncExternalStore` patterns.
+- Footer wedge too large at full width; smaller variant.
+- Checkbox validation returned no error for the required consent box; fixed.
+- Removed the scaffold's `cacheComponents` and `partialPrefetching` flags: not needed for a static demo, and they reject client-time values (year, today) during prerender.
+
+### Notes for the lead
+- `content/index.ts` existed by build time, so no stub was created.
+- Lead's update applied: `privacyOfficer` email feeds `{privacyEmail}`; separate optional unticked `marketingConsentText` checkbox; footer `cookieSettingsLabel` button opens settings via `openSettings()`; legal merge tokens resolved at render, with chips while placeholders.
+- The mobile bar reuses `microcopy.nav.menuTitle` as its nav label; suggest a `nav.quickActions` string.
+- Hero, sell-band and team images are placeholder blocks (no stock photos) until the owner supplies photos.
+- The dev server was used on 127.0.0.1:3100 for screenshots only and has been stopped.

@@ -1,7 +1,7 @@
 'use client';
 
 import NextLink from 'next/link';
-import { useEffect, useState } from 'react';
+import { useClientValue, useStoredString, writeStored } from '@/lib/client-store';
 import { useContent, useT } from '@/lib/content-context';
 import { isInternal, resolveHref } from '@/lib/links';
 import { Icon } from '../ui/icon';
@@ -20,16 +20,11 @@ export function AnnouncementBar() {
   const a = content.announcement;
   const text = t(a.text);
   const key = `mbc-announce-${hash(text)}`;
-  const [dismissed, setDismissed] = useState(false);
-  useEffect(() => {
-    try {
-      setDismissed(window.sessionStorage.getItem(key) === '1');
-    } catch {
-      /* ignore */
-    }
-  }, [key]);
-  const now = Date.now();
-  const inWindow = (!a.startAt || Date.parse(a.startAt) <= now) && (!a.endAt || Date.parse(a.endAt) >= now);
+  const dismissed = useStoredString(key, 'session') === '1';
+  const inWindow = useClientValue(() => {
+    const now = Date.now();
+    return (!a.startAt || Date.parse(a.startAt) <= now) && (!a.endAt || Date.parse(a.endAt) >= now);
+  }, !a.startAt && !a.endAt);
   if (!a.enabled || !text || (!inWindow && !preview) || dismissed) return null;
   const href = a.link ? resolveHref(a.link) : null;
   return (
@@ -55,14 +50,7 @@ export function AnnouncementBar() {
         {a.dismissible ? (
           <button
             type="button"
-            onClick={() => {
-              setDismissed(true);
-              try {
-                window.sessionStorage.setItem(key, '1');
-              } catch {
-                /* ignore */
-              }
-            }}
+            onClick={() => writeStored(key, '1', 'session')}
             className="absolute right-2 top-1/2 inline-flex size-11 -translate-y-1/2 items-center justify-center"
             aria-label={t(a.dismissLabel)}
           >

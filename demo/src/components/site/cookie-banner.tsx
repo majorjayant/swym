@@ -1,7 +1,7 @@
 'use client';
 
 import NextLink from 'next/link';
-import { useEffect, useId, useState } from 'react';
+import { useId, useState } from 'react';
 import { useContent, useT } from '@/lib/content-context';
 import { useConsent } from '@/lib/consent';
 import { resolveHref } from '@/lib/links';
@@ -14,15 +14,15 @@ export function CookieBanner() {
   const t = useT();
   const cb = content.cookieBanner;
   const { consent, ready, settingsOpen, acceptAll, rejectAll, save, openSettings, closeSettings } = useConsent();
-  const [choices, setChoices] = useState({ analytics: consent.analytics, marketing: consent.marketing });
   const titleId = useId();
   const bodyId = useId();
-  useEffect(() => setChoices({ analytics: consent.analytics, marketing: consent.marketing }), [consent, settingsOpen]);
 
   if (!cb.enabled || !ready || (consent.decided && !settingsOpen)) return null;
   const policy = resolveHref(cb.policyLink);
 
   return (
+    <Panel key={settingsOpen ? 'settings' : 'banner'} initial={{ analytics: consent.analytics, marketing: consent.marketing }}>
+      {(choices, setChoices) => (
     <div
       role="dialog"
       aria-modal="false"
@@ -94,5 +94,15 @@ export function CookieBanner() {
         )}
       </div>
     </div>
+      )}
+    </Panel>
   );
+}
+
+type Choices = { analytics: boolean; marketing: boolean };
+
+/** Holds the in-progress category choices; remounted (via key) each time settings open, so it starts from saved consent. */
+function Panel({ initial, children }: { initial: Choices; children: (c: Choices, set: React.Dispatch<React.SetStateAction<Choices>>) => React.ReactNode }) {
+  const [choices, setChoices] = useState<Choices>(initial);
+  return <>{children(choices, setChoices)}</>;
 }

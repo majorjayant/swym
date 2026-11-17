@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useClientValue } from '@/lib/client-store';
 import type { DayKey } from '@/content/schema';
 import { useContent, useT } from '@/lib/content-context';
 import { PlaceholderBadge } from '../ui/placeholder';
@@ -29,8 +29,7 @@ export function HoursTable({ tone = 'light', className, headingLevel }: { tone?:
   const t = useT();
   const { hours } = content.site;
   const mc = content.microcopy.hours;
-  const [today, setToday] = useState<DayKey | null>(null);
-  useEffect(() => setToday(todayKey(hours.timezone)), [hours.timezone]);
+  const today = useClientValue<DayKey | null>(() => todayKey(hours.timezone), null);
   const allPlaceholder = hours.days.every((d) => d.isPlaceholder);
   const H = headingLevel ? (`h${headingLevel}` as 'h2' | 'h3') : null;
   return (

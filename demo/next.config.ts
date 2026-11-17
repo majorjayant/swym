@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Static demo: every route is prerendered. Nothing here talks to a server or database.
   turbopack: {
     rules: {
       "*.css": {

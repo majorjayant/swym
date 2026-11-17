@@ -45,7 +45,7 @@ export function SectionShell({
 
 type Level = 1 | 2 | 3 | 4;
 const scale = {
-  display: 'text-display-fluid font-extrabold',
+  display: 'text-display-fluid font-bold',
   headline: 'text-headline-fluid font-bold',
   title: 'text-title-fluid font-bold',
   small: 'text-lg font-bold leading-snug',

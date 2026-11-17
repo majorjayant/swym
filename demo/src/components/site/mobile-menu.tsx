@@ -3,6 +3,8 @@
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { useHydrated } from '@/lib/client-store';
 import { useContent, useT } from '@/lib/content-context';
 import { resolveHref } from '@/lib/links';
 import { ButtonLink } from '../ui/button';
@@ -17,6 +19,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
   const t = useT();
   const pathname = usePathname();
   const panel = useRef<HTMLDivElement>(null);
+  const hydrated = useHydrated();
 
   useEffect(() => {
     if (!open) return;
@@ -27,7 +30,9 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
       if (e.key === 'Tab' && panel.current) {
-        const items = Array.from(panel.current.querySelectorAll<HTMLElement>('a[href],button:not([disabled])'));
+        // The close button lives in the header, so it is part of the trap too.
+        const toggle = document.querySelector<HTMLElement>('[aria-controls="mobile-menu"]');
+        const items = [...(toggle ? [toggle] : []), ...Array.from(panel.current.querySelectorAll<HTMLElement>('a[href],button:not([disabled])'))];
         if (!items.length) return;
         const firstEl = items[0];
         const lastEl = items[items.length - 1];
@@ -48,15 +53,17 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
   }, [open, onClose]);
 
   const phones = content.site.phones;
-  return (
+  // Portalled to <body>: the sticky header uses backdrop-filter, which would trap a fixed child inside it.
+  if (!hydrated) return null;
+  return createPortal(
     <div
       id="mobile-menu"
       ref={panel}
       role="dialog"
-      aria-modal="true"
+      aria-modal="false"
       aria-label={t(content.microcopy.nav.menuTitle)}
       hidden={!open}
-      className={cn('fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto bg-white lg:hidden', open && 'page-enter')}
+      className={cn('fixed inset-0 z-30 overflow-y-auto bg-white pb-28 pt-20 lg:hidden', open && 'page-enter')}
     >
       <div className="container-page flex min-h-full flex-col gap-8 py-6">
         <nav aria-label={t(content.microcopy.nav.menuTitle)}>
@@ -95,6 +102,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
         </div>
         <HoursSummary />
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
