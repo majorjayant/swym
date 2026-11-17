@@ -229,3 +229,10 @@ Date: 2026-11-17. Output: `docs/qa-report.md`, evidence in `docs/screenshots/qa/
 
 ### Result
 0 high, 4 medium (fixed), 8 low (1 fixed, 1 not a defect, 6 open with reasons). Lighthouse: Performance 96–100, Accessibility 100, Best Practices 100, SEO 66 only because the demo is deliberately `noindex` (100 with that audit excluded). axe: 0 violations. tsc, lint and build pass.
+
+## 8. Lead sign-off (2026-11-17)
+
+- All deliverables present in `docs/`; demo builds, type-checks and lints clean.
+- Live-site files (`site/`, `src/worker.js`, `wrangler.toml`) are byte-identical to `origin/main`; nothing pushed to `main`, nothing deployed.
+- Gates: Gate 1 approved (brand v1.0; no personal names), Gate 2 approved (direction; on-dark sedan mark).
+- QA: 0 high open; 4 medium found and fixed; Lighthouse Home/Contact performance 96–100, accessibility 100, best practices 100, SEO 66 only from the deliberate demo `noindex` (100 without it).
