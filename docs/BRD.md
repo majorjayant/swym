@@ -104,7 +104,7 @@ No baselines exist yet. Measurement starts when analytics with consent is live (
 |---|---|---|
 | C1 | Live site at mrbestcars.ca stays unchanged. No push to `main`, no deploy. Demo lives on branch `claude/mbc-demo-redesign` in a separate app folder. | User brief, rule 1 |
 | C2 | No database, API, auth or backend in Phase 0. Admin uses local mock state. | User brief |
-| C3 | Brand fixed: use the guideline exactly; never redraw the logo. | User brief, rule 3; Brand Guidelines p. 10 |
+| C3 | Brand fixed: Brand Guidelines v1.0 (black/red, Montserrat) per the owner's Gate 1 decision; never redraw, recolour or restyle the logo; use the supplied files as they are. | User brief, rule 3; owner decision 2026-11-17; Brand Guidelines v1.0 p. 10 |
 | C4 | No hard-coded text. All strings from typed content files shaped like a CMS schema. | User brief, rule 4 |
 | C5 | No invented facts. Reviews, ratings, years, awards, counts, rates, approval claims, warranties, licence numbers are `[PLACEHOLDER]`. | User brief, rule 5 |
 | C6 | Canadian spelling; "kilometres". | User brief |
@@ -114,7 +114,7 @@ No baselines exist yet. Measurement starts when analytics with consent is live (
 
 ## 7. Open decision for the owner (Gate 1)
 
-> **The brief and the newest brand guideline disagree on the palette and typeface.** The lead will ask you to choose at Gate 1. Both are stated here neutrally.
+> **Decided by the owner on 2026-11-17: Option B, Brand Guidelines v1.0 (black/red, Montserrat).** The table is kept for the record. The Gate 1 documents themselves are not yet approved; revisions pending the owner's notes.
 
 | | Option A: earlier guideline (as written in your brief and the research brief) | Option B: Brand Guidelines v1.0 (Nov 2026) and the live site |
 |---|---|---|
@@ -140,7 +140,7 @@ Everything downstream (design tokens, copy tagline, logo files, OG images) depen
 
 | ID | Risk | Mitigation |
 |---|---|---|
-| R1 | Palette decision delayed blocks design | Tokens built as a theme; both palettes prepared as token sets |
+| R1 | Palette decision (resolved 2026-11-17: Guidelines v1.0) | Tokens hold one palette; `theme` field kept in the schema so a future CMS can switch |
 | R2 | Placeholders shipped as if real (ratings, warranty, licence) | Every placeholder renders with a visible `[PLACEHOLDER]` label in the demo; QA checklist item; pre-publish checklist |
 | R3 | Copy makes claims the FCAA guide forbids | Compliance review before copy is final; word list in compliance checklist |
 | R4 | Content model does not fit the CMS chosen in Phase 1 | Model uses plain JSON-compatible types; no CMS-specific features |

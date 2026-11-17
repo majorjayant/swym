@@ -14,7 +14,7 @@ Goal IDs (G1–G7) are defined in `docs/BRD.md`. Requirement IDs are `AREA-nn`.
 | X-04 | Accessibility | WCAG 2.2 AA: one `h1` per page, logical heading order, visible focus, contrast ≥ 4.5:1 (3:1 large), reduced-motion respected, skip link, landmarks. | G3 |
 | X-05 | Performance | Lighthouse mobile ≥ 90 on Home and one inner page for Performance, Accessibility, Best Practices, SEO, or the gap explained in qa-report. | G4 |
 | X-06 | SEO | Per-page `title`, `description`, canonical, OG tags, JSON-LD `AutoDealer` on every page from `global/seo.ts`; `robots noindex` while demo. | G4 |
-| X-07 | Brand | Only guideline colours and typefaces; logo files used unmodified; clear space respected. Which palette: Gate 1 decision. | C3 |
+| X-07 | Brand | Brand Guidelines v1.0 only (owner decision, 2026-11-17): Ink #111315, Red #E30613, White, Light grey #DFE0E1, Slate #3C4246; Montserrat, two weights per layout; the black/red logo files from `site/assets/` copied unmodified into `demo/public/brand/`; one X clear space; red never used for body text on ink (p. 13); logo never in full colour on ink (p. 4). | C3 |
 | X-08 | No invented facts | Every rating, count, year, warranty, licence, rate is a `Placeholder`. | C5 |
 | X-09 | Pricing wording | No "+ taxes and fees" wording anywhere; any pricing explanation uses the drive-away wording from the Terms/FAQ fields. | G1, C7 |
 | X-10 | Motion | Scroll reveals, hover and page transitions only on transform/opacity; none block content; all disabled under `prefers-reduced-motion`. | G3 |
@@ -89,7 +89,7 @@ Sections in order (all `Section` types from the content model; each `enabled` to
 |---|---|---|
 | ABT-01 | `pageHeader` (eyebrow, `h1`, intro, image) | Image optional; alt required. |
 | ABT-02 | `richText` story | Founder name from `team` or text field; founding year is a Placeholder. |
-| ABT-03 | `team` | Rohit Chawla, Marketing Director & Founder; photo placeholder; more members addable. |
+| ABT-03 | `team` | Default member: Rohit Chawla, Marketing Director & Founder (from the owner's brief); photo placeholder; section can be disabled or members changed in the admin. Owner to confirm at Gate 1 whether the founder is shown publicly, since the name was removed from the live coming-soon page. |
 | ABT-04 | `standards` (inspection, warranty, exchange policy) | Each `body` is a Placeholder until owner supplies; SK minimum warranty wording may be cited only as "minimum required by Saskatchewan law" with a lawyer marker. |
 | ABT-05 | Licence line | Same `dealerLicence` field as footer. |
 | ABT-06 | `visitUs` CTA strip | Shared section. |
@@ -137,7 +137,7 @@ Each is a nav item or CTA target in the content model already; Phase 0 routes th
 
 ## 4. Admin portal (design only, local mock state)
 
-Global rules: `/admin/*` routes; no auth; persistent banner "Demo: nothing is saved" (microcopy `admin.nothingSaved`); all labels from `microcopy.admin`; keyboard accessible; works at ≥ 768 px (read-only summary at 360 px).
+Global rules: `/admin/*` routes; no auth; persistent banner "Demo: nothing is saved" (microcopy `admin.nothingSaved`); all labels from `microcopy.admin`; keyboard accessible; full editors at ≥ 768 px; at 360 px the dashboard and editors still work (single column, field panel stacked under the section list) but preview opens in the public layout instead of side by side.
 
 | ID | Screen / component | States | Acceptance criteria |
 |---|---|---|---|
@@ -148,7 +148,7 @@ Global rules: `/admin/*` routes; no auth; persistent banner "Demo: nothing is sa
 | ADM-05 | FAQ editor | | Groups and items: add, remove, move up/down, `showOnHome`, `needsOwnerInput`; RichText answer editor (paragraph/list/link only). |
 | ADM-06 | Legal page editor | | RichText body, effective/reviewed dates, lawyer-marker toggle. |
 | ADM-07 | SEO per page | | Title and description with character counters (60/155) and a search-result preview. |
-| ADM-08 | Global: contact details `/admin/global/site` | | Address, phones (add/remove/primary/sms), email, WhatsApp, hours (7 rows + closed toggle), licence, founded year, social links, theme select. |
+| ADM-08 | Global: contact details `/admin/global/site` | | Address, phones (add/remove/primary/sms), email, WhatsApp, hours (7 rows + closed toggle), licence, founded year, social links. |
 | ADM-09 | Global: navigation, announcement, cookie banner, SEO defaults | | Same field rules; announcement has enable and date range. |
 | ADM-10 | Preview mode `/admin/preview/[slug]` | on/off | Public layout renders the draft tree; banner "Preview: draft content"; exit returns to editor. |
 | ADM-11 | Draft / published | | Publish copies draft → published (in memory); badge updates; reload resets (stated in UI). |

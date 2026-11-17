@@ -27,7 +27,7 @@ demo/
       ui/
         microcopy.ts       # Microcopy (buttons, form errors, empty states, admin UI labels)
       themes/
-        tokens.ts          # DesignTokens, two named palettes (see BRD s. 7)
+        tokens.ts          # DesignTokens for Brand Guidelines v1.0 (owner decision, BRD s. 7)
 ```
 
 Rules:
@@ -71,8 +71,8 @@ type Locale = 'en' | 'pa' | 'hi' | 'fr';
 |---|---|---|---|---|
 | `businessName` | LocalizedString | yes | ≤ 60 | Mr Best Cars |
 | `legalName` | string | no | ≤ 120 | `[PLACEHOLDER: registered legal name]` |
-| `tagline` | LocalizedString | yes | ≤ 60 | depends on Gate 1 palette decision |
-| `logo` | `{ light: Image; dark: Image; icon: Image }` | yes | SVG | files in `site/assets/` |
+| `tagline` | LocalizedString | yes | ≤ 60 | Buy · Sell · Drive Better (Brand Guidelines v1.0) |
+| `logo` | `{ light: Image; dark: Image; icon: Image }` | yes | SVG/PNG | copied unmodified from `site/assets/` into `demo/public/brand/`: `mr-best-cars-logo.svg` (on light), `mr-best-cars-logo-on-dark.svg` (on ink), `favicon-32.png` / `apple-touch-icon.png` (app icon) |
 | `address` | `{ street, city, region, postalCode, country, mapUrl }` | yes | | 909 8th Ave / Regina / SK / S4N 6S3 / CA / Google Maps search URL |
 | `geo` | `{ lat, lng }` | no | | `[PLACEHOLDER: coordinates]` |
 | `phones` | `Phone[]` → `{ label: LocalizedString, number: string (E.164), display: string, primary: boolean, sms: boolean }` | yes, ≥ 1 | ≤ 3 shown in footer | 639-480-4400 (primary), 306-999-2245, 306-942-7200; `sms` is `[PLACEHOLDER: which number accepts texts]` |
@@ -224,7 +224,7 @@ All LocalizedString. Groups: `nav` (skip link, open menu, close menu, call, text
 
 ## 7. Design tokens (`themes/tokens.ts`)
 
-`DesignTokens` = `{ colour: Record<'ink'|'surface'|'accent'|'accent2'|'muted'|'textOnDark'|'textOnLight', string>, font: { body: string, logo: string }, scale, spacing, radius, shadow, motion }`. Two named token sets are shipped (`themeA` earlier guideline, `themeB` Brand Guidelines v1.0); `SiteSettings.theme` selects one. The Designer fills values after Gate 1.
+`DesignTokens` = `{ colour: Record<'ink'|'red'|'white'|'lightGrey'|'slate', string>, font: { body: 'Montserrat' }, scale (p. 16: display 64/800, headline 40/700, title 24/600, body 16/400, caption 12/500, label 12/700 tracked 18%), spacing, radius (cards square in print; app icon 19%; web: 8 px cards per live site), shadow (none in brand; keep to subtle elevation only), motion }`. One token set, `brandV1`, with the Guidelines v1.0 values: Ink #111315, Red #E30613, White #FFFFFF, Light grey #DFE0E1, Slate #3C4246. The schema keeps a `theme` key so a future CMS could add another.
 
 ## 8. Admin document shape
 
