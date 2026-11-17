@@ -70,7 +70,7 @@ Goal IDs (G1–G7) are defined in `docs/BRD.md`. Requirement IDs are `AREA-nn`.
 
 ### HOME (`/`), keyword: used cars Regina
 
-Sections in order (all `Section` types from the content model; each `enabled` toggle editable):
+Sections in order (all `Section` types from the content model; each `enabled` toggle editable). Order adopted from audience-insights s. 3: HOME-01, 02, 03, **06**, 04, 05, 07, 08 (FAQ teaser before the sell band). Hero CTAs in Phase 0: primary Call, secondary Text us, text link "Sell or trade your car" (anchor to HOME-04); Phase 2 swaps to Shop cars / Get pre-approved through content fields only.
 
 | ID | Section | Components and states | Acceptance criteria |
 |---|---|---|---|

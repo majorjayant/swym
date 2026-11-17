@@ -46,3 +46,24 @@ Read all four documents end to end after the owner chose Brand Guidelines v1.0.
 
 ### Gate 1 outcome
 Approved by the owner on 2026-11-17 with two decisions: Brand Guidelines v1.0 (black/red, Montserrat); no personal names on public pages (team section disabled by default).
+
+## 2. Audience & Psychology Analyst (audience-insights.md)
+
+Date: 2026-11-17. Output: `docs/audience-insights.md`.
+
+### Checked
+1. Stereotype pass: re-read every audience row asking "situation or trait?". Rewrote A4 and A5 so they describe circumstances (no credit history, documents, budget, who joins the decision) and not characteristics; channel and decision-maker claims marked [HYPOTHESIS].
+2. Every statistic sourced: feature matrix percentages (text 68%, licence 16%, hours 95%, map 89%, warranty claim 89%, soft check 42%, valuation 32%, we-buy 37%, bi-weekly 11%, other language 11%, Google rating 26%, testimonials 63%, test drive 58%), research brief sections 1, 4, 5, 8, Gallup via BACKGROUND_RESEARCH.md (noted as US data).
+3. Every recommendation maps to a PRD ID (HOME-01..08, MNU-02, FAQ-*, CON-*) or is a stated proposal.
+4. No approval, rate or warranty claims; all such facts are placeholders.
+
+### Found and fixed
+- The research brief's hero CTAs (Shop cars / Get pre-approved) have no pages in Phase 0; recommended Call / Text us now, with the swap in Phase 2 as a content-only change.
+- SGI registration mention had no source in the attachments; marked [HYPOTHESIS] and kept out of claims.
+- Language toggle: evidence too thin for Phase 0; recommended Phase 3 with professional translation and an interim English sentence welcoming someone to translate.
+
+### Proposed PRD changes (for the lead)
+- Move HOME-06 (FAQ teaser) above HOME-04 (sell or trade).
+- Hero primary CTA = Call, secondary = Text us, text link = Sell or trade (HOME-01 defaults).
+- Add FAQ groups: Buying, Pricing and fees, Financing and credit, Selling and trade-in, Newcomers and documents, Visiting us (21 questions listed; `needsOwnerInput` flags given).
+- Optional: mobile bar Text slot may become WhatsApp once staffed and measured.
