@@ -67,3 +67,45 @@ Date: 2026-11-17. Output: `docs/audience-insights.md`.
 - Hero primary CTA = Call, secondary = Text us, text link = Sell or trade (HOME-01 defaults).
 - Add FAQ groups: Buying, Pricing and fees, Financing and credit, Selling and trade-in, Newcomers and documents, Visiting us (21 questions listed; `needsOwnerInput` flags given).
 - Optional: mobile bar Text slot may become WhatsApp once staffed and measured.
+
+## 7. Compliance Reviewer
+
+Date: 2026-11-17. Output: `docs/compliance-checklist.md`, `docs/legal/privacy-policy-template.md`, `docs/legal/terms-and-conditions-template.md`. Not legal advice; for a lawyer to confirm.
+
+### Checked
+1. Every checklist row carries an official source URL and the date checked. The sandbox blocks direct fetches, so pages were confirmed through the research connectors (OPC, CRTC, FCAA, Justice Laws, Accessible SK, W3C, Google Fonts). Two URLs I tried returned 404 (an ISED CASL FAQ page and a Competition Bureau drip-pricing page); the CRTC page and the Act text are cited instead.
+2. No legal conclusion is stated as certain; each item is pass / fix / needs lawyer / needs owner info.
+3. Forbidden-words list traced to the FCAA Vehicle Dealer Information Guide 2024 s. 4, the FCAA "as is" bulletin and Competition Act s. 74.01.
+4. Templates follow the ten PIPEDA principles and mark every owner fact and legal judgement.
+5. Canadian spelling throughout.
+
+### Found and fixed
+- The content model had one consent field; CASL express consent for marketing should be separate and unchecked. Requested `contactForm.marketingConsentText`.
+- No privacy officer contact existed anywhere. Requested `SiteSettings.privacyOfficer`.
+- No way to reopen the cookie banner after a choice. Requested a "Cookie settings" footer link.
+- Phase 2 badges (CARFAX, TD/Equifax) seen on competitor sites would need programme licences; recorded as text-only references for Phase 0.
+- Saskatchewan has no private-sector privacy statute; PIPEDA applies. Recorded with the OPC and SK IPC sources so the copywriter does not cite FOIP.
+
+### Open
+- Six PRD/content-model changes listed in checklist s. 6 for the lead to apply.
+- Owner inputs: licence number, legal name, privacy officer contact, retention periods, providers, image licences, trademark search.
+
+## 6. Integrations Manager (docs/integrations.md)
+
+Date: 2026-11-17. Output: `docs/integrations.md`.
+
+### Checked
+1. Every price in the tables has a vendor pricing URL and a "Checked 2026-11-17" stamp, or says "not published, contact vendor" / "not fetched" with the URL. Third-party review-site figures (ZopDealer) are labelled as such.
+2. Phases match BRD s. 8: Phase 1 = CMS, DB, auth, forms, analytics, consent, images, hosting; Phase 2 = inventory, history, financing, trade-in, search; Phase 3 = reviews, chat, social, SMS sending.
+3. Canadian residency noted where a vendor publishes it (Supabase ca-central-1; Cloudflare no Canada-only plan region; Contentful EU only).
+4. No invented options: every vendor is one the brief named or one seen on a competitor site in the research brief.
+
+### Found and fixed
+- Parallel Search hit its free-tier limit on the first fetch; switched to Exa and TinyFish fetches, and WebSearch for the dealer-industry vendors.
+- "TradeBoost" (seen on Village Auto) could not be identified; tradeboost.ca is an unrelated marketing agency. Flagged, not recommended.
+- Payload Cloud has paused new deployments (Figma acquisition); kept Payload as self-hosted only.
+- Instagram Basic Display API is retired; replaced with the Instagram API under Meta Graph.
+- AV Pre-qualify pricing exists only as a TD promotion ($500 setup, $7 per approved lead); recorded as promo terms, not list price.
+
+### Open for the lead
+- Seven vendor pages could not be fetched or publish no price (s. 20); the owner should request quotes from EDealer, Hillz, D2C, CARFAX Canada, Canadian Black Book and Dealertrack before Phase 2 budgeting.
