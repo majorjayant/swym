@@ -171,6 +171,7 @@
     z-index: -1;
   }
   .wedge-sm::after { width: 12%; }
+  .wedge-xs::after { width: min(10%, 140px); }
 
   /* Short red rule: separates a name from details (p. 17). */
   .short-rule {

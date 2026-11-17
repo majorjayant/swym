@@ -20,7 +20,7 @@ export function Footer() {
   const social = site.socialLinks.filter((s) => s.url && !s.url.includes('PLACEHOLDER'));
 
   return (
-    <footer data-theme="dark" className="wedge bg-ink text-white">
+    <footer data-theme="dark" className="wedge wedge-xs bg-ink text-white">
       <div className="container-page grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:py-20">
         <div className="space-y-6">
           <Logo tone="dark" className="w-[200px]" />
