@@ -30,6 +30,7 @@ export const navigation = {
         links: [
           { label: { en: 'Privacy policy' }, href: '/privacy', kind: 'internal' },
           { label: { en: 'Terms and conditions' }, href: '/terms', kind: 'internal' },
+          { label: { en: 'Cookie settings' }, href: '#cookie-settings', kind: 'internal' },
         ],
       },
     ],
