@@ -1,0 +1,27 @@
+2:"$Sreact.fragment"
+3:"/demo/_next/static/chunks/0ulw5407ag27y.js"
+4:"/demo/_next/static/chunks/3vsonhi21349f.js"
+5:I[9647,["$3","$4"],"SiteChrome"]
+6:I[39756,["$3"],"default"]
+7:I[37457,["$3"],"default"]
+8:"/demo/_next/static/chunks/2ftnr4x75-cb3.js"
+9:I[44130,["$3","$4","$8"],"PageView"]
+d:I[97367,["$3"],"OutletBoundary"]
+e:"$Sreact.suspense"
+11:"ViewportBoundary"
+12:I[97367,["$3"],"$11"]
+13:"MetadataBoundary"
+14:I[97367,["$3"],"$13"]
+15:I[27201,["$3"],"IconMark"]
+b:X
+c:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$2","c",{"children":[["$","$L9",null,{"pageKey":"home"}],[["$","script","script-0",{"src":"/demo/_next/static/chunks/2ftnr4x75-cb3.js","async":true}]],["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]]}],"p":"$@10","v":null,"s":"$b"}}]]
+1:[["children",{"s":"(site)","h":64,"d":{"r":["$","$2","c",{"children":[[["$","script","script-0",{"src":"/demo/_next/static/chunks/3vsonhi21349f.js","async":true}]],[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"AutoDealer\",\"name\":\"Mr Best Cars\",\"url\":\"https://mrbestcars.ca\",\"image\":\"https://mrbestcars.ca/demo/brand/og-image.png\",\"logo\":\"https://mrbestcars.ca/demo/brand/mr-best-cars-logo.svg\",\"telephone\":[\"+16394804400\",\"+13069992245\",\"+13069427200\"],\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"909 8th Ave\",\"addressLocality\":\"Regina\",\"addressRegion\":\"SK\",\"postalCode\":\"S4N 6S3\",\"addressCountry\":\"CA\"}}"}}],["$","$L5",null,{"children":["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}],"notFound":[["$","$L5",null,{"children":["$","$L9",null,{"pageKey":"not-found"}]}],[]]}]}]]]}],"p":"$@a","v":null,"s":"$b"},"c":"$Qc"}]]
+0:{"t":{"t":{"s":"","h":16,"c":"$Q1"},"h":{"r":["$","$2","h",{"children":[null,["$","$L12",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#FFFFFF"}]]}],["$","$L14",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$e",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Used Cars Regina, SK | Mr Best Cars"}],["$","meta","1",{"name":"description","content":"Pre-owned cars, SUVs and trucks at 909 8th Ave, Regina. Drive-away prices. Buy, sell or trade. Call or text 639-480-4400."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","link","3",{"rel":"canonical","href":"https://mrbestcars.ca"}],["$","meta","4",{"property":"og:title","content":"Mr Best Cars | Used Cars in Regina, SK"}],["$","meta","5",{"property":"og:description","content":"Pre-owned cars at 909 8th Ave, Regina. The price you see is the drive-away price. Buy, sell or trade."}],["$","meta","6",{"property":"og:url","content":"https://mrbestcars.ca"}],["$","meta","7",{"property":"og:locale","content":"en_CA"}],["$","meta","8",{"property":"og:image","content":"https://mrbestcars.ca/demo/brand/og-image.png"}],["$","meta","9",{"property":"og:image:width","content":"1200"}],["$","meta","10",{"property":"og:image:height","content":"630"}],["$","meta","11",{"property":"og:image:alt","content":"Mr Best Cars logo. Buy, sell, drive better."}],["$","meta","12",{"property":"og:type","content":"website"}],["$","meta","13",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","14",{"name":"twitter:title","content":"Mr Best Cars | Used Cars in Regina, SK"}],["$","meta","15",{"name":"twitter:description","content":"Pre-owned cars at 909 8th Ave, Regina. The price you see is the drive-away price. Buy, sell or trade."}],["$","meta","16",{"name":"twitter:image","content":"https://mrbestcars.ca/demo/brand/og-image.png"}],["$","meta","17",{"name":"twitter:image:alt","content":"Mr Best Cars logo. Buy, sell, drive better."}],["$","meta","18",{"name":"twitter:image:width","content":"1200"}],["$","meta","19",{"name":"twitter:image:height","content":"630"}],["$","link","20",{"rel":"icon","href":"/demo/brand/favicon-32.png","sizes":"32x32","type":"image/png"}],["$","link","21",{"rel":"apple-touch-icon","href":"/demo/brand/apple-touch-icon.png"}],["$","$L15","22",{}]]}]}],null]}],null]}],"p":"$@16","v":null,"s":"$b"}},"a":"$@17","u":"$@18","b":"-xZ9Vq0Kr_7x6VJxyF9ef"}
+f:null
+18:true
+b:300
+b:C
+17:0
+a:"$undefined"
+16:"$undefined"
+10:"$undefined"

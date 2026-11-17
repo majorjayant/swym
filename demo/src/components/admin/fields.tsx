@@ -6,6 +6,7 @@ import { useContent, useT } from '@/lib/content-context';
 import { Icon } from '../ui/icon';
 import { cn } from '../ui/cn';
 import { isLocalized, isRequired, limitFor, pathId, type FieldError, type Path } from './validate';
+import { asset } from '@/lib/base-path';
 
 /* ------------------------------------------------------------------ */
 /* Editor context: errors by field id, and pending focus after add.    */
@@ -253,7 +254,7 @@ function ImageEditor({ value, onChange, path }: { value: { src: string; alt: Loc
               <span className="p-2 text-center text-[0.6875rem] text-slate">{t(a.noImage)}</span>
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={value.src} alt="" className="h-full w-full object-cover" />
+              <img src={asset(value.src)} alt="" className="h-full w-full object-cover" />
             )}
           </div>
           <figcaption className="mt-1 text-[0.6875rem] text-slate">{t(a.imagePreview)}</figcaption>

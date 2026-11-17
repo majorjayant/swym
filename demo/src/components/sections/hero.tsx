@@ -9,6 +9,7 @@ import { Icon } from '../ui/icon';
 import { MediaImage, isPlaceholderImage } from '../ui/media';
 import { PlaceholderBadge, RichInline } from '../ui/placeholder';
 import { cn } from '../ui/cn';
+import { asset } from '@/lib/base-path';
 
 const ink = (x: number) => `rgb(17 19 21 / ${Math.min(Math.max(x, 0), 0.95).toFixed(2)})`;
 
@@ -40,7 +41,7 @@ function HeroPlaceholderMedia({ markSrc }: { markSrc?: string }) {
       {markSrc ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={markSrc}
+          src={asset(markSrc)}
           alt=""
           className="pointer-events-none absolute bottom-[8%] left-[38%] w-[150%] max-w-none select-none opacity-[0.08] md:left-[42%] md:w-[95%] lg:bottom-[12%] lg:left-[46%] lg:w-[70%]"
         />
@@ -118,8 +119,8 @@ export function Hero({ section }: { section: HeroSection }) {
               ) : s.media.kind === 'video' && s.media.video && !reduced ? (
                 <video
                   className="absolute inset-0 h-full w-full object-cover"
-                  src={s.media.video.src}
-                  poster={isPlaceholderImage(s.media.image) ? undefined : s.media.image.src}
+                  src={asset(s.media.video.src)}
+                  poster={isPlaceholderImage(s.media.image) ? undefined : asset(s.media.image.src)}
                   autoPlay={active}
                   muted
                   loop={s.media.video.loop}

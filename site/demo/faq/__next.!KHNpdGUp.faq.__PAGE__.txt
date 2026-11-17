@@ -1,0 +1,31 @@
+2:"$Sreact.fragment"
+3:"/demo/_next/static/chunks/0ulw5407ag27y.js"
+4:"/demo/_next/static/chunks/3vsonhi21349f.js"
+5:I[9647,["$3","$4"],"SiteChrome"]
+6:I[39756,["$3"],"default"]
+7:I[37457,["$3"],"default"]
+8:"/demo/_next/static/chunks/2ftnr4x75-cb3.js"
+9:I[44130,["$3","$4","$8"],"PageView"]
+11:I[97367,["$3"],"OutletBoundary"]
+12:"$Sreact.suspense"
+15:"ViewportBoundary"
+16:I[97367,["$3"],"$15"]
+17:"MetadataBoundary"
+18:I[97367,["$3"],"$17"]
+19:I[27201,["$3"],"IconMark"]
+b:X
+e:X
+e:C
+10:T519,{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does \"drive-away price\" mean?","acceptedAnswer":{"@type":"Answer","text":"It means the price you see is the price you pay, plus GST and PST. It includes every fee we charge, such as documentation fees, freight and anything already installed on the car. In Saskatchewan, any price a dealer advertises for a vehicle must be the drive-away price, shown with the stock number. We think that is how it should be."}},{"@type":"Question","name":"Which taxes apply when I buy a car in Saskatchewan?","acceptedAnswer":{"@type":"Answer","text":"GST and PST. They are the only amounts added to our drive-away price. We show them separately on your bill of sale so you can see the total."}},{"@type":"Question","name":"What do lenders look at?","acceptedAnswer":{"@type":"Answer","text":"Usually your income and how steady it is, your existing payments, your credit history if you have one, and the car and down payment. Each lender weighs these differently."}},{"@type":"Question","name":"Can I bring a family member or friend to help?","acceptedAnswer":{"@type":"Answer","text":"Yes, please do. Bring whoever helps you decide, including someone to translate if that is easier for you. Take as long as you need."}}]}f:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$2","c",{"children":[[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"$10"}}],["$","$L9",null,{"pageKey":"faq"}]],[["$","script","script-0",{"src":"/demo/_next/static/chunks/2ftnr4x75-cb3.js","async":true}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}],"p":"$@14","v":null,"s":"$b"}}]]
+c:[["children",{"s":"faq","h":96,"d":{"r":["$","$2","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@d","v":"$e","s":"$b"},"c":"$Qf"}]]
+1:[["children",{"s":"(site)","h":64,"d":{"r":["$","$2","c",{"children":[[["$","script","script-0",{"src":"/demo/_next/static/chunks/3vsonhi21349f.js","async":true}]],[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"AutoDealer\",\"name\":\"Mr Best Cars\",\"url\":\"https://mrbestcars.ca\",\"image\":\"https://mrbestcars.ca/demo/brand/og-image.png\",\"logo\":\"https://mrbestcars.ca/demo/brand/mr-best-cars-logo.svg\",\"telephone\":[\"+16394804400\",\"+13069992245\",\"+13069427200\"],\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"909 8th Ave\",\"addressLocality\":\"Regina\",\"addressRegion\":\"SK\",\"postalCode\":\"S4N 6S3\",\"addressCountry\":\"CA\"}}"}}],["$","$L5",null,{"children":["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}],"notFound":[["$","$L5",null,{"children":["$","$L9",null,{"pageKey":"not-found"}]}],[]]}]}]]]}],"p":"$@a","v":null,"s":"$b"},"c":"$Qc"}]]
+0:{"t":{"t":{"s":"","h":16,"c":"$Q1"},"h":{"r":["$","$2","h",{"children":[null,["$","$L16",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#FFFFFF"}]]}],["$","$L18",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$12",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Used Car Buying FAQ, Saskatchewan | Mr Best Cars"}],["$","meta","1",{"name":"description","content":"Plain answers on drive-away prices, fees, deposits, financing, trade-ins and buying a car in Saskatchewan as a newcomer."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","link","3",{"rel":"canonical","href":"https://mrbestcars.ca/faq"}],["$","meta","4",{"property":"og:title","content":"Used Car Buying FAQ, Saskatchewan"}],["$","meta","5",{"property":"og:description","content":"Plain answers on drive-away prices, fees, deposits, financing, trade-ins and buying a car in Saskatchewan as a newcomer."}],["$","meta","6",{"property":"og:url","content":"https://mrbestcars.ca/faq"}],["$","meta","7",{"property":"og:locale","content":"en_CA"}],["$","meta","8",{"property":"og:image","content":"https://mrbestcars.ca/demo/brand/og-image.png"}],["$","meta","9",{"property":"og:image:width","content":"1200"}],["$","meta","10",{"property":"og:image:height","content":"630"}],["$","meta","11",{"property":"og:image:alt","content":"Mr Best Cars logo. Buy, sell, drive better."}],["$","meta","12",{"property":"og:type","content":"website"}],["$","meta","13",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","14",{"name":"twitter:title","content":"Used Car Buying FAQ, Saskatchewan"}],["$","meta","15",{"name":"twitter:description","content":"Plain answers on drive-away prices, fees, deposits, financing, trade-ins and buying a car in Saskatchewan as a newcomer."}],["$","meta","16",{"name":"twitter:image","content":"https://mrbestcars.ca/demo/brand/og-image.png"}],["$","meta","17",{"name":"twitter:image:alt","content":"Mr Best Cars logo. Buy, sell, drive better."}],["$","meta","18",{"name":"twitter:image:width","content":"1200"}],["$","meta","19",{"name":"twitter:image:height","content":"630"}],["$","link","20",{"rel":"icon","href":"/demo/brand/favicon-32.png","sizes":"32x32","type":"image/png"}],["$","link","21",{"rel":"apple-touch-icon","href":"/demo/brand/apple-touch-icon.png"}],["$","$L19","22",{}]]}]}],null]}],null]}],"p":"$@1a","v":null,"s":"$b"}},"a":"$@1b","u":"$@1c","b":"-xZ9Vq0Kr_7x6VJxyF9ef"}
+13:null
+1c:true
+b:300
+b:C
+1b:0
+d:"$undefined"
+a:"$undefined"
+1a:"$undefined"
+14:"$undefined"

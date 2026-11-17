@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { Locale, Page, SEODefaults, SiteSettings } from '@/content/schema';
 import { t } from './i18n';
+import { asset } from '@/lib/base-path';
 
 /** Build Next metadata for a page from its SEO fields and the site defaults. */
 export function buildMetadata(page: Pick<Page, 'seo' | 'slug'>, defaults: SEODefaults, locale: Locale = 'en'): Metadata {
@@ -23,7 +24,7 @@ export function buildMetadata(page: Pick<Page, 'seo' | 'slug'>, defaults: SEODef
       url: canonical,
       title: t(seo.ogTitle, locale) || title,
       description: t(seo.ogDescription, locale) || description,
-      images: [{ url: og.src, width: og.width, height: og.height, alt: t(og.alt, locale) }],
+      images: [{ url: asset(og.src), width: og.width, height: og.height, alt: t(og.alt, locale) }],
     },
     twitter: { card: defaults.twitterCard },
   };
@@ -37,8 +38,8 @@ export function autoDealerJsonLd(site: SiteSettings, defaults: SEODefaults, loca
     '@type': defaults.jsonLd.type,
     name: t(site.businessName, locale),
     url: defaults.siteUrl,
-    image: `${defaults.siteUrl}${defaults.ogImage.src}`,
-    logo: `${defaults.siteUrl}${site.logo.light.src}`,
+    image: `${defaults.siteUrl}${asset(defaults.ogImage.src)}`,
+    logo: `${defaults.siteUrl}${asset(site.logo.light.src)}`,
     telephone: site.phones.map((p) => p.number),
     address: {
       '@type': 'PostalAddress',

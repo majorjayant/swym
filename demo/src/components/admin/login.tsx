@@ -6,6 +6,7 @@ import { useContent, useT } from '@/lib/content-context';
 import { Button } from '../ui/button';
 import { Icon } from '../ui/icon';
 import { NothingSavedBanner } from './shell';
+import { asset } from '@/lib/base-path';
 
 /** Non-functional sign-in: any input continues to the dashboard. Real auth arrives in Phase 1. */
 export function LoginScreen() {
@@ -20,7 +21,7 @@ export function LoginScreen() {
       <NothingSavedBanner />
       <main className="page-enter mx-auto flex max-w-md flex-col px-4 py-12 md:py-20">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={content.site.logo.light.src} alt={t(content.site.logo.light.alt)} width={1144} height={315} className="mx-auto h-auto w-56" />
+        <img src={asset(content.site.logo.light.src)} alt={t(content.site.logo.light.alt)} width={1144} height={315} className="mx-auto h-auto w-56" />
         <div className="wedge wedge-sm mt-10 rounded-[var(--radius-card)] bg-white p-6 md:p-8">
           <h1 className="text-title-fluid font-bold">{t(a.login.title)}</h1>
           <p className="label mt-1 text-slate">{t(a.appName)}</p>

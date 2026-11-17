@@ -1,8 +1,8 @@
 # Mr Best Cars: demo redesign (Phase 0)
 
-A working demo of the new Mr Best Cars website and a mock admin portal. Frontend only: no database, no API, no login, no deploy.
+A working demo of the new Mr Best Cars website and a mock admin portal. Frontend only: no database, no API, no login.
 
-> **This is not the live site.** https://mrbestcars.ca is served by the Cloudflare Worker in the repo root (`site/`, `src/worker.js`, `wrangler.toml`). This folder is a separate Next.js app on branch `claude/mbc-demo-redesign`. Nothing here is wired to Cloudflare, and `main` is never touched.
+> **Review copy online:** https://mrbestcars.ca/demo/ (admin: https://mrbestcars.ca/demo/admin/login). The coming-soon page stays at https://mrbestcars.ca/. The demo is a static export of this folder copied into `../site/demo/` and served by the live site's Worker with `noindex`. It processes no data.
 
 ## Run it
 
@@ -14,7 +14,9 @@ npm install
 npm run dev        # http://localhost:3000
 ```
 
-For a production-like check: `npm run build && npm start`.
+For a production-like check: `npm run build` (static export to `out/`).
+
+**Publish the review copy** to mrbestcars.ca/demo: `npm run build:live` (builds with base path `/demo` and copies `out/` to `../site/demo/`), then commit `site/demo/` and push to `main`. Cloudflare redeploys automatically.
 
 - Public site: `/`, `/about`, `/contact`, `/faq`, `/privacy`, `/terms` (any other path shows the 404 page)
 - Admin portal: `/admin/login` (any email and password continue)

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:live": "NEXT_PUBLIC_BASE_PATH=/demo next build && rm -rf ../site/demo && cp -R out ../site/demo"
   },
   "dependencies": {
     "next": "16.4.6",

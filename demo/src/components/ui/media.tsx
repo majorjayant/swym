@@ -4,6 +4,7 @@ import type { Image } from '@/content/schema';
 import { useContent, useT } from '@/lib/content-context';
 import { PlaceholderBadge } from './placeholder';
 import { cn } from './cn';
+import { asset } from '@/lib/base-path';
 
 /** A file path counts as a placeholder when it is not supplied yet (no stock photos are used). */
 export function isPlaceholderImage(img?: Image | null): boolean {
@@ -45,7 +46,7 @@ export function MediaImage({
         {mark ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={mark.src}
+            src={asset(mark.src)}
             alt=""
             aria-hidden="true"
             className={cn(
@@ -65,7 +66,7 @@ export function MediaImage({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={image!.src}
+      src={asset(image!.src)}
       alt={image!.decorative ? '' : t(image!.alt)}
       width={image!.width}
       height={image!.height}
