@@ -5,7 +5,7 @@ export function Container({ className, children }: { className?: string; childre
   return <div className={cn('container-page', className)}>{children}</div>;
 }
 
-const pad = { none: '', sm: 'py-10 md:py-14', md: 'py-14 md:py-20 lg:py-24', lg: 'py-16 md:py-24 lg:py-32' } as const;
+const pad = { none: '', sm: 'py-10 md:py-14', md: 'py-14 md:py-20 lg:py-24', lg: 'py-16 md:py-24 lg:py-32', follow: 'pt-2 pb-14 md:pt-4 md:pb-20 lg:pb-24' } as const;
 
 /** Section wrapper: light or dark band, padding scale, optional anchor. */
 export function SectionShell({

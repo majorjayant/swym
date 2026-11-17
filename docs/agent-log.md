@@ -187,3 +187,23 @@ Also: `sm` buttons raised to 44 px.
 
 ### Gate 2 outcome
 Approved by the owner on 2026-11-17: design direction (Home and Contact, desktop and mobile) approved as shown; derived asset `mr-best-cars-sedan-mark-on-dark.svg` (black swapped for white, red unchanged) approved for background art on ink.
+
+## 4c. Designer, stage 3 (pages + admin)
+
+Date: 2026-11-17.
+
+### Public pages (A)
+- Checked About, FAQ, Privacy, Terms, 404 at 1440 and 390 (iPhone 13): status codes (404 page returns HTTP 404 with header and footer), one h1, heading order with no jumps, no horizontal scroll, no console errors. Screenshots: `docs/screenshots/pages/*-{1440,390}.png` (full page, cookies accepted).
+- Legal TOC sticky from 1024 px (measured: stays at 112 px from the top after scrolling); TOC and FAQ jump links land on target headings below the sticky header.
+- Fixed: legal header-to-body gap; plain-bracket gaps in privacy/terms converted to visible markers; page transition 450 → 250 ms. Lawyer/owner callouts checked for readability (ink on light red/grey, bold).
+- Not a defect: an earlier screenshot showed About's standards cards missing; they were mid-reveal during a fast scripted scroll. The screenshot script now settles reveals before capture.
+
+### Admin portal (B)
+- Built login, dashboard, page editor, global editor and draft preview as specified; the store is in memory only; noindex; separate layout; all labels from `microcopy.admin` (about 45 keys added to the schema and `ui/microcopy.ts`, plus `fieldLabels`/`sectionTypes` maps).
+- Moved document keys into `components/admin/keys.ts` (a server route importing them from a `'use client'` module got a client reference and broke `generateStaticParams`).
+
+### Verification (C)
+- `tsc --noEmit` pass; `eslint src` 0 problems; `npm run build` pass: public routes static, admin routes prerendered (SSG for each page and global key).
+- Playwright against `next start` (127.0.0.1:3100), 19/19 checks pass: login continues; banner present; editing the home headline marks Draft; preview shows the new headline; the edit survives the preview round trip; SEO counter shown; publish blocked on an empty headline (error summary focused); publish after fixing turns the badge to Published (editor and dashboard); adding an FAQ item moves focus to its question; the new item appears and expands in preview; contact editor has phones and 7 hour rows with closed toggles; reload resets; no horizontal scroll at 390 (dashboard, editor); no console errors.
+- Screenshots: `docs/screenshots/admin/01-login-1440 … 11-page-editor-390`.
+- Server and next-server stopped after testing.

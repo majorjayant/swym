@@ -36,7 +36,7 @@ export const terms = {
       tocHeading: { en: 'On this page' },
       lawyerMarkers: true,
       body: [
-        { type: 'paragraph', text: { en: "These terms apply to the website of {legalName}, operating as {businessName}, {address}, a vehicle dealer licensed in Saskatchewan, DL #[licence number]. By using this website you agree to these terms. If you do not agree, please do not use the site." } },
+        { type: 'paragraph', text: { en: "These terms apply to the website of {legalName}, operating as {businessName}, {address}, a vehicle dealer licensed in Saskatchewan, DL #[PLACEHOLDER: licence number]. By using this website you agree to these terms. If you do not agree, please do not use the site." } },
         { type: 'marker', kind: 'owner', text: { en: "Owner: registered legal name" } },
         { type: 'marker', kind: 'owner', text: { en: "Owner: licence number" } },
         { type: 'heading', level: 2, anchor: "using-this-website", text: { en: "1. Using this website" } },
@@ -72,7 +72,7 @@ export const terms = {
         { type: 'heading', level: 2, anchor: "changes", text: { en: "11. Changes" } },
         { type: 'paragraph', text: { en: "We may change these terms. The effective date shows the current version. Continued use of the site after a change means you accept the new terms." } },
         { type: 'heading', level: 2, anchor: "contact", text: { en: "12. Contact" } },
-        { type: 'paragraph', text: { en: "{businessName}, {address}. Email: [email]. Phone: 639-480-4400, 306-999-2245, 306-942-7200. Consumer questions about vehicle dealers may also be directed to the Financial and Consumer Affairs Authority of Saskatchewan, Consumer Protection Division." } },
+        { type: 'paragraph', text: { en: "{businessName}, {address}. Email: [PLACEHOLDER: public email]. Phone: 639-480-4400, 306-999-2245, 306-942-7200. Consumer questions about vehicle dealers may also be directed to the Financial and Consumer Affairs Authority of Saskatchewan, Consumer Protection Division." } },
         { type: 'marker', kind: 'owner', text: { en: "Owner: Owner to supply." } },
       ],
     },

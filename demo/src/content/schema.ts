@@ -507,6 +507,50 @@ export type Microcopy = {
     reorderHint: LocalizedString;
     logout: LocalizedString;
     unsavedWarning: LocalizedString;
+    // Stage 3 additions (admin portal)
+    reloadResets: LocalizedString;
+    savedMessage: LocalizedString; // "{doc}" token
+    publishedMessage: LocalizedString;
+    discardedMessage: LocalizedString;
+    nothingToPublish: LocalizedString;
+    errorsTitle: LocalizedString; // "{count}" token
+    pageSettings: LocalizedString;
+    item: LocalizedString; // "{n}" token
+    emptyList: LocalizedString;
+    maxItems: LocalizedString; // "{max}" token
+    fixedList: LocalizedString;
+    imagePreview: LocalizedString;
+    noImage: LocalizedString;
+    placeholderValue: LocalizedString;
+    placeholderToggle: LocalizedString;
+    placeholderNote: LocalizedString;
+    addBlock: LocalizedString;
+    blockTypes: Record<'paragraph' | 'heading' | 'list' | 'link' | 'marker', LocalizedString>;
+    listItem: LocalizedString;
+    addListItem: LocalizedString;
+    headingLevel: LocalizedString;
+    markerKinds: Record<'lawyer' | 'owner', LocalizedString>;
+    pageNames: Record<'home' | 'about' | 'contact' | 'faq' | 'privacy' | 'terms' | 'not-found', LocalizedString>;
+    globalNames: Record<'site' | 'navigation' | 'announcement' | 'cookieBanner' | 'seo' | 'microcopy', LocalizedString>;
+    globalDescriptions: Record<'site' | 'navigation' | 'announcement' | 'cookieBanner' | 'seo' | 'microcopy', LocalizedString>;
+    sectionTypes: Record<string, LocalizedString>;
+    fieldLabels: Record<string, LocalizedString>;
+    selectSection: LocalizedString;
+    unsavedBadge: LocalizedString;
+    lastUpdatedBy: LocalizedString; // "{date}" "{who}"
+    neverSaved: LocalizedString;
+    adminNav: LocalizedString;
+    editorActions: LocalizedString;
+    statusRegion: LocalizedString;
+    sectionHidden: LocalizedString;
+    removeConfirmNote: LocalizedString;
+    searchPreviewNote: LocalizedString;
+    noIndexNote: LocalizedString;
+    previewOf: LocalizedString; // "{doc}"
+    editAgain: LocalizedString;
+    demoUser: LocalizedString;
+    open: LocalizedString;
+    collapse: LocalizedString;
   };
 };
 

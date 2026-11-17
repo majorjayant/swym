@@ -121,7 +121,7 @@ export function LegalBody({ section }: { section: LegalBodySection }) {
   const t = useT();
   const toc = section.body.filter((b): b is Extract<RichText[number], { type: 'heading' }> => b.type === 'heading' && b.level === 2);
   return (
-    <SectionShell theme={section.theme} anchor={section.anchor} padding="md">
+    <SectionShell theme={section.theme} anchor={section.anchor} padding="follow">
       <Container className="grid gap-10 lg:grid-cols-[16rem_1fr] lg:gap-16">
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <dl className="space-y-1 text-sm text-slate">

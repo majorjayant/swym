@@ -110,6 +110,9 @@
   }
   h1, h2, h3, h4 { font-weight: 700; text-wrap: balance; }
   p { text-wrap: pretty; }
+  /* Fieldsets default to min-content width, which lets wide selects push the page sideways. */
+  fieldset { min-width: 0; }
+  select { max-width: 100%; }
   ::selection { background: var(--color-red); color: var(--color-white); }
 
   /* Focus: 2px red ring, 3px offset on light; white on dark sections. */
@@ -214,7 +217,7 @@
 
   /* Page transition: a quick fade/rise on route change; skipped under reduced motion. */
   @media (prefers-reduced-motion: no-preference) {
-    .page-enter { animation: page-enter var(--duration-slow) var(--ease-brand) both; }
+    .page-enter { animation: page-enter var(--duration-base) var(--ease-brand) both; }
     @keyframes page-enter {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: none; }

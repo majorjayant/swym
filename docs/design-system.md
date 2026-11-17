@@ -166,3 +166,44 @@ The first run of the desktop gradient (0.65 mid-stop) gave 4.28:1 for the grey s
 | Hero text and media changed at the same moment. | Media crossfades over 450 ms; text rises 16 px with a 100 ms delay; nothing moves under reduced motion and autoplay is off. | — |
 | Reveals could start before JS or run twice. | Reveals only arm when `html.js` is set and motion is allowed; each element is revealed once (observer unobserves). | Reveal stagger on long lists (areas served) is 40 ms per item; fine at 9 items, should be capped if lists grow. |
 | Page transition also played on first load. | It is a 450 ms opacity/transform enter on `main`, so it doesn't delay LCP (no layout change) and is skipped under reduced motion. | Measure LCP in Lighthouse at QA. |
+
+## 10. Admin portal components (stage 3)
+
+Routes (`demo/src/app/admin/**`, all `noindex`, no public chrome):
+
+| Route | Screen |
+|---|---|
+| `/admin/login` | Non-functional sign-in: any input continues to the dashboard. Auth arrives in Phase 1 (`admin.login.note`). |
+| `/admin` | Dashboard: a card per page (7) and per global document (6), with Draft/Published badge, Unsaved chip, last updated, open link |
+| `/admin/pages/[slug]` | Page editor: section list plus field panel, SEO panel, page settings |
+| `/admin/global/[element]` | Global editor: site (contact, phones, hours, licence, social, privacy officer), navigation (incl. 3 mobile bar slots), announcement, cookie banner, SEO defaults, interface text |
+| `/admin/preview/[slug]` | The public page and chrome rendered from the DRAFT tree, under a sticky red "Previewing draft" bar with Exit |
+
+| Component | File | Notes |
+|---|---|---|
+| AdminStoreProvider / useAdminStore | `components/admin/store.tsx` | `{ published, draft, dirty, previewMode }`, a deep copy of `publishedContent`, in React state only (no storage). Shared by every admin route through `app/admin/layout.tsx`, so edits survive client navigation to preview and back. Reload resets. |
+| validateDoc / limitFor / isRequired | `components/admin/validate.ts` | Limits from `FIELD_LIMITS` (content model); required fields: headlines, headings, titles, link labels, names, questions, SEO title/description. The shipped content passes with 0 errors. |
+| ValueEditor / ObjectEditor | `components/admin/fields.tsx` | Schema-driven: chooses the input from the value's shape and key. Covers LocalizedString (input/textarea with counter), Placeholder (value, "not supplied" toggle, note), Image (URL, alt, decorative, preview, upload-disabled note), Link/CTA (label, href, kind, style, icon, new tab), enums as selects, booleans, numbers (scrim opacity as slider), dates, times, nested objects. System fields (`meta`, `id`, `order`) are hidden; `type`, `key`, `day`, `slug` are read-only. |
+| ArrayEditor | same | Add (blank copy with new id; respects max: slides 5, steps 4, CTAs 3, FAQ items 12, …), remove (respects min), move up/down; collapsible items with summary; fixed lists (mobile bar slots, days, consent categories) can't be added to or removed. Focus moves to the new item's first input; after remove, focus returns to Add; after a move, focus stays on the moved item's arrow. |
+| RichTextEditor | same | Paragraph, heading (level), list (items, numbered), link, marker (lawyer/owner) blocks; add, remove, reorder. |
+| PageEditor / GlobalEditor | `components/admin/editor.tsx` | Sticky action bar: Discard, Preview, Save draft, Publish; `role=status` live message; error summary (`role=alert`, focused, links to each field). Publish is blocked on validation errors; otherwise the draft is copied to published and the version is bumped. Section list: enable toggle, select, move up/down, error count per section. SEO panel: counters (60/155) and a search-result preview. |
+| AdminShell, NothingSavedBanner, StateBadge | `components/admin/shell.tsx` | Ink top bar (logo on dark, Dashboard / View site / Sign out); persistent red-tint banner "Demo only. Nothing you change here is saved…" on every admin screen including login. Badge: Published (ink) or Draft (dashed red), plus Unsaved chip. |
+| PreviewView, PreviewBar | `components/admin/preview.tsx`, `editor.tsx` | Nested `ContentProvider` with the draft tree inside the real `SiteChrome`; the public header sticks below the bar via `--sticky-offset`. |
+
+Layout: two columns from 768 px (17–20 rem section list plus `minmax(0,1fr)` field panel); single column, stacked, at 360–767 px. Every grid uses explicit `grid-cols-1`/`minmax(0,1fr)` and fieldsets have `min-width: 0` (a select's intrinsic width otherwise widened the phone layout to 543 px).
+
+All labels come from `microcopy.admin` (field names from `admin.fieldLabels`, section names from `admin.sectionTypes`). An unknown key falls back to a humanised key name.
+
+### Stage 3 self-critique
+
+| Weak | Changed |
+|---|---|
+| New FAQ items put focus on a read-only `id` field. | `id`/`order` hidden; focus goes to the first editable input. |
+| Error summary said "Item 1 › Slides…" (section index). | Uses the section's name: "Hero banner › Slides › Item 1 › Headline". |
+| A stray "0" legend inside each list item. | List items render their fields without a second frame. |
+| Phone layout of the editor overflowed to 543 px. | `grid-cols-1` / `minmax(0,1fr)` everywhere; `fieldset { min-width: 0 }`. |
+| Legal pages had about 160 px of empty space between header and body. | Legal body uses a `follow` padding (small top). |
+| Four plain-bracket gaps in the legal copy ("[name or role]", "[age]", "[licence number]", "[email]") rendered as literal text. | Converted to `[OWNER: …]`, `[LAWYER TO CONFIRM: …]` and `[PLACEHOLDER: …]` so they show as chips. |
+| Page transition was 450 ms. | 250 ms, opacity/transform only, off under reduced motion. |
+
+Open: the admin edits English only (other locales are in the schema but not shown); optional fields that are absent in the content (e.g. a missing `secondaryCta`) can't be added from the UI; the admin interface itself reads published microcopy, so editing "Interface text" changes the site preview, not the admin labels.
