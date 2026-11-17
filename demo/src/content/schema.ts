@@ -119,6 +119,8 @@ export type SiteSettings = {
   whatsapp: Placeholder; // E.164; hidden when empty
   hours: Hours;
   dealerLicence: Placeholder;
+  /** PIPEDA Principle 1: accountable person and contact route (compliance s. 6 item 1). */
+  privacyOfficer?: { name?: Placeholder; email: Placeholder; phone?: Placeholder };
   foundedYear: Placeholder;
   socialLinks: SocialLink[];
   enabledLocales: Locale[];
@@ -134,6 +136,8 @@ export type Navigation = {
     legalLine: LocalizedString; // may contain {year}
     showLicence: boolean;
     licenceLabel: LocalizedString; // e.g. "DL #"
+    /** Reopens the cookie banner (compliance s. 6 item 3). */
+    cookieSettingsLabel?: LocalizedString;
   };
   mobileMenu: { links: Link[] };
 };
@@ -324,7 +328,9 @@ export type ContactFormSection = SectionBase<'contactForm'> & {
   heading: LocalizedString;
   intro?: LocalizedString;
   fields: FormField[];
-  consentText: LocalizedString; // <= 400, CASL-shaped
+  consentText: LocalizedString; // <= 400, enquiry consent (required)
+  /** CASL: separate, unchecked, optional consent for marketing messages (compliance s. 6 item 2). */
+  marketingConsentText?: LocalizedString;
   submitLabel: LocalizedString;
   submittingLabel: LocalizedString;
   successTitle: LocalizedString;
@@ -375,6 +381,7 @@ export type LegalBodySection = SectionBase<'legalBody'> & {
   reviewedLabel: LocalizedString;
   disclaimer: LocalizedString; // <= 300, "not legal advice"
   tocHeading: LocalizedString;
+  /** Supports merge tokens {legalName}, {businessName}, {privacyEmail}, {address} resolved from SiteSettings at render (compliance s. 6 item 4). */
   body: RichText;
   lawyerMarkers: boolean;
 };

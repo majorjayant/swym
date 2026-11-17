@@ -18,6 +18,7 @@ Goal IDs (G1–G7) are defined in `docs/BRD.md`. Requirement IDs are `AREA-nn`.
 | X-08 | No invented facts | Every rating, count, year, warranty, licence, rate is a `Placeholder`. | C5 |
 | X-09 | Pricing wording | No "+ taxes and fees" wording anywhere; any pricing explanation uses the drive-away wording from the Terms/FAQ fields. | G1, C7 |
 | X-10 | Motion | Scroll reveals, hover and page transitions only on transform/opacity; none block content; all disabled under `prefers-reduced-motion`. | G3 |
+| X-12 | Compliance grep | Built HTML contains none of the forbidden words (compliance-checklist s. 3) and no competitor names from `master_list.csv`; enquiry consent and optional marketing consent are separate, unchecked boxes. | G7 |
 | X-11 | Live site untouched | `site/`, `src/worker.js`, `wrangler.toml` unchanged on this branch; demo in `demo/`. | C1 |
 
 ## 1. Global elements
@@ -65,6 +66,7 @@ Goal IDs (G1–G7) are defined in `docs/BRD.md`. Requirement IDs are `AREA-nn`.
 | COK-01 | Shows on first visit when `enabled` | visible, settings open, accepted, rejected | Stores choice in `localStorage` key `mbc-consent`; no analytics script loads before accept (none exist in Phase 0; a stub logs the decision). |
 | COK-02 | Three categories; `necessary` locked | | Settings panel has per-category toggle; "reject" = necessary only. |
 | COK-03 | Accessible | | `role="dialog"`, labelled, does not trap focus (non-modal), keyboard reachable. |
+| COK-04 | Reopen | | Footer link (`footer.cookieSettingsLabel`) reopens the banner settings at any time (compliance P5). |
 
 ## 2. Pages
 

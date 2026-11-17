@@ -85,6 +85,15 @@ type Locale = 'en' | 'pa' | 'hi' | 'fr';
 | `enabledLocales` | Locale[] | yes | | `['en']` |
 | `mobileBar` | `{ slots: CTA[] }` | yes | exactly 3 | Call, Text, Contact |
 
+### Compliance additions (2026-11-17, compliance-checklist s. 6)
+
+| Field | Type | Req | Default |
+|---|---|---|---|
+| `SiteSettings.privacyOfficer` | `{ name?, email, phone? }` (Placeholders) | yes before publishing | `[PLACEHOLDER: privacy contact]` |
+| `contactForm.marketingConsentText` | LocalizedString ≤ 400, separate unchecked box | no | CASL wording |
+| `Navigation.footer.cookieSettingsLabel` | LocalizedString ≤ 30 | yes | Cookie settings |
+| `legalBody.body` merge tokens | `{legalName}`, `{businessName}`, `{privacyEmail}`, `{address}` | | resolved from SiteSettings |
+
 ### Hours
 
 | Field | Type | Req | Limits | Default |
