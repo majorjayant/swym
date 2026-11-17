@@ -11,6 +11,7 @@ export const microcopy = {
     text: { en: 'Text' },
     home: { en: 'Mr Best Cars home' },
     currentPage: { en: 'Current page' },
+    quickActions: { en: 'Quick contact' },
   },
   buttons: {
     learnMore: { en: 'Learn more' },

@@ -16,7 +16,7 @@ const base =
   'active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50';
 
 const sizes: Record<Size, string> = {
-  sm: 'min-h-10 px-3.5 text-sm',
+  sm: 'min-h-11 px-3.5 text-sm',
   md: 'min-h-12 px-5 text-[0.9375rem]',
   lg: 'min-h-14 px-6 text-base',
 };

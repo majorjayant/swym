@@ -164,3 +164,23 @@ Date: 2026-11-17. Output: `demo/src/app/globals.css`, `demo/src/app/layout.tsx`,
 - The mobile bar reuses `microcopy.nav.menuTitle` as its nav label; suggest a `nav.quickActions` string.
 - Hero, sell-band and team images are placeholder blocks (no stock photos) until the owner supplies photos.
 - The dev server was used on 127.0.0.1:3100 for screenshots only and has been stopped.
+
+## 4b. Designer, Gate 2 prep
+
+Date: 2026-11-17. Lead review items 1–6 fixed; Gate 2 package in `docs/screenshots/gate2/`.
+
+### Fixed
+1. Hero eyebrow clipped under the header on mobile: slides now stack in one grid cell (the hero grows with content); top padding clears the header at all breakpoints.
+2. Hero [PLACEHOLDER] chip over the headline: moved to the bottom-right of the media area, small; never over text.
+3. Cookie banner: mobile bottom sheet (3-line clamp, one button row, ≤ 40% of viewport; measured 25%); desktop card bottom-right (27% of height), with hero carousel controls moved bottom-left; bounding-box check confirms no home-hero CTA under the desktop card.
+4. Placeholder hero: ink, corner wedge, sedan mark large and cropped at 8%, chip. Scrim reworked with a 0.6 minimum ink alpha behind text; measured with grey, white and bright test images (worst: white headline 7.12:1, grey subhead 5.39:1). Test images were created in `public/test/` and deleted; `home.ts` was restored byte for byte (diff checked).
+5. `nav.quickActions` added to the schema and microcopy ("Quick contact"); used by the mobile bar.
+6. `content/index.ts` unused-parameter warnings fixed (`void`); eslint is now clean (0 problems).
+Also: `sm` buttons raised to 44 px.
+
+### Needs owner approval
+- `public/brand/mr-best-cars-sedan-mark-on-dark.svg` (+ `SiteSettings.logo.markOnDark`): the supplied sedan mark with black swapped for white only, red unchanged, following guideline p. 4's on-dark rule. Without it, the mark is invisible on ink.
+
+### Process note
+- Stage 1's `pkill -f "next dev"` left the renamed `next-server` child running on :3100 (that was the server answering on 3100 during review). It was stopped; Gate 2 shots used `next start` on :3100, now stopped. No next processes remain.
+- Checks: `tsc --noEmit` pass; `eslint src` 0 problems; `npm run build` pass (7 routes static).

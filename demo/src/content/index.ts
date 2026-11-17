@@ -45,7 +45,9 @@ export function t(field: LocalizedString | undefined, locale: Locale = 'en'): st
  * Phase 0 stub: there is one locale and no stored drafts, so both states return
  * the published tree. The admin portal keeps its own draft copy in memory.
  */
-export function getContent(_locale: Locale = 'en', _state: PublishState = 'published'): ContentTree {
+export function getContent(locale: Locale = 'en', state: PublishState = 'published'): ContentTree {
+  void locale;
+  void state;
   return publishedContent;
 }
 

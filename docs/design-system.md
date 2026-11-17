@@ -127,3 +127,42 @@ Skip link first; landmarks (`header`, `nav` with labels, `main#main`, `footer`);
 | The placeholder image block on ink with an inverted mark would recolour the logo. | Mark shown in its supplied colours at low opacity. |
 
 Still weak (for stage 2): pages are image-placeholder heavy until real photos exist; the proof bar is all chips; the Visit-us section and the footer both show the full hours table on the home page. The mobile bar and mobile menu share the same `nav` label (needs a separate microcopy string, e.g. `nav.quickActions`).
+
+## 9. Gate 2 self-critique (home + contact, 1440×900 and iPhone 13)
+
+Screenshots: `docs/screenshots/gate2/` (`{home,contact}-{1440,390}-{a-banner,b-accepted,c-full}.png`, deviceScaleFactor 2) and `motion-home.mp4` (4 s, desktop, hero slide change and scroll reveals).
+
+### Pass 1: layout
+
+| Weak | Changed | Open |
+|---|---|---|
+| Hero slides were absolutely positioned inside a fixed min-height, so tall mobile content overflowed upward and the eyebrow was clipped under the sticky header. | Slides now share one CSS grid cell, so the hero grows to its tallest slide; content padding clears the header at every breakpoint (mobile `pt-8`, tablet `pt-16`, desktop `pt-20`). | — |
+| Mobile cookie banner covered about 55% of the screen. | Bottom sheet above the mobile bar: body clamped to 3 lines (full text and settings behind "Choose"), buttons in one row, max 40% of the viewport. Measured 165 px = 25% of the 664 px iPhone 13 viewport. Desktop: 416 px card bottom-right, 27% of the height; no hero CTA under it at 1440×900 (checked by bounding boxes). | On a 664 px-tall iPhone viewport the sheet still overlaps the secondary "Text us" button and the text link until the visitor decides. The primary Call button stays visible, and Call/Text are always in the mobile bar. On the desktop Contact page the card covers the third phone card until dismissed. |
+| Hero carousel controls sat bottom-right, under where the cookie card goes. | Controls moved bottom-left on desktop, aligned with the text column. | — |
+| Small buttons were 40 px tall. | `sm` buttons are 44 px (our tap-target rule). | — |
+
+### Pass 2: visual
+
+| Weak | Changed | Open |
+|---|---|---|
+| The hero without a photo read as an empty black box, and the placeholder chip overlapped the headline on mobile. | Intentional placeholder: ink, the corner wedge, and the sedan mark large and cropped toward the bottom-right at 8%. The chip is small, bottom-right of the media, never over text. | Needs owner approval: on ink, the full-colour sedan mark's black half is invisible, so I added `mr-best-cars-sedan-mark-on-dark.svg`, the same shapes with black swapped for white only (the p. 4 rule used for the reversed logo; red unchanged). |
+| No proof that the scrim works over a real photo. | Scrim rule: ink alpha ≥ 0.6 behind text (white text needs ≥ 0.576 over pure white). Desktop gradient is 0.8 → 0.72 across the text column → 0.21 at the far right; mobile is an even 0.7–0.8 overlay. Measured with test images (mid-grey, pure white, bright "sky/snow/red car") by hiding the text and reading the brightest pixel behind every text box: see the contrast table below. | Real lot photos may still need a focal point (`image.focalPoint`) so the car sits on the right. |
+| The mobile bar reused the menu's label. | New microcopy `nav.quickActions` ("Quick contact"). | — |
+
+Measured contrast, worst pixel behind the hero text:
+
+| Test image | Viewport | Worst background | White headline | Light-grey subhead/eyebrow (#DFE0E1) |
+|---|---|---|---|---|
+| Mid-grey #808080 | 390 / 1024 / 1440 | rgb(50,51,53) / (48,50,51) / (46,48,49) | 12.65 / 12.89 / 13.26 : 1 | 9.57 / 9.75 / 10.03 : 1 |
+| Pure white #FFFFFF | 390 / 1024 / 1440 | rgb(87,88,90) / (83,85,86) / (80,81,83) | 7.12 / 7.50 / 7.95 : 1 | 5.39 / 5.67 / 6.01 : 1 |
+| Bright mixed | 390 / 1024 / 1440 | rgb(77,84,90) / (80,83,86) / (78,80,83) | 7.69 / 7.74 / 8.09 : 1 | 5.82 / 5.86 / 6.12 : 1 |
+
+The first run of the desktop gradient (0.65 mid-stop) gave 4.28:1 for the grey subhead over pure white at 1024 px; the mid-stop was raised to 0.72 and re-measured.
+
+### Pass 3: motion
+
+| Weak | Changed | Open |
+|---|---|---|
+| Hero text and media changed at the same moment. | Media crossfades over 450 ms; text rises 16 px with a 100 ms delay; nothing moves under reduced motion and autoplay is off. | — |
+| Reveals could start before JS or run twice. | Reveals only arm when `html.js` is set and motion is allowed; each element is revealed once (observer unobserves). | Reveal stagger on long lists (areas served) is 40 ms per item; fine at 9 items, should be capped if lists grow. |
+| Page transition also played on first load. | It is a 450 ms opacity/transform enter on `main`, so it doesn't delay LCP (no layout change) and is skipped under reduced motion. | Measure LCP in Lighthouse at QA. |

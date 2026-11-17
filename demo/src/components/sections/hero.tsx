@@ -2,25 +2,56 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { HeroSection, HeroSlide } from '@/content/schema';
-import { useT } from '@/lib/content-context';
+import { useContent, useT } from '@/lib/content-context';
 import { useReducedMotion } from '@/lib/use-media';
 import { ButtonLink } from '../ui/button';
 import { Icon } from '../ui/icon';
 import { MediaImage, isPlaceholderImage } from '../ui/media';
-import { RichInline } from '../ui/placeholder';
+import { PlaceholderBadge, RichInline } from '../ui/placeholder';
 import { cn } from '../ui/cn';
 
-function scrimStyle(s: HeroSlide['scrim']): React.CSSProperties {
-  const a = Math.min(Math.max(s.opacity, 0), 0.9);
-  const ink = (x: number) => `rgb(17 19 21 / ${x.toFixed(2)})`;
+const ink = (x: number) => `rgb(17 19 21 / ${Math.min(Math.max(x, 0), 0.95).toFixed(2)})`;
+
+/**
+ * Minimum ink alpha behind white text so contrast stays >= 4.5:1 even over a pure white photo:
+ * 255(1 - a) + 17a <= 118 (relative luminance 0.183)  =>  a >= 0.576. We use 0.6.
+ */
+export const MIN_TEXT_SCRIM = 0.6;
+
+/** Desktop scrim: strong across the text column (left ~60%), fading toward the photo's subject on the right. */
+function scrimDesktop(s: HeroSlide['scrim']): React.CSSProperties {
+  const a = Math.max(s.opacity, MIN_TEXT_SCRIM);
   if (s.kind === 'solid') return { background: ink(a) };
-  if (s.direction === 'bottom') return { background: `linear-gradient(0deg, ${ink(a + 0.15)} 0%, ${ink(a * 0.7)} 45%, ${ink(a * 0.15)} 100%)` };
-  if (s.direction === 'centre') return { background: `radial-gradient(ellipse at center, ${ink(a)} 0%, ${ink(a * 0.5)} 70%)` };
-  return { background: `linear-gradient(90deg, ${ink(a + 0.1)} 0%, ${ink(a * 0.8)} 40%, ${ink(a * 0.15)} 85%)` };
+  if (s.direction === 'centre') return { background: `radial-gradient(ellipse 70% 80% at center, ${ink(a + 0.05)} 0%, ${ink(a)} 60%, ${ink(a * 0.6)} 100%)` };
+  if (s.direction === 'bottom') return { background: `linear-gradient(0deg, ${ink(a + 0.15)} 0%, ${ink(a + 0.05)} 55%, ${ink(a * 0.4)} 100%)` };
+  return { background: `linear-gradient(90deg, ${ink(a + 0.2)} 0%, ${ink(a + 0.12)} 66%, ${ink(a * 0.35)} 100%)` };
+}
+
+/** Mobile scrim: text covers the full width, so the whole image is darkened evenly. */
+function scrimMobile(s: HeroSlide['scrim']): React.CSSProperties {
+  const a = Math.max(s.opacity, MIN_TEXT_SCRIM) + 0.1;
+  return { background: `linear-gradient(0deg, ${ink(a + 0.1)} 0%, ${ink(a)} 100%)` };
+}
+
+/** On-brand stand-in for a missing lot photo: ink, the supplied sedan mark large and cropped, the corner wedge. */
+function HeroPlaceholderMedia({ markSrc }: { markSrc?: string }) {
+  return (
+    <div className="wedge absolute inset-0 bg-ink" aria-hidden="true">
+      {markSrc ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={markSrc}
+          alt=""
+          className="pointer-events-none absolute bottom-[8%] left-[38%] w-[150%] max-w-none select-none opacity-[0.08] md:left-[42%] md:w-[95%] lg:bottom-[12%] lg:left-[46%] lg:w-[70%]"
+        />
+      ) : null}
+    </div>
+  );
 }
 
 /** Full-bleed hero: image or muted video, scrim for contrast, up to 5 slides. h1 only on slide 1. */
 export function Hero({ section }: { section: HeroSection }) {
+  const { content } = useContent();
   const t = useT();
   const reduced = useReducedMotion();
   const slides = section.slides.filter((s) => s.enabled);
@@ -63,10 +94,12 @@ export function Hero({ section }: { section: HeroSection }) {
         if (Math.abs(dx) > 50) go(index + (dx < 0 ? 1 : -1));
       }}
     >
-      <div className="relative min-h-[min(82svh,46rem)] lg:min-h-[min(88vh,54rem)]">
+      {/* All slides share one grid cell, so the hero grows to the tallest slide instead of clipping it. */}
+      <div className="grid">
         {slides.map((s, i) => {
           const active = i === index;
           const Title = i === 0 ? 'h1' : 'h2';
+          const placeholder = isPlaceholderImage(s.media.image) && !(s.media.kind === 'video' && s.media.video);
           return (
             <div
               key={s.id}
@@ -76,11 +109,13 @@ export function Hero({ section }: { section: HeroSection }) {
               aria-hidden={!active}
               inert={!active}
               className={cn(
-                'absolute inset-0 transition-opacity duration-[var(--duration-slow)] ease-[var(--ease-brand)]',
+                'relative [grid-area:1/1] transition-opacity duration-[var(--duration-slow)] ease-[var(--ease-brand)]',
                 active ? 'z-10 opacity-100' : 'z-0 opacity-0',
               )}
             >
-              {s.media.kind === 'video' && s.media.video && !reduced ? (
+              {placeholder ? (
+                <HeroPlaceholderMedia markSrc={(content.site.logo.markOnDark ?? content.site.logo.mark)?.src} />
+              ) : s.media.kind === 'video' && s.media.video && !reduced ? (
                 <video
                   className="absolute inset-0 h-full w-full object-cover"
                   src={s.media.video.src}
@@ -93,11 +128,16 @@ export function Hero({ section }: { section: HeroSection }) {
                   aria-hidden="true"
                 />
               ) : (
-                <MediaImage image={s.media.image} fill priority={i === 0} sizes="100vw" className="h-full w-full" />
+                <MediaImage image={s.media.image} fill priority={i === 0} sizes="100vw" className="h-full w-full" showBadge={false} />
               )}
-              <div className="absolute inset-0" style={scrimStyle(s.scrim)} aria-hidden="true" />
-              <div className="relative z-10 flex h-full items-end lg:items-center">
-                <div className={cn('container-page pb-24 pt-16 lg:py-24', s.align === 'centre' && 'text-center')}>
+              {!placeholder ? (
+                <>
+                  <div className="absolute inset-0 lg:hidden" style={scrimMobile(s.scrim)} aria-hidden="true" />
+                  <div className="absolute inset-0 hidden lg:block" style={scrimDesktop(s.scrim)} aria-hidden="true" />
+                </>
+              ) : null}
+              <div className="relative z-10 flex min-h-[min(72svh,44rem)] items-start md:items-center lg:min-h-[min(calc(100svh-6rem),52rem)]">
+                <div className={cn('container-page w-full pb-28 pt-8 md:pt-16 lg:pb-28 lg:pt-20', s.align === 'centre' && 'text-center')}>
                   <div
                     className={cn(
                       'max-w-[38rem] transition-[transform,opacity] duration-[var(--duration-slow)] ease-[var(--ease-brand)]',
@@ -110,11 +150,11 @@ export function Hero({ section }: { section: HeroSection }) {
                       {t(s.headline)}
                     </Title>
                     {s.subhead ? (
-                      <p className="mt-5 max-w-[34rem] text-lead text-grey">
+                      <p className="mt-4 max-w-[34rem] text-[1.0625rem] leading-relaxed text-grey md:mt-5 md:text-lead">
                         <RichInline text={t(s.subhead)} />
                       </p>
                     ) : null}
-                    <div className={cn('mt-8 flex flex-wrap gap-3', s.align === 'centre' && 'justify-center')}>
+                    <div className={cn('mt-6 flex flex-wrap gap-3 md:mt-8', s.align === 'centre' && 'justify-center')}>
                       <ButtonLink link={s.primaryCta} size="lg" tone="dark" />
                       {s.secondaryCta ? <ButtonLink link={s.secondaryCta} size="lg" tone="dark" /> : null}
                     </div>
@@ -126,13 +166,18 @@ export function Hero({ section }: { section: HeroSection }) {
                   </div>
                 </div>
               </div>
+              {placeholder || isPlaceholderImage(s.media.image) ? (
+                <span className="absolute bottom-[4.75rem] right-4 z-10 text-white/80 md:right-8 lg:bottom-6 xl:right-10">
+                  <PlaceholderBadge note={t(s.media.image.alt)} />
+                </span>
+              ) : null}
             </div>
           );
         })}
       </div>
       {count > 1 ? (
         <div className="absolute inset-x-0 bottom-0 z-20">
-          <div className="container-page flex items-center justify-between gap-4 pb-5 lg:justify-end">
+          <div className="container-page flex items-center justify-between gap-4 pb-5 lg:justify-start lg:gap-6">
             <div className="flex items-center gap-1" role="group">
               {slides.map((s, i) => (
                 <button

@@ -12,6 +12,8 @@ export const site = {
     dark: { src: '/brand/mr-best-cars-logo-on-dark.svg', alt: { en: 'Mr Best Cars. Buy, sell, drive better.' }, width: 1144, height: 315 },
     icon: { src: '/brand/apple-touch-icon.png', alt: { en: 'Mr Best Cars app icon' }, width: 180, height: 180 },
     mark: { src: '/brand/mr-best-cars-sedan-mark.svg', alt: { en: '' }, width: 1138, height: 172, decorative: true },
+    // Derived for ink backgrounds: black swapped for white only, red unchanged (Brand Guidelines p. 4 rule). Needs owner approval.
+    markOnDark: { src: '/brand/mr-best-cars-sedan-mark-on-dark.svg', alt: { en: '' }, width: 1138, height: 172, decorative: true },
   },
   address: {
     street: '909 8th Ave',

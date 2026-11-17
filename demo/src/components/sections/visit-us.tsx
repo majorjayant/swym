@@ -63,7 +63,7 @@ export function VisitUs({ section }: { section: VisitUsSection }) {
               <div className="absolute inset-0 flex flex-col items-start justify-end gap-4 p-6 md:p-8">
                 {content.site.logo.mark ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={content.site.logo.mark.src} alt="" aria-hidden="true" className={cn('pointer-events-none absolute left-1/2 top-[40%] w-[80%] -translate-x-1/2 -translate-y-1/2', dark ? 'opacity-25' : 'opacity-15')} />
+                  <img src={(dark ? content.site.logo.markOnDark ?? content.site.logo.mark : content.site.logo.mark).src} alt="" aria-hidden="true" className={cn('pointer-events-none absolute left-1/2 top-[40%] w-[80%] -translate-x-1/2 -translate-y-1/2', 'opacity-[0.08]')} />
                 ) : null}
                 <p className={cn('relative max-w-sm text-sm', dark ? 'text-white' : 'text-ink')}>{t(section.mapConsentNotice)}</p>
                 <div className="relative flex flex-wrap gap-2">

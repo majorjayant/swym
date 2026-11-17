@@ -103,7 +103,8 @@ export type SiteSettings = {
   businessName: LocalizedString;
   legalName: Placeholder;
   tagline: LocalizedString;
-  logo: { light: Image; dark: Image; icon: Image; mark?: Image };
+  /** mark: sedan mark (decoration only, p. 8/17). markOnDark: same shapes, black swapped for white only (p. 4 rule), for ink backgrounds. */
+  logo: { light: Image; dark: Image; icon: Image; mark?: Image; markOnDark?: Image };
   address: {
     street: string;
     city: string;
@@ -434,6 +435,7 @@ export type Microcopy = {
     text: LocalizedString;
     home: LocalizedString;
     currentPage: LocalizedString; // sr-only
+    quickActions: LocalizedString; // label of the fixed mobile bar (Call · Text · Contact)
   };
   buttons: {
     learnMore: LocalizedString;

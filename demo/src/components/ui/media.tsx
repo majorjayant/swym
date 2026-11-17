@@ -34,7 +34,7 @@ export function MediaImage({
   const { content } = useContent();
   const t = useT();
   if (isPlaceholderImage(image)) {
-    const mark = content.site.logo.mark;
+    const mark = tone === 'dark' ? (content.site.logo.markOnDark ?? content.site.logo.mark) : content.site.logo.mark;
     return (
       <div
         className={cn('media-placeholder', fill && 'absolute inset-0', className)}
@@ -50,7 +50,7 @@ export function MediaImage({
             aria-hidden="true"
             className={cn(
               'pointer-events-none absolute left-1/2 top-1/2 w-[85%] max-w-[56rem] -translate-x-1/2 -translate-y-1/2 select-none',
-              tone === 'dark' ? 'opacity-[0.22]' : 'opacity-[0.1]',
+              tone === 'dark' ? 'opacity-[0.08]' : 'opacity-[0.08]',
             )}
           />
         ) : null}

@@ -28,12 +28,17 @@ export function CookieBanner() {
       aria-modal="false"
       aria-labelledby={titleId}
       aria-describedby={bodyId}
-      className="fixed inset-x-3 bottom-[calc(4.75rem+env(safe-area-inset-bottom))] z-50 mx-auto max-w-xl rounded-[var(--radius-card)] border border-line bg-white p-5 text-ink shadow-[var(--shadow-card)] page-enter md:inset-x-auto md:right-6 md:bottom-6 md:p-6 lg:bottom-6"
+      className={cn(
+        // Mobile: compact bottom sheet above the mobile bar, max 40% of the viewport. Desktop: card bottom-right (hero text and CTAs sit on the left).
+        'fixed inset-x-0 bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-50 max-h-[40svh] overflow-y-auto border-t border-line bg-white px-4 pb-3 pt-3 text-ink shadow-[var(--shadow-card)] page-enter',
+        'md:inset-x-auto md:right-6 md:bottom-6 md:max-h-[min(70svh,36rem)] md:w-[26rem] md:rounded-[var(--radius-card)] md:border md:p-6 lg:bottom-6',
+        settingsOpen && 'max-h-[70svh]',
+      )}
     >
-      <h2 id={titleId} className="text-lg font-bold">
+      <h2 id={titleId} className="text-base font-bold md:text-lg">
         {t(cb.title)}
       </h2>
-      <p id={bodyId} className="mt-2 text-sm text-slate">
+      <p id={bodyId} className={cn('mt-1 text-sm leading-snug text-slate md:mt-2', !settingsOpen && 'line-clamp-3 md:line-clamp-none')}>
         {t(cb.body)}{' '}
         {policy ? (
           <NextLink href={policy} className="link-underline font-bold text-ink">
@@ -64,7 +69,7 @@ export function CookieBanner() {
           })}
         </fieldset>
       ) : null}
-      <div className="mt-5 flex flex-wrap gap-2">
+      <div className="mt-2.5 flex flex-nowrap items-center gap-2 md:mt-5 md:flex-wrap">
         {settingsOpen ? (
           <>
             <Button size="sm" onClick={() => save(choices)}>
