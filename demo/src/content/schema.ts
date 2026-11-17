@@ -21,6 +21,8 @@ export type Image = {
   height?: number;
   focalPoint?: { x: number; y: number }; // 0–1
   decorative?: boolean;
+  /** Licence credit for photos not owned by the business (shown in Photo credits). */
+  credit?: { author: string; licence: string; licenceUrl: string; sourceUrl: string };
 };
 
 export type LinkKind = 'internal' | 'external' | 'tel' | 'sms' | 'mailto' | 'map' | 'whatsapp';
@@ -393,8 +395,74 @@ export type NotFoundSection = SectionBase<'notFound'> & {
   ctas: CTA[]; // <= 3
 };
 
+// ---------- Inventory ----------
+
+export type BodyType = 'sedan' | 'suv' | 'truck' | 'van';
+export type VehicleStatus = 'available' | 'salePending';
+
+export type Vehicle = {
+  id: string;
+  slug: string; // year-make-model-trim-stock, kebab case
+  stockNumber: string;
+  status: VehicleStatus;
+  featured: boolean;
+  year: number;
+  make: string;
+  model: string;
+  trim: string;
+  body: BodyType;
+  km: number;
+  price: number; // CAD drive-away price (all dealer fees included; GST and PST extra)
+  drivetrain: 'FWD' | 'AWD' | '4x4' | 'RWD';
+  transmission: LocalizedString;
+  engine: LocalizedString;
+  fuel: LocalizedString;
+  fuelEconomy: { city: number; highway: number }; // L/100 km
+  exteriorColour: LocalizedString;
+  interiorColour: LocalizedString;
+  seats: number;
+  doors: number;
+  vin: string;
+  description: LocalizedString;
+  features: LocalizedString[];
+  photos: Image[];
+};
+
+export type Inventory = {
+  meta: DocumentMeta;
+  vehicles: Vehicle[];
+};
+
+export type FeaturedVehiclesSection = SectionBase<'featuredVehicles'> & {
+  heading: LocalizedString;
+  intro?: LocalizedString;
+  limit: number;
+  moreLink: Link;
+};
+
+export type InventoryListSection = SectionBase<'inventoryList'> & {
+  heading?: LocalizedString;
+  filterLabel: LocalizedString;
+  allLabel: LocalizedString;
+  sortLabel: LocalizedString;
+  sortOptions: { value: 'newest' | 'priceAsc' | 'priceDesc' | 'kmAsc'; label: LocalizedString }[];
+  resultCount: LocalizedString; // "{count}"
+  emptyTitle: LocalizedString;
+  emptyBody: LocalizedString;
+  emptyCta: CTA;
+};
+
+/** Lists every credited photo in the content tree (inventory and page images). */
+export type PhotoCreditsSection = SectionBase<'photoCredits'> & {
+  heading: LocalizedString;
+  intro?: LocalizedString;
+};
+
 export type Section =
   | HeroSection
+  | FeaturedVehiclesSection
+  | InventoryListSection
+  | PhotoCreditsSection
   | PageHeaderSection
   | ProofBarSection
   | StepsSection
@@ -435,7 +503,35 @@ export type Microcopy = {
     text: LocalizedString;
     home: LocalizedString;
     currentPage: LocalizedString; // sr-only
-    quickActions: LocalizedString; // label of the fixed mobile bar (Call · Text · Contact)
+    quickActions: LocalizedString; // label of the fixed mobile bar (Call · Text · Inventory)
+  };
+  vehicle: {
+    priceNote: LocalizedString; // "Drive-away price. GST and PST extra."
+    priceSuffix: LocalizedString; // "+ GST/PST"
+    stockLabel: LocalizedString; // "Stock #{stock}"
+    kmUnit: LocalizedString; // "{km} km"
+    statusLabels: Record<VehicleStatus, LocalizedString>;
+    bodyLabels: Record<BodyType, LocalizedString>;
+    viewDetails: LocalizedString;
+    breadcrumbInventory: LocalizedString;
+    keyFactsHeading: LocalizedString;
+    factLabels: Record<'year' | 'make' | 'model' | 'trim' | 'body' | 'km' | 'drivetrain' | 'transmission' | 'engine' | 'fuel' | 'fuelEconomy' | 'exteriorColour' | 'interiorColour' | 'seats' | 'doors' | 'vin' | 'stockNumber', LocalizedString>;
+    fuelEconomyValue: LocalizedString; // "{city} city / {highway} hwy L/100 km"
+    featuresHeading: LocalizedString;
+    descriptionHeading: LocalizedString;
+    trustHeading: LocalizedString;
+    trustItems: { title: LocalizedString; body: LocalizedString; icon: IconName }[];
+    callCta: LocalizedString; // "Call about this vehicle"
+    textCta: LocalizedString;
+    textBody: LocalizedString; // sms body with {stock} {year} {make} {model}
+    testDriveCta: LocalizedString;
+    testDriveHref: string;
+    similarHeading: LocalizedString;
+    photoCredit: LocalizedString; // "Photo: {author}, {licence}"
+    photoSource: LocalizedString; // "Source"
+    gallery: { previous: LocalizedString; next: LocalizedString; photoOf: LocalizedString; thumbnails: LocalizedString };
+    seoTitle: LocalizedString; // "Used {year} {make} {model} {trim} for Sale in Regina"
+    seoDescription: LocalizedString; // "{km} km, ${price} + GST/PST, stock #{stock}..."
   };
   buttons: {
     learnMore: LocalizedString;
@@ -531,9 +627,9 @@ export type Microcopy = {
     addListItem: LocalizedString;
     headingLevel: LocalizedString;
     markerKinds: Record<'lawyer' | 'owner', LocalizedString>;
-    pageNames: Record<'home' | 'about' | 'contact' | 'faq' | 'privacy' | 'terms' | 'not-found', LocalizedString>;
-    globalNames: Record<'site' | 'navigation' | 'announcement' | 'cookieBanner' | 'seo' | 'microcopy', LocalizedString>;
-    globalDescriptions: Record<'site' | 'navigation' | 'announcement' | 'cookieBanner' | 'seo' | 'microcopy', LocalizedString>;
+    pageNames: Record<PageName, LocalizedString>;
+    globalNames: Record<GlobalName, LocalizedString>;
+    globalDescriptions: Record<GlobalName, LocalizedString>;
     sectionTypes: Record<string, LocalizedString>;
     fieldLabels: Record<string, LocalizedString>;
     /** Human labels for select options. Key "field.value" wins over plain "value". */
@@ -571,14 +667,18 @@ export type DesignTokens = {
 
 // ---------- Whole tree ----------
 
+export type PageName = 'home' | 'inventory' | 'about' | 'contact' | 'faq' | 'privacy' | 'terms' | 'not-found';
+export type GlobalName = 'site' | 'navigation' | 'announcement' | 'cookieBanner' | 'seo' | 'inventory' | 'microcopy';
+
 export type ContentTree = {
   site: SiteSettings;
   navigation: Navigation;
   announcement: AnnouncementBar;
   cookieBanner: CookieBanner;
   seo: SEODefaults;
+  inventory: Inventory;
   microcopy: Microcopy;
-  pages: Record<'home' | 'about' | 'contact' | 'faq' | 'privacy' | 'terms' | 'not-found', Page>;
+  pages: Record<PageName, Page>;
 };
 
 export type Store = {
