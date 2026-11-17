@@ -89,7 +89,7 @@ Sections in order (all `Section` types from the content model; each `enabled` to
 |---|---|---|
 | ABT-01 | `pageHeader` (eyebrow, `h1`, intro, image) | Image optional; alt required. |
 | ABT-02 | `richText` story | Founder name from `team` or text field; founding year is a Placeholder. |
-| ABT-03 | `team` | Default member: Rohit Chawla, Marketing Director & Founder (from the owner's brief); photo placeholder; section can be disabled or members changed in the admin. Owner to confirm at Gate 1 whether the founder is shown publicly, since the name was removed from the live coming-soon page. |
+| ABT-03 | `team` | Owner decision (Gate 1): no founder or staff names on public pages. Section ships `enabled: false` with an empty members list; the admin can enable it and add members later. The About story is told in the business's voice. |
 | ABT-04 | `standards` (inspection, warranty, exchange policy) | Each `body` is a Placeholder until owner supplies; SK minimum warranty wording may be cited only as "minimum required by Saskatchewan law" with a lawyer marker. |
 | ABT-05 | Licence line | Same `dealerLicence` field as footer. |
 | ABT-06 | `visitUs` CTA strip | Shared section. |

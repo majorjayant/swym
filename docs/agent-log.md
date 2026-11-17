@@ -43,3 +43,6 @@ Read all four documents end to end after the owner chose Brand Guidelines v1.0.
 - Every PRD ID appears in the traceability table; every section type in the PRD exists in the content model.
 - No numbers or claims outside the sources; placeholders are consistent.
 - Mobile bar Call · Text · Contact (Inventory arrives in Phase 2).
+
+### Gate 1 outcome
+Approved by the owner on 2026-11-17 with two decisions: Brand Guidelines v1.0 (black/red, Montserrat); no personal names on public pages (team section disabled by default).

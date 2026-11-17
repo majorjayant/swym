@@ -11,7 +11,7 @@ Sources used: Brand Guidelines v1.0 (Nov 2026), earlier brand guideline (gold/in
 | Business | Mr Best Cars, pre-owned car dealer. Buy · Sell · Trade. |
 | Address | 909 8th Ave, Regina, SK S4N 6S3 |
 | Phones | 639-480-4400, 306-999-2245, 306-942-7200 |
-| Contact | Rohit Chawla, Marketing Director & Founder |
+| Contact (internal, not published) | Rohit Chawla, Marketing Director & Founder. Owner decision (Gate 1): no personal names on public pages. |
 | Live site | https://mrbestcars.ca/ (coming-soon page; must stay unchanged) |
 | Brand values | Bold. Trusted. Local. (Brand Guidelines v1.0, p. 2 and p. 18) |
 | Dealer licence | `[PLACEHOLDER: SK dealer licence number]` |

@@ -168,7 +168,7 @@ Each section has `id`, `type`, `enabled: boolean`, `anchor?: string`, `theme: en
 | `areasServed` | `heading` ≤ 60, `intro?` ≤ 200, `areas: { name ≤ 40, href?: string }[]` | ≤ 12 | Home |
 | `visitUs` | `heading` ≤ 60, `body?` ≤ 200, `showMap: boolean`, `mapEmbedUrl?`, `showHours: boolean`, `ctas: CTA[]` | ≤ 3 CTAs | Home, Contact |
 | `richText` | `heading?` ≤ 70, `body: RichText` | | About, legal |
-| `team` | `heading` ≤ 60, `members: { name ≤ 60, role ≤ 60, photo?: Image, bio? ≤ 300 }[]` | ≤ 8 | About |
+| `team` | `heading` ≤ 60, `members: { name ≤ 60, role ≤ 60, photo?: Image, bio? ≤ 300 }[]` | ≤ 8; ships disabled and empty (owner decision) | About |
 | `standards` (inspection/warranty) | `heading` ≤ 60, `items: { title ≤ 50, body: Placeholder, icon: enum }[]` | ≤ 6 | About |
 | `contactForm` | `heading` ≤ 60, `intro?` ≤ 200, `fields: FormField[]`, `consentText` ≤ 400, `submitLabel` ≤ 30, `successTitle` ≤ 60, `successBody` ≤ 200, `disabledNotice` ≤ 200 | | Contact |
 | `faqList` | `heading` ≤ 60, `intro?` ≤ 200, `groups: FAQGroup[]` | | FAQ; `faqTeaser` variant on Home with `limit` |
