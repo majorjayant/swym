@@ -78,6 +78,7 @@ export const contact = {
         { name: 'consent', label: { en: 'Yes, Mr Best Cars may contact me by the method I chose about this enquiry. I can withdraw this at any time by replying STOP or by emailing [PLACEHOLDER: email]. Mr Best Cars, 909 8th Ave, Regina, SK  S4N 6S3.' }, type: 'checkbox', required: true, validation: { errorMessage: { en: 'Please tick the box so we can reply to you.' } } },
       ],
       consentText: { en: 'We use your details only to answer this enquiry. We do not sell them or add you to a mailing list. Read our privacy policy at /privacy. [LAWYER TO CONFIRM consent wording]' },
+      marketingConsentText: { en: 'Send me occasional updates by email or text. Unsubscribe any time. (Optional.) [LAWYER TO CONFIRM]' },
       submitLabel: { en: 'Send message' },
       submittingLabel: { en: 'Sending' },
       successTitle: { en: 'Thanks. We have your message.' },

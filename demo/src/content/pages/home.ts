@@ -116,7 +116,7 @@ export const home = {
       anchor: 'sell-or-trade',
       heading: { en: 'Sell your car or trade it in' },
       body: {
-        en: 'Thinking "I want to sell my car in Regina"? We buy cars outright and we take trade-ins toward your next one. We explain how we got to the number. [PLACEHOLDER: whether the offer is in writing, how long it holds and how fast you are paid]',
+        en: 'Thinking "I want to sell my car in Regina"? We buy cars outright and we take trade-ins toward your next one. We explain how we got to the number. [PLACEHOLDER: offer terms and payout time]',
       },
       primary: { label: { en: 'Ask about selling' }, href: '/contact', kind: 'internal', variant: 'primary', icon: 'arrow-right' },
       secondary: { label: { en: 'Call 639-480-4400' }, href: 'tel:+16394804400', kind: 'tel', variant: 'secondary', icon: 'phone' },

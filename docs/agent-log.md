@@ -109,3 +109,32 @@ Date: 2026-11-17. Output: `docs/integrations.md`.
 
 ### Open for the lead
 - Seven vendor pages could not be fetched or publish no price (s. 20); the owner should request quotes from EDealer, Hillz, D2C, CARFAX Canada, Canadian Black Book and Dealertrack before Phase 2 budgeting.
+
+## 3. Copy, Keyword & Social Specialist
+
+Date: 2026-11-17. Output: `demo/src/content/global/{site,navigation,announcement,cookie-banner,seo}.ts`, `ui/microcopy.ts`, `pages/{home,about,contact,faq,privacy,terms,not-found}.ts`, `index.ts` (`publishedContent`, `t()`, `getContent()`, `fill()`), and `docs/content-deck.md` (generated from the content files, so field paths match the code).
+
+### Checked
+1. `npx tsc --noEmit -p tsconfig.json`: passes, no errors. Every file uses `satisfies` against `schema.ts`; schema not edited.
+2. Field limits checked by script against the content model: SEO titles ≤ 45 before the suffix (≤ 60 with it), descriptions ≤ 155, hero headline ≤ 60 / subhead ≤ 140 / eyebrow ≤ 30, headings, intros, FAQ question ≤ 120 and answer ≤ 800, consent ≤ 400, cookie body ≤ 300. All pass after one fix.
+3. Restricted words (compliance s. 3, plus the brief's list): grep for savings, discount, free, wholesale, below invoice, guaranteed, #1, best deals, lowest, cheapest, unbeatable, hurry, limited time, as is, certified, clearance, complimentary: none found. No exclamation marks.
+4. US spellings (color, center, favorite, organization, catalog, behavior, license): none. "kilometres" used in FAQ `value`.
+5. Competitor names from `master_list.csv`: none in content.
+6. Keywords: each appears exactly once in visible text on its page (table in content deck).
+7. No personal names on public pages (owner decision). Team section ships disabled and empty.
+8. Every string read once for full stops and line breaks; placeholders listed in content deck s. 8.
+
+### Found and fixed
+- My own first draft made three unverifiable promises: "written offer", "easy to park", "a person answers, not a form". Replaced with neutral wording or placeholders.
+- Sell band body was 237 characters (limit 220). Shortened the placeholder note.
+- Contact consent wording updated to the compliance reviewer's CASL text (s. 4): STOP/email withdrawal plus business name and address; added the separate optional `marketingConsentText`; `[LAWYER TO CONFIRM]` noted.
+- Added schema fields the lead introduced: `site.privacyOfficer` (placeholders), `navigation.footer.cookieSettingsLabel` ("Cookie settings").
+- Legal templates converted to RichText by script: markers that filled a blank left broken sentences ("Our privacy officer is."); patched to visible "[name or role]" and "[age]". Merge tokens `{legalName}`, `{businessName}`, `{privacyEmail}`, `{address}` kept; `{privacyPhone}` set to 639-480-4400 with an owner note; `{dealerLicence}` and `{contactEmail}` shown as "[licence number]" / "[email]" with owner notes.
+- Hero CTAs follow the Phase 0 decision (Call / Text us / Sell or trade your car), not Shop cars / Get pre-approved.
+- Home meta description: removed "bi-weekly payments" and "all credit welcome" (Phase 2 claims).
+
+### Open for the lead / designer
+- Hero and section images are placeholder paths: `/brand/placeholder-hero-1.jpg`, `placeholder-hero-2.jpg`, `placeholder-sell.jpg`, `placeholder-about.jpg`. The designer must supply licensed images or a non-photo fallback.
+- `site.phones[0].sms: true` is a working assumption; owner to confirm which numbers take texts and whether WhatsApp is staffed.
+- Reviews section ships three placeholder cards; the designer should render them clearly as placeholders (PRD HOME-05).
+- `fill()` in `index.ts` resolves `{year}`, `{n}`, `{count}`, `{max}` and the legal merge tokens; components should use it rather than string concatenation.

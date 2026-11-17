@@ -45,6 +45,11 @@ export const site = {
     holidayNote: { en: '' },
     timezone: 'America/Regina',
   },
+  privacyOfficer: {
+    name: { value: '', isPlaceholder: true, note: 'Name or role of the privacy officer' },
+    email: { value: '[PLACEHOLDER: privacy contact email]', isPlaceholder: true, note: 'Email published in the privacy policy' },
+    phone: { value: '639-480-4400', isPlaceholder: true, note: 'Owner to confirm which number handles privacy requests' },
+  },
   dealerLicence: { value: '', isPlaceholder: true, note: 'Saskatchewan dealer licence number (shown as DL #)' },
   foundedYear: { value: '', isPlaceholder: true, note: 'Year the business opened' },
   socialLinks: [],
