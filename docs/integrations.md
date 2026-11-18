@@ -6,6 +6,8 @@ Rules used: every price comes from the vendor's own page, fetched on 2026-11-17 
 
 Nothing here is a contract or a recommendation to sign; confirm every figure with the vendor before committing.
 
+> **Update 2026-11-18:** the owner console adds a first-party site event beacon, the Google Search Console API, and (after the day-30 review) the Google Ads and Meta Marketing APIs; GA4 and Microsoft Clarity only if needed. The full list is in `START-HERE.md` s. 3 and `console/launch-plan.md`.
+
 ## 1. Headless CMS (Phase 1)
 
 | Option | Free tier | Paid from | Official API | Pricing URL | Checked | Notes |

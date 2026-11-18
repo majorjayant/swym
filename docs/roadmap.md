@@ -9,7 +9,7 @@ Version 0.1, 2026-11-17. Prices are from `docs/integrations.md` (vendor pricing 
 | Features | Home, About, Contact, FAQ, Privacy, Terms, 404; header, footer, mobile menu, sticky Call · Text · Contact bar, announcement bar, cookie banner; design system (Brand Guidelines v1.0); typed CMS-shaped content model; mock admin portal (edit, preview, draft/publish in memory) |
 | Integrations | None. `tel:`, `sms:` and map links only. |
 | Effort | Done |
-| Running cost | $0 (runs locally; not deployed) |
+| Running cost | $0 (online for review at mrbestcars.ca/demo on the existing Worker, hidden from search) |
 | Risks | Placeholders mistaken for facts (mitigated: visible badges); demo deployed by accident (mitigated: separate folder, branch, no wrangler change) |
 
 ## Phase 1: CMS, database, portal auth, live forms
