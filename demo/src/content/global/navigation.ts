@@ -4,7 +4,7 @@ export const navigation = {
   meta: { id: 'navigation', updatedAt: '2026-11-17T00:00:00Z', updatedBy: 'copywriter', state: 'published', version: 1 },
   header: {
     links: [
-      { label: { en: 'Home' }, href: '/', kind: 'internal' },
+      { label: { en: 'Inventory' }, href: '/inventory', kind: 'internal' },
       { label: { en: 'About' }, href: '/about', kind: 'internal' },
       { label: { en: 'FAQ' }, href: '/faq', kind: 'internal' },
       { label: { en: 'Contact' }, href: '/contact', kind: 'internal' },
@@ -20,6 +20,7 @@ export const navigation = {
       {
         heading: { en: 'Pages' },
         links: [
+          { label: { en: 'Inventory' }, href: '/inventory', kind: 'internal' },
           { label: { en: 'About us' }, href: '/about', kind: 'internal' },
           { label: { en: 'FAQ' }, href: '/faq', kind: 'internal' },
           { label: { en: 'Contact us' }, href: '/contact', kind: 'internal' },
@@ -33,7 +34,7 @@ export const navigation = {
         ],
       },
     ],
-    legalLine: { en: '© {year} Mr Best Cars. All rights reserved.' },
+    legalLine: { en: '© {year} Mr Best Cars Ltd. All rights reserved.' },
     showLicence: true,
     licenceLabel: { en: 'DL #' },
     cookieSettingsLabel: { en: 'Cookie settings' },
@@ -41,6 +42,7 @@ export const navigation = {
   mobileMenu: {
     links: [
       { label: { en: 'Home' }, href: '/', kind: 'internal' },
+      { label: { en: 'Inventory' }, href: '/inventory', kind: 'internal' },
       { label: { en: 'About us' }, href: '/about', kind: 'internal' },
       { label: { en: 'FAQ' }, href: '/faq', kind: 'internal' },
       { label: { en: 'Contact us' }, href: '/contact', kind: 'internal' },

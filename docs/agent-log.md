@@ -236,3 +236,10 @@ Date: 2026-11-17. Output: `docs/qa-report.md`, evidence in `docs/screenshots/qa/
 - Live-site files (`site/`, `src/worker.js`, `wrangler.toml`) are byte-identical to `origin/main`; nothing pushed to `main`, nothing deployed.
 - Gates: Gate 1 approved (brand v1.0; no personal names), Gate 2 approved (direction; on-dark sedan mark).
 - QA: 0 high open; 4 medium found and fixed; Lighthouse Home/Contact performance 96–100, accessibility 100, best practices 100, SEO 66 only from the deliberate demo `noindex` (100 without it).
+
+## 2026-11-18: sample data and inventory
+
+- Owner asked for every placeholder to be replaced with sample data, plus 8–10 sample listings with photos. They chose free stock photos (Unsplash).
+- Lead collected 24 Unsplash photos through the image CDN, checked each one by eye, and replaced the mismatched ones (minivan, Sportage). Credits go in `photos.generated.ts` and appear under each gallery and on Terms.
+- Build agent's inventory work (schema, `/inventory`, vehicle pages, featured vehicles, admin inventory editor) was finished by the lead. Lead fixes: singular body type in key facts, hours no longer wrap in the footer, focal point on portrait photos.
+- QA: see `qa-report.md`, "Sample-data pass".

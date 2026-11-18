@@ -512,6 +512,8 @@ export type Microcopy = {
     kmUnit: LocalizedString; // "{km} km"
     statusLabels: Record<VehicleStatus, LocalizedString>;
     bodyLabels: Record<BodyType, LocalizedString>;
+    /** Singular body type shown in a vehicle's key facts. */
+    bodyNames: Record<BodyType, LocalizedString>;
     viewDetails: LocalizedString;
     breadcrumbInventory: LocalizedString;
     keyFactsHeading: LocalizedString;
@@ -527,7 +529,7 @@ export type Microcopy = {
     testDriveCta: LocalizedString;
     testDriveHref: string;
     similarHeading: LocalizedString;
-    photoCredit: LocalizedString; // "Photo: {author}, {licence}"
+    photoCredit: LocalizedString; // "Photo: {author}" (licence shown as its own link)
     photoSource: LocalizedString; // "Source"
     gallery: { previous: LocalizedString; next: LocalizedString; photoOf: LocalizedString; thumbnails: LocalizedString };
     seoTitle: LocalizedString; // "Used {year} {make} {model} {trim} for Sale in Regina"

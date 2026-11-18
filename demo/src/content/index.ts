@@ -4,8 +4,10 @@ import { navigation } from './global/navigation';
 import { announcement } from './global/announcement';
 import { cookieBanner } from './global/cookie-banner';
 import { seo } from './global/seo';
+import { inventory } from './global/inventory';
 import { microcopy } from './ui/microcopy';
 import { home } from './pages/home';
+import { inventoryPage } from './pages/inventory';
 import { about } from './pages/about';
 import { contact } from './pages/contact';
 import { faq } from './pages/faq';
@@ -23,9 +25,11 @@ export const publishedContent: ContentTree = {
   announcement,
   cookieBanner,
   seo,
+  inventory,
   microcopy,
   pages: {
     home,
+    inventory: inventoryPage,
     about,
     contact,
     faq,

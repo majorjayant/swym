@@ -1,1 +1,0 @@
-self.__SSG_MANIFEST=new Set(["\u002Fadmin\u002Fglobal\u002F[element]","\u002Fadmin\u002Fpages\u002F[slug]","\u002Fadmin\u002Fpreview\u002F[slug]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

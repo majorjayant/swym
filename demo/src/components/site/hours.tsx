@@ -54,7 +54,7 @@ export function HoursTable({ tone = 'light', className, headingLevel }: { tone?:
                   {t(mc.dayNames[key])}
                   {isToday ? <span className="sr-only"> ({t(mc.today)})</span> : null}
                 </th>
-                <td className="py-2 text-right tabular-nums">
+                <td className="whitespace-nowrap py-2 text-right tabular-nums">
                   {d.isPlaceholder ? (
                     <span aria-hidden="true">–</span>
                   ) : d.closed || !d.open || !d.close ? (

@@ -18,7 +18,7 @@ For a production-like check: `npm run build` (static export to `out/`).
 
 **Publish the review copy** to mrbestcars.ca/demo: `npm run build:live` (builds with base path `/demo` and copies `out/` to `../site/demo/`), then commit `site/demo/` and push to `main`. Cloudflare redeploys automatically.
 
-- Public site: `/`, `/about`, `/contact`, `/faq`, `/privacy`, `/terms` (any other path shows the 404 page)
+- Public site: `/`, `/inventory`, `/inventory/<vehicle>` (10 sample listings), `/about`, `/contact`, `/faq`, `/privacy`, `/terms` (any other path shows the 404 page)
 - Admin portal: `/admin/login` (any email and password continue)
 
 ## Where the content lives
@@ -31,6 +31,8 @@ Every word, image, link, SEO field, FAQ item and legal paragraph comes from type
 | Contact details, phones, address, hours, licence, social links, mobile bar | `src/content/global/site.ts` |
 | Header, footer and mobile menu links | `src/content/global/navigation.ts` |
 | Announcement bar | `src/content/global/announcement.ts` |
+| Sample inventory (10 vehicles) | `src/content/global/inventory.ts` |
+| Photo list with credits (generated) | `src/content/global/photos.generated.ts`, files in `public/photos/` |
 | Cookie banner | `src/content/global/cookie-banner.ts` |
 | Site-wide SEO, Open Graph, structured data | `src/content/global/seo.ts` |
 | Pages (sections, copy, page SEO) | `src/content/pages/*.ts` |
@@ -40,7 +42,7 @@ Every word, image, link, SEO field, FAQ item and legal paragraph comes from type
 
 To change text, edit the content file and save; the dev server reloads. The same fields are what the admin portal edits.
 
-**Placeholders.** Anything the owner has not confirmed (licence number, hours, reviews, warranty, years in business and so on) is a `Placeholder` with `isPlaceholder: true` and shows a visible `[PLACEHOLDER]` chip on the page. The full list is in `../docs/content-deck.md`. To fill one, set its `value` and `isPlaceholder: false`.
+**Sample data.** Every field is filled with sample data for the review (licence number, hours, reviews, policies, legal details and 10 vehicles in `src/content/global/inventory.ts`). An announcement bar says so on every page. Replace the values with the owner's real facts before launch. The schema still supports `Placeholder` (`isPlaceholder: true` shows a `[PLACEHOLDER]` chip), but no field uses it now.
 
 **Languages.** Every text field is `{ en, pa?, hi?, fr? }`. Only English is filled. See `../docs/audience-insights.md` s. 5.
 
@@ -66,4 +68,4 @@ All in `../docs/`: BRD, PRD, sitemap, content model, audience insights, content 
 
 ## Fonts and licences
 
-Montserrat is self-hosted from `public/fonts/` under the SIL Open Font License 1.1 (`public/fonts/OFL.txt`). The logo and app icon are the owner's files. The page carries no stock photos; hero and section images are branded placeholders until the owner supplies photos.
+Montserrat is self-hosted from `src/app/fonts/` under the SIL Open Font License 1.1. The logo and app icon are the owner's files. Vehicle and lot photos are Unsplash images (Unsplash License), resized to 1600 px in `public/photos/`. Each photo's credit is shown under the gallery and listed on the Terms page. The photos show the same models, not the exact vehicles listed.

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { Locale, Page, SEODefaults, SiteSettings } from '@/content/schema';
+import type { Locale, Page, SEODefaults, SiteSettings, Vehicle } from '@/content/schema';
 import { t } from './i18n';
 import { asset } from '@/lib/base-path';
 
@@ -32,7 +32,7 @@ export function buildMetadata(page: Pick<Page, 'seo' | 'slug'>, defaults: SEODef
 
 /** AutoDealer JSON-LD from SiteSettings. Placeholders are omitted, never published as facts. */
 export function autoDealerJsonLd(site: SiteSettings, defaults: SEODefaults, locale: Locale = 'en') {
-  const sameAs = [...defaults.jsonLd.sameAs, ...site.socialLinks.map((s) => s.url)].filter((u) => u && !u.includes('PLACEHOLDER'));
+  const sameAs = [...new Set([...defaults.jsonLd.sameAs, ...site.socialLinks.map((s) => s.url)])].filter((u) => u && !u.includes('PLACEHOLDER'));
   const data: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': defaults.jsonLd.type,
@@ -63,4 +63,48 @@ export function autoDealerJsonLd(site: SiteSettings, defaults: SEODefaults, loca
   const r = defaults.jsonLd.aggregateRating;
   if (r.enabled && r.value && r.count) data.aggregateRating = { '@type': 'AggregateRating', ratingValue: r.value, reviewCount: r.count };
   return data;
+}
+
+/** Car JSON-LD for a vehicle detail page, with its drive-away Offer and a breadcrumb trail. */
+export function vehicleJsonLd(v: Vehicle, site: SiteSettings, defaults: SEODefaults, inventoryLabel: string, locale: Locale = 'en') {
+  const url = `${defaults.siteUrl}/inventory/${v.slug}`;
+  const name = `${v.year} ${v.make} ${v.model} ${v.trim}`;
+  const car = {
+    '@context': 'https://schema.org',
+    '@type': 'Car',
+    name,
+    brand: { '@type': 'Brand', name: v.make },
+    model: v.model,
+    vehicleModelDate: String(v.year),
+    bodyType: v.body,
+    mileageFromOdometer: { '@type': 'QuantitativeValue', value: v.km, unitCode: 'KMT' },
+    vehicleIdentificationNumber: v.vin,
+    fuelType: t(v.fuel, locale),
+    vehicleTransmission: t(v.transmission, locale),
+    driveWheelConfiguration: v.drivetrain,
+    color: t(v.exteriorColour, locale),
+    numberOfDoors: v.doors,
+    seatingCapacity: v.seats,
+    sku: v.stockNumber,
+    url,
+    image: v.photos.map((p) => `${defaults.siteUrl}${asset(p.src)}`),
+    offers: {
+      '@type': 'Offer',
+      price: v.price,
+      priceCurrency: 'CAD',
+      availability: v.status === 'available' ? 'https://schema.org/InStock' : 'https://schema.org/LimitedAvailability',
+      url,
+      seller: { '@type': 'AutoDealer', name: t(site.businessName, locale) },
+    },
+  };
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t(site.businessName, locale), item: `${defaults.siteUrl}/` },
+      { '@type': 'ListItem', position: 2, name: inventoryLabel, item: `${defaults.siteUrl}/inventory` },
+      { '@type': 'ListItem', position: 3, name, item: url },
+    ],
+  };
+  return [car, breadcrumb];
 }

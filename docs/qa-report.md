@@ -62,3 +62,18 @@ Total transfer about 300 KiB per page. Remaining Lighthouse hints are framework-
 - Screen readers: structure checked (roles, names, live regions) but no NVDA/VoiceOver session.
 - The live Google Map embed: Google is blocked in this sandbox, so the consent-gated iframe was not seen loading.
 - Lighthouse ran on localhost; numbers on Cloudflare will differ.
+
+## Sample-data pass (2026-11-18)
+
+Scope: the demo after every placeholder was replaced with sample data and 10 sample vehicles were added (`/inventory` and one page per vehicle).
+
+| Check | Result |
+|---|---|
+| `tsc --noEmit`, `eslint .`, `next build`, `build:live` | Pass |
+| Local Worker (`wrangler dev`, host mrbestcars.ca): 20 pages (home, inventory, 10 vehicle pages, about, contact, FAQ, privacy, terms, admin login, admin inventory editor) at 1440, 1024, 768 px and iPhone 13 | 80 of 80 pass: status 200, one h1, no broken images, no sideways scroll, Montserrat loaded, no placeholder text visible |
+| Failed requests or JS errors, all sizes | None |
+| Every image fully loaded after scrolling (desktop and phone) | Pass |
+| Navigation, admin login, admin editor, demo 404 (status 404), coming-soon page at `/` unchanged | Pass |
+| Photos checked by eye against each listing (make, model, generation, colour) | Done. The original Grand Caravan photos showed other vans, so that listing became a Chrysler Pacifica. The Equinox had no usable photo and became a Hyundai Santa Fe. Years, trims and colours were adjusted to match the photos. |
+
+Screenshots: `docs/screenshots/sample-data/`.

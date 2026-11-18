@@ -2,7 +2,7 @@ import type { Page } from '../schema';
 
 // Generated from docs/legal/terms-and-conditions-template.md (compliance reviewer template).
 // Merge tokens {legalName}, {businessName}, {privacyEmail}, {address} are resolved from SiteSettings at render.
-// This is not legal advice. Every marker block must be resolved by the owner or a lawyer before publishing.
+// This is not legal advice. SAMPLE DATA fills the owner items for the demo; lawyer markers are kept but hidden (lawyerMarkers: false).
 
 export const terms = {
   meta: { id: 'page-terms', updatedAt: '2026-11-17T00:00:00Z', updatedBy: 'copywriter', state: 'published', version: 1 },
@@ -32,13 +32,11 @@ export const terms = {
       lastReviewed: '2026-11-17',
       effectiveLabel: { en: 'Effective date' },
       reviewedLabel: { en: 'Last reviewed' },
-      disclaimer: { en: 'Template for review. This is not legal advice. Highlighted notes must be confirmed by the owner or a lawyer before this page is published.' },
+      disclaimer: { en: 'Sample text for the demo preview. This is not legal advice; a lawyer will review the final version before launch.' },
       tocHeading: { en: 'On this page' },
-      lawyerMarkers: true,
+      lawyerMarkers: false,
       body: [
-        { type: 'paragraph', text: { en: "These terms apply to the website of {legalName}, operating as {businessName}, {address}, a vehicle dealer licensed in Saskatchewan, DL #[PLACEHOLDER: licence number]. By using this website you agree to these terms. If you do not agree, please do not use the site." } },
-        { type: 'marker', kind: 'owner', text: { en: "Owner: registered legal name" } },
-        { type: 'marker', kind: 'owner', text: { en: "Owner: licence number" } },
+        { type: 'paragraph', text: { en: "These terms apply to the website of {legalName}, operating as {businessName}, {address}, a vehicle dealer licensed in Saskatchewan, DL #498760. By using this website you agree to these terms. If you do not agree, please do not use the site." } },
         { type: 'heading', level: 2, anchor: "using-this-website", text: { en: "1. Using this website" } },
         { type: 'paragraph', text: { en: "You may use this site to learn about our business and contact us. You must not misuse the site, attempt to gain unauthorised access, or use automated tools to copy its content without permission." } },
         { type: 'marker', kind: 'lawyer', text: { en: "Lawyer to confirm this section." } },
@@ -48,14 +46,13 @@ export const terms = {
         { type: 'heading', level: 2, anchor: "how-we-show-prices", text: { en: "3. How we show prices" } },
         { type: 'paragraph', text: { en: "When we show a price for a specific vehicle, it is the drive-away price. It includes every fee and charge we collect, including documentation fees, freight, government levies and any products installed on the vehicle, except GST and PST. The stock number is shown with the price. If we show a periodic payment, we show the total amount payable on the same page." } },
         { type: 'marker', kind: 'lawyer', text: { en: "Lawyer to confirm: against The Consumer Protection and Business Practices Regulations, s. 5-17 and 5-21, and the Competition Act drip-pricing provisions" } },
-        { type: 'marker', kind: 'owner', text: { en: "Owner: this section can be published once vehicle listings exist; until then it may be kept with a note that no vehicles are listed on this site yet." } },
         { type: 'heading', level: 2, anchor: "accuracy-of-listings-and-content", text: { en: "4. Accuracy of listings and content" } },
         { type: 'paragraph', text: { en: "We try to keep vehicle details, availability and other content accurate and current. Errors can occur. We will correct errors we find and will not knowingly rely on an error to complete a transaction. Photos may show optional equipment." } },
         { type: 'marker', kind: 'lawyer', text: { en: "Lawyer to confirm this section." } },
         { type: 'heading', level: 2, anchor: "warranties-and-inspections", text: { en: "5. Warranties and inspections" } },
         { type: 'paragraph', text: { en: "Any warranty, inspection or exchange policy we offer is described in the written agreement for that vehicle. Nothing on this site creates a warranty." } },
         { type: 'marker', kind: 'lawyer', text: { en: "Lawyer to confirm this point." } },
-        { type: 'marker', kind: 'owner', text: { en: "Owner: once warranty and inspection terms are confirmed, state them here or link to them.  against Saskatchewan minimum warranty requirements" } },
+        { type: 'paragraph', text: { en: "Our standard terms are a pre-sale safety inspection on every vehicle, a 30-day or 1,000 km powertrain warranty on vehicles under 200,000 km, and a 3-day or 300 km exchange. See our About page for details." } },
         { type: 'heading', level: 2, anchor: "enquiries-forms-and-messages", text: { en: "6. Enquiries, forms and messages" } },
         { type: 'paragraph', text: { en: "Forms on this site send us an enquiry; they do not reserve a vehicle or create a contract. We contact you only in the ways you consented to. See our Privacy Policy for how we handle your information." } },
         { type: 'heading', level: 2, anchor: "intellectual-property", text: { en: "7. Intellectual property" } },
@@ -72,9 +69,17 @@ export const terms = {
         { type: 'heading', level: 2, anchor: "changes", text: { en: "11. Changes" } },
         { type: 'paragraph', text: { en: "We may change these terms. The effective date shows the current version. Continued use of the site after a change means you accept the new terms." } },
         { type: 'heading', level: 2, anchor: "contact", text: { en: "12. Contact" } },
-        { type: 'paragraph', text: { en: "{businessName}, {address}. Email: [PLACEHOLDER: public email]. Phone: 639-480-4400, 306-999-2245, 306-942-7200. Consumer questions about vehicle dealers may also be directed to the Financial and Consumer Affairs Authority of Saskatchewan, Consumer Protection Division." } },
-        { type: 'marker', kind: 'owner', text: { en: "Owner: Owner to supply." } },
+        { type: 'paragraph', text: { en: "{businessName}, {address}. Email: hello@mrbestcars.ca. Phone: 639-480-4400, 306-999-2245, 306-942-7200. Consumer questions about vehicle dealers may also be directed to the Financial and Consumer Affairs Authority of Saskatchewan, Consumer Protection Division." } },
       ],
+    },
+    {
+      id: 'photo-credits',
+      type: 'photoCredits',
+      enabled: true,
+      theme: 'light',
+      anchor: 'photo-credits',
+      heading: { en: 'Photo credits' },
+      intro: { en: 'Vehicle and lot photos on this demo come from Unsplash and are used under the Unsplash License. They show the same models, not the exact vehicles listed.' },
     },
   ],
 } satisfies Page;

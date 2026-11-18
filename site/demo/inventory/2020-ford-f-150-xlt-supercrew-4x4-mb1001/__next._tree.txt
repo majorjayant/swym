@@ -1,0 +1,7 @@
+:HL["/demo/_next/static/chunks/0fgt6n7o7e8p-.css","style"]
+:HC["/",""]
+4:[["children",{"s":"__PAGE__","h":160}]]
+3:[["children",{"s":{"n":"slug","t":"d","k":"2020-ford-f-150-xlt-supercrew-4x4-mb1001","s":[]},"h":65632,"c":"$Q4"}]]
+2:[["children",{"s":"inventory","h":131168,"c":"$Q3"}]]
+1:[["children",{"s":"(site)","h":131136,"c":"$Q2"}]]
+0:{"b":"-rjcHclpa_pS3SYblzOR6","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}

@@ -5,6 +5,7 @@ import { AreasServed, NotFound, PageHeader, ProofBar, Reviews, SplitCta, Standar
 import { ContactCards, ContactForm } from './contact';
 import { FAQList, FAQTeaser } from './faq';
 import { Hero } from './hero';
+import { FeaturedVehicles, InventoryList, PhotoCredits } from './inventory';
 import { LegalBody, RichTextBlock } from './rich-text';
 import { VisitUs } from './visit-us';
 
@@ -46,6 +47,12 @@ export function SectionRenderer({ section }: { section: Section }) {
       return <LegalBody section={section} />;
     case 'notFound':
       return <NotFound section={section} />;
+    case 'featuredVehicles':
+      return <FeaturedVehicles section={section} />;
+    case 'inventoryList':
+      return <InventoryList section={section} />;
+    case 'photoCredits':
+      return <PhotoCredits section={section} />;
     default: {
       const _exhaustive: never = section;
       return _exhaustive;

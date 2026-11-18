@@ -1,4 +1,11 @@
 import type { Page } from '../schema';
+import { PHOTOS } from '../global/photos.generated';
+
+// Hero and band photos are Unsplash images (credits on the Terms page).
+const photo = (key: string, i = 0) => PHOTOS[key]?.[i];
+const lot = photo('lot') ?? photo('ford-f150');
+const slide2 = photo('toyota-rav4') ?? photo('kia-sportage');
+const keys = photo('keys') ?? photo('honda-civic');
 
 export const home = {
   meta: { id: 'page-home', updatedAt: '2026-11-17T00:00:00Z', updatedBy: 'copywriter', state: 'published', version: 1 },
@@ -34,18 +41,19 @@ export const home = {
           media: {
             kind: 'image',
             image: {
-              src: '/brand/placeholder-hero-1.jpg',
-              alt: { en: 'Pre-owned cars on the Mr Best Cars lot at 909 8th Ave, Regina' },
-              width: 1920,
-              height: 1080,
+              src: lot?.src ?? '/brand/placeholder-hero-1.jpg',
+              width: lot?.width ?? 1920,
+              height: lot?.height ?? 1080,
+              credit: lot?.credit,
+              alt: { en: 'Pre-owned cars lined up on a dealer lot' },
             },
           },
           scrim: { kind: 'gradient', opacity: 0.6, direction: 'left' },
           eyebrow: { en: 'Pre-owned cars in Regina' },
           headline: { en: 'Good cars. Straight prices. On 8th Ave.' },
           subhead: { en: 'Used cars in Regina, bought, sold and traded. The price you see is the drive-away price. Only GST and PST are added.' },
-          primaryCta: { label: { en: 'Call 639-480-4400' }, href: 'tel:+16394804400', kind: 'tel', variant: 'primary', icon: 'phone' },
-          secondaryCta: { label: { en: 'Text us' }, href: 'sms:+16394804400', kind: 'sms', variant: 'secondary', icon: 'message' },
+          primaryCta: { label: { en: 'Browse cars' }, href: '/inventory', kind: 'internal', variant: 'primary', icon: 'car' },
+          secondaryCta: { label: { en: 'Call 639-480-4400' }, href: 'tel:+16394804400', kind: 'tel', variant: 'secondary', icon: 'phone' },
           textLink: { label: { en: 'Sell or trade your car' }, href: '#sell-or-trade', kind: 'internal' },
           align: 'left',
           enabled: true,
@@ -55,18 +63,19 @@ export const home = {
           media: {
             kind: 'image',
             image: {
-              src: '/brand/placeholder-hero-2.jpg',
-              alt: { en: 'A customer handing over car keys at the Mr Best Cars desk' },
-              width: 1920,
-              height: 1080,
+              src: slide2?.src ?? '/brand/placeholder-hero-2.jpg',
+              width: slide2?.width ?? 1920,
+              height: slide2?.height ?? 1080,
+              credit: slide2?.credit,
+              alt: { en: 'A pre-owned SUV parked outdoors' },
             },
           },
           scrim: { kind: 'gradient', opacity: 0.6, direction: 'left' },
           eyebrow: { en: 'Sell or trade' },
           headline: { en: 'Selling your car? Get a straight number.' },
-          subhead: { en: 'Bring your car in. We will look it over and explain our offer, whether you buy from us or not.' },
-          primaryCta: { label: { en: 'Call 639-480-4400' }, href: 'tel:+16394804400', kind: 'tel', variant: 'primary', icon: 'phone' },
-          secondaryCta: { label: { en: 'Text us' }, href: 'sms:+16394804400', kind: 'sms', variant: 'secondary', icon: 'message' },
+          subhead: { en: 'Bring your car in. We look it over with you and put our offer in writing, good for 7 days, whether you buy from us or not.' },
+          primaryCta: { label: { en: 'Browse cars' }, href: '/inventory', kind: 'internal', variant: 'primary', icon: 'car' },
+          secondaryCta: { label: { en: 'Call 639-480-4400' }, href: 'tel:+16394804400', kind: 'tel', variant: 'secondary', icon: 'phone' },
           textLink: { label: { en: 'How selling works' }, href: '/faq#selling-and-trade-in', kind: 'internal' },
           align: 'left',
           enabled: true,
@@ -79,11 +88,21 @@ export const home = {
       enabled: true,
       theme: 'light',
       items: [
-        { label: { en: 'Vehicles on the lot' }, value: { value: '', isPlaceholder: true, note: 'Live vehicle count (Phase 2 feed)' } },
-        { label: { en: 'Google rating' }, value: { value: '', isPlaceholder: true, note: 'Google Business Profile rating' }, suffix: { en: 'out of 5' } },
-        { label: { en: 'Years in Regina' }, value: { value: '', isPlaceholder: true, note: 'Years since founding' } },
-        { label: { en: 'Dealer licence' }, value: { value: '', isPlaceholder: true, note: 'SK dealer licence number' }, link: { label: { en: 'About our licence' }, href: '/about#licence', kind: 'internal' } },
+        { label: { en: 'Vehicles on the lot' }, value: { value: '10', isPlaceholder: false, note: 'Sample: equals the number of listings' }, link: { label: { en: 'Browse the inventory' }, href: '/inventory', kind: 'internal' } },
+        { label: { en: 'Google rating' }, value: { value: '4.8', isPlaceholder: false, note: 'Sample value' }, suffix: { en: 'from 126 reviews' } },
+        { label: { en: 'In Regina' }, value: { value: 'Since 2018', isPlaceholder: false, note: 'Sample value' } },
+        { label: { en: 'Dealer licence' }, value: { value: 'DL #498760', isPlaceholder: false, note: 'Sample licence number' }, link: { label: { en: 'About our licence' }, href: '/about#licence', kind: 'internal' } },
       ],
+    },
+    {
+      id: 'featured',
+      type: 'featuredVehicles',
+      enabled: true,
+      theme: 'light',
+      heading: { en: 'On the lot this week' },
+      intro: { en: 'Pre-owned cars in Regina, each inspected and priced to drive away. Only GST and PST are added.' },
+      limit: 6,
+      moreLink: { label: { en: 'See all vehicles' }, href: '/inventory', kind: 'internal' },
     },
     {
       id: 'how-it-works',
@@ -116,11 +135,11 @@ export const home = {
       anchor: 'sell-or-trade',
       heading: { en: 'Sell your car or trade it in' },
       body: {
-        en: 'Thinking "I want to sell my car in Regina"? We buy cars outright and we take trade-ins toward your next one. We explain how we got to the number. [PLACEHOLDER: offer terms and payout time]',
+        en: 'Thinking "I want to sell my car in Regina"? We buy cars outright and take trade-ins toward your next one, and we explain how we got to the number. Written offer, good for 7 days. Paid the same day.',
       },
       primary: { label: { en: 'Ask about selling' }, href: '/contact', kind: 'internal', variant: 'primary', icon: 'arrow-right' },
       secondary: { label: { en: 'Call 639-480-4400' }, href: 'tel:+16394804400', kind: 'tel', variant: 'secondary', icon: 'phone' },
-      image: { src: '/brand/placeholder-sell.jpg', alt: { en: 'A car being appraised outside the Mr Best Cars office' }, width: 1200, height: 900 },
+      image: { src: keys?.src ?? '/brand/placeholder-sell.jpg', width: keys?.width ?? 1200, height: keys?.height ?? 900, credit: keys?.credit, alt: { en: 'Car keys handed over at the end of a sale' } },
     },
     {
       id: 'reviews',
@@ -128,16 +147,20 @@ export const home = {
       enabled: true,
       theme: 'light',
       heading: { en: 'What people say' },
-      intro: { en: 'Reviews come from our Google profile. We will show them here as they come in.' },
-      rating: { value: '', isPlaceholder: true, note: 'Google rating' },
-      count: { value: '', isPlaceholder: true, note: 'Review count' },
+      intro: { en: 'From our Google profile, quoted with permission.' },
+      rating: { value: '4.8', isPlaceholder: false, note: 'Sample value' },
+      count: { value: '126', isPlaceholder: false, note: 'Sample value' },
       sourceLabel: { en: 'Google review' },
+      // SAMPLE REVIEWS for the demo. Replace with real reviews quoted with permission before launch.
       items: [
-        { quote: { en: '[PLACEHOLDER: real Google review, quoted with permission]' }, author: { en: '[PLACEHOLDER: first name]' }, source: 'google', isPlaceholder: true },
-        { quote: { en: '[PLACEHOLDER: real Google review, quoted with permission]' }, author: { en: '[PLACEHOLDER: first name]' }, source: 'google', isPlaceholder: true },
-        { quote: { en: '[PLACEHOLDER: real Google review, quoted with permission]' }, author: { en: '[PLACEHOLDER: first name]' }, source: 'google', isPlaceholder: true },
+        { quote: { en: 'The price on the website was the price I paid, plus tax. No surprises at the desk.' }, author: { en: 'Harpreet S.' }, source: 'google', date: '2026-10-02', isPlaceholder: false },
+        { quote: { en: 'Traded in my old Civic. They showed me how they got to the number and had the paperwork done the same afternoon.' }, author: { en: 'Megan L.' }, source: 'google', date: '2026-09-18', isPlaceholder: false },
+        { quote: { en: 'We had been in Canada two months. They told us exactly which documents to bring and helped set up the insurance.' }, author: { en: 'Priya M.' }, source: 'google', date: '2026-08-27', isPlaceholder: false },
+        { quote: { en: 'Took the truck for a long test drive with no pressure. Came back the next day and bought it.' }, author: { en: 'Daniel K.' }, source: 'google', date: '2026-08-09', isPlaceholder: false },
+        { quote: { en: 'Texted on a Saturday morning and had a reply in a few minutes. The car was ready when I got there.' }, author: { en: 'Tom W.' }, source: 'google', date: '2026-07-21', isPlaceholder: false },
+        { quote: { en: 'They explained the warranty and the 3-day exchange in plain words before I signed anything.' }, author: { en: 'Aisha R.' }, source: 'google', date: '2026-07-04', isPlaceholder: false },
       ],
-      profileLink: { label: { en: 'Read reviews on Google' }, href: '[PLACEHOLDER: Google Business Profile URL]', kind: 'external', newTab: true },
+      profileLink: { label: { en: 'Read reviews on Google' }, href: 'https://www.google.com/search?q=Mr+Best+Cars+Regina', kind: 'external', newTab: true },
     },
     {
       id: 'areas',
@@ -164,7 +187,7 @@ export const home = {
       enabled: true,
       theme: 'dark',
       heading: { en: 'Visit us on 8th Ave' },
-      body: { en: '909 8th Ave, Regina. Call first if you want a particular car ready when you arrive.' },
+      body: { en: "We're on 8th Ave in Regina with customer parking on site. Call or text if you'd like us to have a car ready." },
       showMap: true,
       mapEmbedUrl: 'https://www.google.com/maps?q=909%208th%20Ave%2C%20Regina%2C%20SK%20S4N%206S3&output=embed',
       mapConsentNotice: { en: 'The map loads from Google once you allow maps and media in cookie settings.' },

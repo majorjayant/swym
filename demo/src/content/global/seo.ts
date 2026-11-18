@@ -12,8 +12,8 @@ export const seo = {
   twitterCard: 'summary_large_image',
   jsonLd: {
     type: 'AutoDealer',
-    aggregateRating: { enabled: false },
-    sameAs: [],
+    aggregateRating: { enabled: true, value: 4.8, count: 126 },
+    sameAs: ['https://www.google.com/search?q=Mr+Best+Cars+Regina', 'https://www.facebook.com/search/top?q=Mr%20Best%20Cars%20Regina', 'https://www.instagram.com/explore/search/keyword/?q=mrbestcars'],
   },
   robots: { index: false },
 } satisfies SEODefaults;

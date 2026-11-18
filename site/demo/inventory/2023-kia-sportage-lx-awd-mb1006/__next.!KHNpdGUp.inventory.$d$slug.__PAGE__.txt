@@ -1,0 +1,40 @@
+2:"$Sreact.fragment"
+4:"/demo/_next/static/chunks/0ulw5407ag27y.js"
+5:"/demo/_next/static/chunks/0uyjoa5gwne8r.js"
+6:I[9647,["$4","$5"],"SiteChrome"]
+7:I[39756,["$4"],"default"]
+8:I[37457,["$4"],"default"]
+9:"/demo/_next/static/chunks/0_v0g_hs22r00.js"
+a:"/demo/_next/static/chunks/3shr9sdt3on_t.js"
+b:I[44130,["$4","$9","$a"],"PageView"]
+1a:"ViewportBoundary"
+1b:I[97367,["$4"],"$1a"]
+1c:"MetadataBoundary"
+1d:I[97367,["$4"],"$1c"]
+1e:"$Sreact.suspense"
+1f:I[27201,["$4"],"IconMark"]
+3:T588,{"@context":"https://schema.org","@type":"AutoDealer","name":"Mr Best Cars","url":"https://mrbestcars.ca","image":"https://mrbestcars.ca/demo/brand/og-image.png","logo":"https://mrbestcars.ca/demo/brand/mr-best-cars-logo.svg","telephone":["+16394804400","+13069992245","+13069427200"],"address":{"@type":"PostalAddress","streetAddress":"909 8th Ave","addressLocality":"Regina","addressRegion":"SK","postalCode":"S4N 6S3","addressCountry":"CA"},"geo":{"@type":"GeoCoordinates","latitude":50.4566,"longitude":-104.6105},"email":"hello@mrbestcars.ca","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"09:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Tuesday","opens":"09:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Wednesday","opens":"09:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Thursday","opens":"09:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"09:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"10:00","closes":"17:00"}],"sameAs":["https://www.google.com/search?q=Mr+Best+Cars+Regina","https://www.facebook.com/search/top?q=Mr%20Best%20Cars%20Regina","https://www.instagram.com/explore/search/keyword/?q=mrbestcars"],"aggregateRating":{"@type":"AggregateRating","ratingValue":4.8,"reviewCount":126}}d:X
+10:X
+10:C
+14:T524,[{"@context":"https://schema.org","@type":"Car","name":"2023 Kia Sportage LX AWD","brand":{"@type":"Brand","name":"Kia"},"model":"Sportage","vehicleModelDate":"2023","bodyType":"suv","mileageFromOdometer":{"@type":"QuantitativeValue","value":38600,"unitCode":"KMT"},"vehicleIdentificationNumber":"SAMPLE00000001006","fuelType":"Gasoline","vehicleTransmission":"8-speed automatic","driveWheelConfiguration":"AWD","color":"Gravity Grey","numberOfDoors":4,"seatingCapacity":5,"sku":"MB1006","url":"https://mrbestcars.ca/inventory/2023-kia-sportage-lx-awd-mb1006","image":["https://mrbestcars.ca/demo/photos/kia-sportage-1.jpg","https://mrbestcars.ca/demo/photos/kia-sportage-2.jpg"],"offers":{"@type":"Offer","price":31495,"priceCurrency":"CAD","availability":"https://schema.org/InStock","url":"https://mrbestcars.ca/inventory/2023-kia-sportage-lx-awd-mb1006","seller":{"@type":"AutoDealer","name":"Mr Best Cars"}}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Mr Best Cars","item":"https://mrbestcars.ca/"},{"@type":"ListItem","position":2,"name":"Inventory","item":"https://mrbestcars.ca/inventory"},{"@type":"ListItem","position":3,"name":"2023 Kia Sportage LX AWD","item":"https://mrbestcars.ca/inventory/2023-kia-sportage-lx-awd-mb1006"}]}]13:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$2","c",{"children":[[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"$14"}}],"$L15"],["$L16","$L17"],"$L18"]}],"p":"$@19","v":null,"s":"$d"}}]]
+11:[["children",{"s":{"n":"slug","t":"d","k":"2023-kia-sportage-lx-awd-mb1006","s":[]},"h":65632,"d":{"r":["$","$2","c",{"children":[null,["$","$L7",null,{"parallelRouterKey":"children","template":["$","$L8",null,{}]}]]}],"p":"$@12","v":"$10","s":"$d"},"c":"$Q13"}]]
+e:[["children",{"s":"inventory","h":131168,"d":{"r":["$","$2","c",{"children":[null,["$","$L7",null,{"parallelRouterKey":"children","template":["$","$L8",null,{}]}]]}],"p":"$@f","v":"$10","s":"$d"},"c":"$Q11"}]]
+1:[["children",{"s":"(site)","h":131136,"d":{"r":["$","$2","c",{"children":[[["$","script","script-0",{"src":"/demo/_next/static/chunks/0uyjoa5gwne8r.js","async":true}]],[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"$3"}}],["$","$L6",null,{"children":["$","$L7",null,{"parallelRouterKey":"children","template":["$","$L8",null,{}],"notFound":[["$","$L6",null,{"children":["$","$Lb",null,{"pageKey":"not-found"}]}],[]]}]}]]]}],"p":"$@c","v":null,"s":"$d"},"c":"$Qe"}]]
+0:{"t":{"t":{"s":"","h":131088,"c":"$Q1"},"h":{"r":["$","$2","h",{"children":[null,["$","$L1b",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#FFFFFF"}]]}],["$","$L1d",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1e",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Used 2023 Kia Sportage LX AWD in Regina | Mr Best Cars"}],["$","meta","1",{"name":"description","content":"2023 Kia Sportage LX AWD, 38,600 km. $31,495 drive-away + GST/PST. Stock #MB1006. Inspected, CARFAX report, test drives at 909 8th Ave, Regina."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","link","3",{"rel":"canonical","href":"https://mrbestcars.ca/inventory/2023-kia-sportage-lx-awd-mb1006"}],["$","meta","4",{"property":"og:title","content":"Used 2023 Kia Sportage LX AWD in Regina"}],["$","meta","5",{"property":"og:description","content":"2023 Kia Sportage LX AWD, 38,600 km. $31,495 drive-away + GST/PST. Stock #MB1006. Inspected, CARFAX report, test drives at 909 8th Ave, Regina."}],["$","meta","6",{"property":"og:url","content":"https://mrbestcars.ca/inventory/2023-kia-sportage-lx-awd-mb1006"}],["$","meta","7",{"property":"og:locale","content":"en_CA"}],["$","meta","8",{"property":"og:image","content":"https://mrbestcars.ca/demo/photos/kia-sportage-1.jpg"}],["$","meta","9",{"property":"og:image:width","content":"1600"}],["$","meta","10",{"property":"og:image:height","content":"1143"}],["$","meta","11",{"property":"og:image:alt","content":"Kia Sportage, exterior view, photo 1 of 2"}],["$","meta","12",{"property":"og:type","content":"website"}],["$","meta","13",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","14",{"name":"twitter:title","content":"Used 2023 Kia Sportage LX AWD in Regina"}],["$","meta","15",{"name":"twitter:description","content":"2023 Kia Sportage LX AWD, 38,600 km. $31,495 drive-away + GST/PST. Stock #MB1006. Inspected, CARFAX report, test drives at 909 8th Ave, Regina."}],["$","meta","16",{"name":"twitter:image","content":"https://mrbestcars.ca/demo/photos/kia-sportage-1.jpg"}],["$","meta","17",{"name":"twitter:image:alt","content":"Kia Sportage, exterior view, photo 1 of 2"}],["$","meta","18",{"name":"twitter:image:width","content":"1600"}],["$","meta","19",{"name":"twitter:image:height","content":"1143"}],["$","link","20",{"rel":"icon","href":"/demo/brand/favicon-32.png","sizes":"32x32","type":"image/png"}],["$","link","21",{"rel":"apple-touch-icon","href":"/demo/brand/apple-touch-icon.png"}],["$","$L1f","22",{}]]}]}],null]}],null]}],"p":"$@20","v":null,"s":"$d"}},"a":"$@21","u":"$@22","b":"-rjcHclpa_pS3SYblzOR6"}
+23:"/demo/_next/static/chunks/2_out__xcksxr.js"
+24:I[68917,["$4","$5","$23","$a"],"VehicleDetail"]
+25:I[97367,["$4"],"OutletBoundary"]
+15:["$","$L24",null,{"slug":"2023-kia-sportage-lx-awd-mb1006"}]
+16:["$","script","script-0",{"src":"/demo/_next/static/chunks/2_out__xcksxr.js","async":true}]
+17:["$","script","script-1",{"src":"/demo/_next/static/chunks/3shr9sdt3on_t.js","async":true}]
+18:["$","$L25",null,{"children":["$","$1e",null,{"name":"Next.MetadataOutlet","children":"$@26"}]}]
+22:true
+d:300
+26:null
+d:C
+21:0
+12:"$undefined"
+f:"$undefined"
+c:"$undefined"
+20:"$undefined"
+19:"$undefined"

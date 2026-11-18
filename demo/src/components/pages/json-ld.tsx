@@ -2,6 +2,10 @@ import type { ContentTree, RichText } from '@/content/schema';
 import { autoDealerJsonLd } from '@/lib/seo';
 import { t } from '@/lib/i18n';
 
+export function JsonLdScript({ data }: { data: unknown }) {
+  return <JsonLd data={data} />;
+}
+
 function JsonLd({ data }: { data: unknown }) {
   // JSON-LD must be raw JSON in a script tag; "<" is escaped so content cannot close the tag.
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }} />;
