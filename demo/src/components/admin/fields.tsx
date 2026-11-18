@@ -73,7 +73,7 @@ export function useAdminLabels() {
 /* Primitive inputs                                                    */
 /* ------------------------------------------------------------------ */
 
-const inputCls = (err?: boolean) =>
+export const inputCls = (err?: boolean) =>
   cn(
     'mt-1 block w-full rounded-[var(--radius-control)] border-2 bg-white px-3 text-sm text-ink transition-colors focus:border-ink focus:outline-none',
     err ? 'border-red' : 'border-grey hover:border-slate',

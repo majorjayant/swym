@@ -77,3 +77,16 @@ Scope: the demo after every placeholder was replaced with sample data and 10 sam
 | Photos checked by eye against each listing (make, model, generation, colour) | Done. The original Grand Caravan photos showed other vans, so that listing became a Chrysler Pacifica. The Equinox had no usable photo and became a Hyundai Santa Fe. Years, trims and colours were adjusted to match the photos. |
 
 Screenshots: `docs/screenshots/sample-data/`.
+
+## Owner console pass (2026-11-18)
+
+| Check | Result |
+|---|---|
+| `tsc`, `eslint`, `build`, `build:live` | Pass |
+| `npx tsx scripts/check-metrics.ts`: windows, sales, gross, net, break-even, ages, per-vehicle totals, attention order, against hand-worked numbers | Pass |
+| Overview, Marketing, Analytics, Finance, Growth and Website at 1440, 1024 and 768 px and on iPhone 13: status 200, one h1, no sideways scroll, no NaN/undefined/token text, charts and tables present | Pass (24 of 24) |
+| Failed requests, JS errors or console errors | None |
+| Record a sale → overview "Cars sold" goes up by 1; raising the units target → "Behind pace" on Growth and in Needs attention; Website tab → page editor | Pass |
+| Screenshots checked by eye | Fixed: overlapping last date on the chart, oversized target inputs, period labels wrapping on phones |
+
+Screenshots: `docs/screenshots/console/`.

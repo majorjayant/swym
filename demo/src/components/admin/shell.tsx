@@ -27,8 +27,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const t = useT();
   const a = content.microcopy.admin;
   const pathname = usePathname();
+  const c = a.console.nav;
+  const p = pathname.replace(/\/$/, '');
+  const tabs = [
+    { href: '/admin', label: t(c.overview), current: p === '/admin' },
+    { href: '/admin/marketing', label: t(c.marketing), current: p === '/admin/marketing' },
+    { href: '/admin/analytics', label: t(c.analytics), current: p === '/admin/analytics' },
+    { href: '/admin/finance', label: t(c.finance), current: p === '/admin/finance' },
+    { href: '/admin/growth', label: t(c.growth), current: p === '/admin/growth' },
+    { href: '/admin/website', label: t(c.website), current: p === '/admin/website' || p.startsWith('/admin/pages') || p.startsWith('/admin/global') },
+  ];
   const nav = [
-    { href: '/admin', label: t(a.dashboard), icon: 'layout' as const, current: pathname === '/admin' },
     { href: '/', label: t(a.viewSite), icon: 'globe' as const, current: false, external: true },
     { href: '/admin/login', label: t(a.logout), icon: 'arrow-right' as const, current: false },
   ];
@@ -64,6 +73,21 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           </nav>
         </div>
       </header>
+      <nav aria-label={t(a.consoleNav)} className="border-b border-line bg-white">
+        <ul className="mx-auto flex max-w-[90rem] gap-1 overflow-x-auto px-4 md:px-6">
+          {tabs.map((n) => (
+            <li key={n.href} className="shrink-0">
+              <NextLink
+                href={n.href}
+                aria-current={n.current ? 'page' : undefined}
+                className={cn('inline-flex min-h-12 items-center border-b-2 px-3 text-sm font-bold transition-colors', n.current ? 'border-red text-ink' : 'border-transparent text-slate hover:text-ink')}
+              >
+                {n.label}
+              </NextLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
       <NothingSavedBanner />
       <main id="admin-main" tabIndex={-1} className="page-enter mx-auto max-w-[90rem] px-4 py-6 outline-none md:px-6 md:py-8">
         {children}

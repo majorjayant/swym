@@ -1,8 +1,8 @@
-:HL["/demo/_next/static/chunks/0fgt6n7o7e8p-.css","style"]
+:HL["/demo/_next/static/chunks/2webxibr5vzjz.css","style"]
 :HC["/",""]
 5:[["children",{"s":"__PAGE__","h":160}]]
 4:[["children",{"s":{"n":"element","t":"d","k":"cookieBanner","s":[]},"h":65632,"c":"$Q5"}]]
 3:[["children",{"s":"global","h":131168,"c":"$Q4"}]]
 2:[["children",{"s":"(console)","h":131168,"c":"$Q3"}]]
 1:[["children",{"s":"admin","h":131136,"c":"$Q2"}]]
-0:{"b":"-rjcHclpa_pS3SYblzOR6","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}
+0:{"b":"c4mKdiWjny6Fmg8CfS5Lb","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}

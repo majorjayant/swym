@@ -243,3 +243,16 @@ Date: 2026-11-17. Output: `docs/qa-report.md`, evidence in `docs/screenshots/qa/
 - Lead collected 24 Unsplash photos through the image CDN, checked each one by eye, and replaced the mismatched ones (minivan, Sportage). Credits go in `photos.generated.ts` and appear under each gallery and on Terms.
 - Build agent's inventory work (schema, `/inventory`, vehicle pages, featured vehicles, admin inventory editor) was finished by the lead. Lead fixes: singular body type in key facts, hours no longer wrap in the footer, focal point on portrait photos.
 - QA: see `qa-report.md`, "Sample-data pass".
+
+## 2026-11-18: owner console (Marketing, Analytics, Finance, Growth)
+
+- The owner asked for business areas in the admin, an overview readable in 2 minutes, few APIs at first, ads ready but off, and 30 days of observation.
+- Four agents (Marketing, Analytics, Finance, Growth) each wrote a one-page spec in `docs/console/` and then reviewed the other three once.
+- Points they raised:
+  - "Leads" was defined twice.
+  - Lead to sale had no owner.
+  - Lead source was set in two places.
+  - Each event needs the visit's referrer.
+  - Sales need a repeat-customer checkbox.
+- The lead settled all 12 points in `docs/console/decisions.md` and raised the leads target to 90 to match the sample baseline.
+- The lead built the console: `src/content/business/sample.ts`, `src/lib/metrics.ts` (checked by `scripts/check-metrics.ts`), `src/components/admin/console/*`, and routes under `/admin`.

@@ -95,7 +95,7 @@ function EditorHeader({
     <div className="sticky top-0 z-20 -mx-4 mb-6 border-b border-line bg-surface/95 px-4 py-3 backdrop-blur md:-mx-6 md:px-6">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="min-w-0">
-          <NextLink href="/admin" className="inline-flex min-h-8 items-center gap-1 text-sm text-slate hover:text-ink">
+          <NextLink href="/admin/website" className="inline-flex min-h-8 items-center gap-1 text-sm text-slate hover:text-ink">
             <Icon name="chevron-left" size={14} />
             {t(a.backToDashboard)}
           </NextLink>

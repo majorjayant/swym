@@ -41,13 +41,13 @@ function DocCard({ d, title, description, href }: { d: DocKey; title: string; de
   );
 }
 
-export function Dashboard() {
+/** Page and global-element cards (the content editor's entry points). */
+export function WebsiteContent() {
   const { content } = useContent();
   const t = useT();
   const a = content.microcopy.admin;
   return (
     <div className="space-y-10">
-      <h1 className="text-headline-fluid font-bold">{t(a.dashboard)}</h1>
       <section aria-labelledby="pages-h">
         <h2 id="pages-h" className="label mb-4 text-slate">{t(a.pages)}</h2>
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

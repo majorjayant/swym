@@ -19,7 +19,7 @@ For a production-like check: `npm run build` (static export to `out/`).
 **Publish the review copy** to mrbestcars.ca/demo: `npm run build:live` (builds with base path `/demo` and copies `out/` to `../site/demo/`), then commit `site/demo/` and push to `main`. Cloudflare redeploys automatically.
 
 - Public site: `/`, `/inventory`, `/inventory/<vehicle>` (10 sample listings), `/about`, `/contact`, `/faq`, `/privacy`, `/terms` (any other path shows the 404 page)
-- Admin portal: `/admin/login` (any email and password continue)
+- Admin portal: `/admin/login` (any email and password continue). Owner console: `/admin` (Overview), `/admin/marketing`, `/admin/analytics`, `/admin/finance`, `/admin/growth`; website editing at `/admin/website`. Console data is sample data in `src/content/business/sample.ts`; calculations are in `src/lib/metrics.ts` (check with `npx tsx scripts/check-metrics.ts`). Specs and the 30-day launch plan are in `../docs/console/`.
 
 ## Where the content lives
 

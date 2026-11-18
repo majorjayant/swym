@@ -43,6 +43,10 @@ Version 0.1, 2026-11-17. Prices are from `docs/integrations.md` (vendor pricing 
 | Monthly cost | Phase 2 cost + SMS usage; translation is a one-off cost per page (quote from a translator) |
 | Risks | Thin duplicate city pages hurt search (each needs real local content); machine translation of money and contract text can mislead; aggregateRating in structured data only from real reviews |
 
+## Owner console track (designed in Phase 0)
+
+Overview, Marketing, Analytics, Finance and Growth are designed in the demo with sample data (`docs/console/`). **Phase 1:** go live with the site beacon, owner entries and Search Console only, and observe for 30 days (`docs/console/launch-plan.md`). **After the day-30 review:** add the Google Ads and Meta APIs if the go/no-go is met; add GA4 or Clarity only if needed.
+
 ## Cross-phase decisions
 
 1. CMS: Payload (one codebase) or Sanity (hosted editor).

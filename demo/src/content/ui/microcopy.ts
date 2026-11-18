@@ -1,4 +1,5 @@
 import type { Microcopy } from '../schema';
+import { consoleCopy } from './console';
 
 export const microcopy = {
   meta: { id: 'microcopy', updatedAt: '2026-11-17T00:00:00Z', updatedBy: 'copywriter', state: 'published', version: 1 },
@@ -120,6 +121,7 @@ export const microcopy = {
     },
   },
   admin: {
+    console: consoleCopy,
     appName: { en: 'Mr Best Cars admin' },
     nothingSaved: { en: 'Demo only. Nothing you change here is saved. Reloading the page resets everything.' },
     dashboard: { en: 'Dashboard' },
@@ -150,7 +152,7 @@ export const microcopy = {
     saved: { en: 'Draft saved (in this session only)' },
     lastUpdated: { en: 'Last updated' },
     openEditor: { en: 'Edit' },
-    backToDashboard: { en: 'Back to dashboard' },
+    backToDashboard: { en: 'Back to website content' },
     viewSite: { en: 'View site' },
     login: {
       title: { en: 'Sign in' },
@@ -198,6 +200,7 @@ export const microcopy = {
     lastUpdatedBy: { en: 'Updated {date} by {who}' },
     neverSaved: { en: 'Not changed in this session' },
     adminNav: { en: 'Admin' },
+    consoleNav: { en: 'Console sections' },
     editorActions: { en: 'Editor actions' },
     statusRegion: { en: 'Status' },
     sectionHidden: { en: 'Hidden' },

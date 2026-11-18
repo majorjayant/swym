@@ -561,6 +561,8 @@ export type Microcopy = {
   reviews: { ratingOutOf: LocalizedString; basedOn: LocalizedString; placeholderRating: LocalizedString };
   hours: { heading: LocalizedString; closed: LocalizedString; today: LocalizedString; placeholder: LocalizedString; dayNames: Record<DayKey, LocalizedString> };
   admin: {
+    /** Owner console labels (src/content/ui/console.ts). */
+    console: import('./ui/console').ConsoleCopy;
     appName: LocalizedString;
     nothingSaved: LocalizedString;
     dashboard: LocalizedString;
@@ -641,6 +643,7 @@ export type Microcopy = {
     lastUpdatedBy: LocalizedString; // "{date}" "{who}"
     neverSaved: LocalizedString;
     adminNav: LocalizedString;
+    consoleNav: LocalizedString;
     editorActions: LocalizedString;
     statusRegion: LocalizedString;
     sectionHidden: LocalizedString;
